@@ -1,0 +1,14 @@
+img {
+
+}
+div.col {
+  padding: 20px;
+
+  display: inline-block;
+}
+div.row {
+  margin-top: 10%;
+}
+img.Modal {
+      padding-left: 20%;
+}
