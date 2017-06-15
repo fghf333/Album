@@ -36,13 +36,29 @@ function PageGenerator(){
   for($i=0; $i<$count; $i++)
   {
     $PrewURL = 'https://api.monosnap.com/rpc/file/download?id=' . getContentAttr('content_items', 'id', $i) . '&type=preview';
-    $ImgURL = 'https://www.monosnap.com/file/' . getContentAttr('content_items', 'id', $i) . '.png';
     $body .= '  <div class="col"><div class="imgPrev" data-toggle="modal" data-target="#myModal"><img src="' . $PrewURL . '" alt="' . getContentAttr('content_items', 'title', $i) . '"></div></div>';
   }
   return $body;
 }
-function GetContentModal(){
-  $ImgURL = 'https://www.monosnap.com/file/' . getContentAttr('content_items', 'id', 0) . '.png';
-  return $ImgURL;
+function GetContentModal($type){
+  $count = getContentAttr('folder', 'items_count');
+  for($i=0; $i<$count; $i++){
+      $Link = 'https://www.monosnap.com/file/' . getContentAttr('content_items', 'id', $i) . '.png';
+      if($i==0){
+        $SlidesList .= '<li data-target="#myCarousel" data-slide-to="' . $i . '" class></li>';
+        $SlidesData .= '<div class="item active"><img src="' . $Link . '" alt="' . getContentAttr('content_items', 'title', $i) . '"></div>';
+      }
+      $SlidesList .= '<li data-target="#myCarousel" data-slide-to="' . $i . '" class></li>';
+      $SlidesData .= '<div class="item"><img src="' . $Link . '" alt="' . getContentAttr('content_items', 'title', $i) . '"></div>';
+  }
+  switch ($type){
+    case 'images':
+      return $SlidesData;
+      break;
+    case 'list':
+      return $SlidesList;
+      break;
+  }
+  return $SlidesList;
 }
 ?>
