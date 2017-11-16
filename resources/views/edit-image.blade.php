@@ -73,7 +73,7 @@
 <div class="flex-center position-ref">
     <div class="content">
         <div class="title m-b-md">
-            Upload page
+            Редактирование фотографии
 
         </div>
         @include('links')

@@ -10,13 +10,30 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\DB;
+use \Illuminate\Database\Query\Builder;
 
 class AlbumController
 {
+    /**
+     * @var Builder
+     */
+    private $table;
 
-public function getList () {
-    $data = DB::table('albums')->get();
-    return view('albums', ['list' => $data]);
-}
+    /**
+     * AlbumController constructor.
+     */
+    public function __construct()
+    {
+        $this->table = DB::table('albums');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getList()
+    {
+        $data = $this->table->get();
+        return view('albums', ['list' => $data]);
+    }
 
 }

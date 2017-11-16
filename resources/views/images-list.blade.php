@@ -82,18 +82,22 @@
                 width: 30px;
                 height: auto;
             }
+            .message {
+                padding-top: 20vh;
+                font-size: 45px;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref">
                       <div class="content">
                 <div class="title m-b-md">
-                    Albums
+                    Список фотографий
 
                 </div>
                           @include('links')
 
-                            @foreach($list as $image)
+                            @forelse($list as $image)
                                 <div class="image_preview">
                                     <img class="img" src="{{$image->image_url}}">
                               <p>{{$image->name}}</p>
@@ -104,7 +108,9 @@
                                     <a href="{{url('edit-image/'.$image->id)}}"><img class="icons" src="{{asset('images/edit.png')}}"></a>
                                     <a href="{{url('#')}}"><img class="icons" src="{{asset('images/delete.png')}}"></a>
                                 </div>
-                                @endforeach
+                                @empty
+                              <div class="message">Вы не загрузили ни одной фотографии</div>
+                                @endforelse
 
 
             </div>
