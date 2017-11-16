@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\DB;
 class ImagesListController
 {
     //TODO: create delete image button
-    public function getList () {
+    public function getList()
+    {
         $edit = storage_path('images/edit.png');
-       $data = DB::table('images')->get();
-       return view('images-list', [
-           'list' => $data,
-           'edit' => $edit,
+        $data = DB::table('images')->get();
+        return view('images-list', [
+            'list' => $data,
+            'edit' => $edit,
 
-       ]);
+        ]);
     }
 }

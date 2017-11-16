@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\DB;
 
 class EditImageController
 {
-    public function getForm($imageID){
+    public function getForm($imageID)
+    {
         $data = DB::table('images')->where('id', $imageID)->first();
-        return view('edit-image',['image' => $data]);
+        return view('edit-image', ['image' => $data]);
     }
+
     //TODO: ability to update image with another one
-    public function saveForm(Request $request){
+    public function saveForm(Request $request)
+    {
         $form = $request->all();
         DB::table('images')->where('id', $form['id'])->update(
             [
@@ -33,6 +36,6 @@ class EditImageController
                 'updated_at' => date("Y-m-d H:i:s")
             ]
         );
-        return redirect('edit-image/'.$form['id'], 301);
+        return redirect('edit-image/' . $form['id'], 301);
     }
 }
