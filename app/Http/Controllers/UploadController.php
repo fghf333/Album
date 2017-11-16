@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Storage;
 class UploadController extends Controller
 {
 
-    function GetImageId ($filename){
+    function GetImageId($filename)
+    {
         $dir = '/';
         $recursive = true;
         $file = collect(Storage::cloud()->listContents($dir, $recursive))
@@ -18,12 +19,13 @@ class UploadController extends Controller
             ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
             ->sortBy('timestamp')
             ->last();
-       return $file['path'];
+        return $file['path'];
     }
 
-    function GetImageURL ($path) {
+    function GetImageURL($path)
+    {
 
-        return 'https://drive.google.com/uc?export=media&id='.$path;
+        return 'https://drive.google.com/uc?export=media&id=' . $path;
     }
 
     public function getForm()
@@ -38,7 +40,7 @@ class UploadController extends Controller
             foreach ($file as $f) {
                 $photo = $request->all();
                 $f->move(storage_path('images'), $photo['name']);
-                Storage::cloud()->put($photo['name'], fopen(storage_path('images/').$photo['name'], 'r+'));
+                Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);
                 $URL = $this->GetImageURL($ID);
                 Storage::disk('local')->delete($photo['name']);
