@@ -75,18 +75,22 @@
                 width: auto;
                 height: 33%;
             }
+            .message {
+                padding-top: 20vh;
+                font-size: 45px;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref">
                       <div class="content">
                 <div class="title m-b-md">
-                    Albums
+                    Альбомы
 
                 </div>
                           @include('links')
 
-                            @foreach($list as $album)
+                            @forelse($list as $album)
                                 <div class="album_card">
                                     <img class="img" src="{{$album->preview_img}}">
                               <p>{{$album->name}}</p>
@@ -95,7 +99,10 @@
                                     <p>{{$album->created_at}}</p>
                                     <p>{{$album->updated_at}}</p>
                                 </div>
-                                @endforeach
+                                @empty
+                                  <div class="message">Вы не создали ни одного альбома</div>
+                                @endforelse
+
 
 
             </div>

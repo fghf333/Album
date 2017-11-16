@@ -24,11 +24,10 @@
     <body>
 
                 <div class="links">
+                    <a href="/">На главную</a>
                     <a href="/upload">Загрузить фото</a>
                     <a href="/albums">Альбомы</a>
                     <a href="/images-list">Список фотографий</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
 
 

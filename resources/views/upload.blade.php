@@ -68,7 +68,7 @@
         <div class="flex-center position-ref">
                       <div class="content">
                 <div class="title m-b-md">
-                    Upload page
+                    Загрузить фото
 
                 </div>
                           @include('links')
