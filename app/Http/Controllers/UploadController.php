@@ -30,7 +30,8 @@ class UploadController extends Controller
 
     public function getForm()
     {
-        return view('upload');
+        $albums = DB::table('albums')->get();
+        return view('upload', ['albums' => $albums]);
     }
 
     public function upload(Request $request)

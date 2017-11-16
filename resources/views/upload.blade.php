@@ -73,21 +73,49 @@
                 </div>
                           @include('links')
 
-                          <form method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
+                          <label name="upload" method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
                               <input name="_token" type="hidden" value="{{ csrf_token() }}">
                               <table>
                               <tr>
-                                  <td>Имя: <input name="name" type="text"></td>
-                                  <td>Альбом: <input name="album" type="text"></td>
-                                  <td>Теги: <input name="tags" type="text"></td>
+                                  <td>
+                                      <label for="name">Имя:</label>
+                                      <input  id="name" type="text">
+                                  </td>
+                                  <td>
+                                      <label for="album">Альбом:</label>
+                                      <select @if(count($albums) === 0)
+                                              disabled >
+                                          <option value="empty">Альбомов нет</option>
+                                          @else
+                                          <option value="select">Выберите альбом</option>
+                                          @endif
+                                          @foreach($albums as $album)
+                                          <option value="{{$album->id}}">{{$album->name}}</option>
+                                              @endforeach
+                                      </select>
+                                  </td>
+                                  <td>
+                                      <label for="tags">Теги:</label>
+                                      <input id="tags" type="text">
+                                  </td>
                               </tr>
                               <tr>
-                                  <td>Люди: <input name="peoples" type="text"></td>
-                                  <td>Место: <input name="place" type="text"></td>
-                                  <td>Дата: <input name="CreatedAt" type="date"></td>
+                                  <td>
+                                      <label for="peoples">Люди:</label>
+                                      <input id="peoples" type="text">
+                                  </td>
+                                  <td>
+                                      <label for="place">Место:</label>
+                                      <input id="place" type="text">
+                                  </td>
+                                  <td>
+                                      <label for="CreatedAt"> Дата:</label>
+                                      <input id="CreatedAt" type="date">
+                                  </td>
                               </tr>
                               </table>
-                             Фото: <input type="file" multiple name="file[]">
+                              <label for="files"></label> Фото:</label>
+                              <input id="files" accept="image/*" type="file" multiple name="file[]">
                               <button type="submit">Загрузить</button>
                           </form>
 
