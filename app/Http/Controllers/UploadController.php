@@ -41,12 +41,10 @@ class UploadController extends Controller
 
     public function upload(Request $request)
     {
-        dd($request->all());
         foreach ($request->file() as $file) {
 
             foreach ($file as $f) {
                 $photo = $request->all();
-                dd($request->all());
                 $f->move(storage_path('images'), $photo['name']);
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);
