@@ -30,8 +30,9 @@ class UploadController extends Controller
 
     public function getForm()
     {
-        $tags = DB::table('tags')->get();
-        $albums = DB::table('albums')->get();
+
+        $tags = DB::table('tags')->select('name', 'id')->get();
+        $albums = DB::table('albums')->select('name', 'id')->get();
         return view('upload', [
             'albums' => $albums,
             'tags' => $tags,
@@ -40,10 +41,12 @@ class UploadController extends Controller
 
     public function upload(Request $request)
     {
+        dd($request->all());
         foreach ($request->file() as $file) {
 
             foreach ($file as $f) {
                 $photo = $request->all();
+                dd($request->all());
                 $f->move(storage_path('images'), $photo['name']);
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);
