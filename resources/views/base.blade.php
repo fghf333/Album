@@ -31,8 +31,8 @@
 
         }
 
-         .message {
-            margin:auto;
+        .message {
+            margin: auto;
         }
 
         .container .wrapper {
@@ -45,6 +45,24 @@
             padding-top: 10vh;
             text-align: center;
         }
+
+
+
+        .icons {
+            width: 30px;
+            height: auto;
+        }
+
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .position-ref {
+            position: relative;
+        }
+
     </style>
 
 </head>

@@ -77,7 +77,6 @@
             Редактирование фотографии
 
         </div>
-        @include('links')
 
         <img class="img" src="{{$image->image_url}}">
 
