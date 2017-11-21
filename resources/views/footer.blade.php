@@ -7,19 +7,13 @@
 
     html,
     body,
-    .wrapper {
+    .container .wrapper .row {
         height: 100%;
-    }
-
-    .content {
-        box-sizing: border-box;
-        min-height: 100%;
-        padding-bottom: 100px;
     }
 
     footer {
         height: 100px;
-        margin-top: -100px;
+        margin-top: 50px;
     }
 
 </style>

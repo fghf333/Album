@@ -26,7 +26,7 @@
                     </td>
                     <td>
                         <label for="album">Альбом:</label>
-                        <select name="album" id="album" @if(count($albums) === 0)
+                        <select name="album" id="album" @if(empty($albums))
                                 disabled>
                             <option value="empty">Альбомов нет</option>
                             @else

@@ -14,8 +14,7 @@
                 <p>{{$image->peoples}}</p>
                 <p>{{$image->place}}</p>
                 <p>{{$image->tags}}</p>
-                <a href="{{url('edit-image/'.$image->id)}}"><img class="icons"
-                                                                 src="{{asset('images/edit.png')}}"></a>
+                <a href="{{url('edit-image/'.$image->id)}}"><img class="icons" src="{{asset('images/edit.png')}}"></a>
                 <a href="{{url('#')}}"><img class="icons" src="{{asset('images/delete.png')}}"></a>
             </div>
         @empty
@@ -23,5 +22,6 @@
         @endforelse
 
 
+    </div>
     </div>
 @endsection
