@@ -46,7 +46,18 @@
             text-align: center;
         }
 
+        .image_preview {
+            height: 350px;
+            display: inline-block;
+            width: 15%;
+            border: 4px double black;
+            margin: 10px;
+        }
 
+        .image_preview .img {
+            width: auto;
+            height: 30%;
+        }
 
         .icons {
             width: 30px;
