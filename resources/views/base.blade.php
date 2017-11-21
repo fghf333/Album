@@ -26,6 +26,11 @@
             margin-left: -15px;
         }
 
+        .row .text-center .text-lg-left {
+            position: relative;
+            width: 100%; /* for IE 6 */
+        }
+
         *, ::after, ::before {
             box-sizing: border-box;
 
@@ -60,7 +65,7 @@
         }
 
         .icons {
-            width: 30px;
+            width: 25px;
             height: auto;
         }
 
