@@ -17,7 +17,14 @@ class EditImageController
     public function getForm($imageID)
     {
         $data = DB::table('images')->where('id', $imageID)->first();
-        return view('edit-image', ['image' => $data]);
+        $tags = DB::table('tags')->select('name', 'id')->get();
+        $albums = DB::table('albums')->select('name', 'id')->get();
+        return view('edit-image', [
+            'image' => $data,
+            'albums' => $albums,
+            'tags' => $tags,
+
+        ]);
     }
 
     //TODO: ability to update image with another one
