@@ -79,6 +79,12 @@
             position: relative;
         }
 
+        .FormTable {
+            display: table;
+            margin: auto;
+            text-align: center;
+        }
+
     </style>
 
 </head>

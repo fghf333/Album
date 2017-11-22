@@ -27,10 +27,10 @@
                     <td>
                         <label for="album">Альбом:</label>
                         <select name="album" id="album" @if(empty($albums))
-                                disabled>
-                            <option value="empty">Альбомов нет</option>
+                        disabled>
+                            <option value="0">Альбомов нет</option>
                             @else
-                                <option value="select">Выберите альбом</option>
+                                ><option value="select">Выберите альбом</option>
                             @endif
                             @foreach($albums as $album)
                                 <option value="{{$album->id}}">{{$album->name}}</option>
