@@ -28,6 +28,7 @@ class EditImageController
     }
 
     //TODO: ability to update image with another one
+    //TODO: implement tags with autocomplite and creating
     public function saveForm(Request $request)
     {
         $form = $request->all();

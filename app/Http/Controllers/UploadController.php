@@ -49,7 +49,8 @@ class UploadController extends Controller
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);
                 $URL = $this->GetImageURL($ID);
-                Storage::disk('local')->delete($photo['name']);
+                unlink(storage_path('images/' . $photo['name']));
+                //Storage::disk('local')->delete($photo['name']);
                 DB::table('images')->insert(
                     [
                         'name' => $photo['name'],
@@ -66,6 +67,6 @@ class UploadController extends Controller
                 );
             }
         }
-        return view('upload');
+        return redirect('upload');
     }
 }

@@ -5,15 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('css/3-col-portfolio.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet">
 
-    <title>Laravel</title>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('css/3-col-portfolio.css') }}" rel="stylesheet">
+    <title>Семейный альбом</title>
 
     <style>
 
@@ -103,9 +106,7 @@
 
 @include('footer')
 
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
