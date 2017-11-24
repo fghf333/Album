@@ -57,10 +57,7 @@
                                     <option value="select">Выберите теги</option>
                                 @endif
                                 @foreach($tags as $tag)
-                                    @if()
-                                        @else
                                     <option value="{{$tag->id}}">{{$tag->name}}</option>
-                                        @endif
                                 @endforeach
                             </select>
                         </td>

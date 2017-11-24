@@ -9,6 +9,22 @@
             text-align: center;
         }
 
+        .bootstrap-tagsinput .tag {
+            background: #09F;
+            padding: 5px;
+            border-radius: 4px;
+
+        }
+
+        .bootstrap-tagsinput {
+            width: 79%;
+            text-align: start;
+            line-height: 35px;
+        }
+
+        .bootstrap-tagsinput input{
+            width: 100%;
+        }
 
     </style>
     <!-- Page Heading -->
@@ -30,7 +46,8 @@
                         disabled>
                             <option value="0">Альбомов нет</option>
                             @else
-                                ><option value="select">Выберите альбом</option>
+                                >
+                                <option value="select">Выберите альбом</option>
                             @endif
                             @foreach($albums as $album)
                                 <option value="{{$album->id}}">{{$album->name}}</option>
@@ -38,17 +55,8 @@
                         </select>
                     </td>
                     <td>
-                        <label for="tags">Теги:</label>
-                        <select name="tags" id="tags">
-                            @if(count($tags) === 0)
-                                <option value="empty">Тегов нет</option>
-                            @else
-                                <option value="select">Выберите теги</option>
-                            @endif
-                            @foreach($tags as $tag)
-                                <option value="{{$tag->id}}">{{$tag->name}}</option>
-                            @endforeach
-                        </select>
+                        <label for="tags-input">Теги:</label>
+                        <input name="tags" type="text" value="" id="tags-input"/>
                     </td>
                 </tr>
                 <tr>
@@ -71,4 +79,10 @@
             <button @if(count($albums) === 0) disabled @endif type="submit">Загрузить</button>
         </form>
     </div>
+
+    <script>
+window.tags = {!! $tags !!};
+    </script>
+
+    <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection
