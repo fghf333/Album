@@ -1,4 +1,5 @@
 @extends('base')
+
 @section('content')
     <!-- Styles -->
     <style>
@@ -11,6 +12,24 @@
         .editing_image{
             margin: auto;
         }
+
+
+        .bootstrap-tagsinput .tag {
+            background: #09F;
+            padding: 5px;
+            border-radius: 4px;
+
+        }
+
+        .bootstrap-tagsinput {
+            width: 79%;
+            text-align: start;
+            line-height: 35px;
+        }
+
+        .bootstrap-tagsinput input{
+            width: 100%;
+        }
     </style>
     <div class="flex-center position-ref">
         <div class="content">
@@ -21,7 +40,7 @@
                 <img class="img" src="{{$image->image_url}}">
             </div>
 
-            <form name="upload" method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
+            <form name="upload" method="post" action="{{ route('edit_file', ['ImageID' => $image->id])  }}" enctype="multipart/form-data">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <table class="table">
                     <tr>
@@ -49,31 +68,22 @@
                             </select>
                         </td>
                         <td>
-                            <label for="tags">Теги:</label>
-                            <select name="tags" id="tags">
-                                @if(count($tags) === 0)
-                                    <option value="empty">Тегов нет</option>
-                                @else
-                                    <option value="select">Выберите теги</option>
-                                @endif
-                                @foreach($tags as $tag)
-                                    <option value="{{$tag->id}}">{{$tag->name}}</option>
-                                @endforeach
-                            </select>
+                            <label for="tags-input-edit">Теги:</label>
+                            <input name="tags" type="text" value="" id="tags-input-edit"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="peoples">Люди:</label>
-                            <input name="peoples" id="peoples" type="text">
+                            <input name="peoples" id="peoples" type="text" value="{{$image->peoples}}">
                         </td>
                         <td>
                             <label for="place">Место:</label>
-                            <input name="place" id="place" type="text">
+                            <input name="place" id="place" type="text" value="{{$image->place}}">
                         </td>
                         <td>
                             <label for="CreatedAt"> Дата:</label>
-                            <input name="CreatedAt" id="CreatedAt" type="date">
+                            <input name="CreatedAt" id="CreatedAt" type="date" value="{{$image->createdAt}}">
                         </td>
                     </tr>
                 </table>
@@ -87,4 +97,10 @@
     </div>
 
     </body>
+    <script>
+        window.ImageTags = {!! $ImageTags !!};
+        window.tags = {!! $tags !!};
+    </script>
+
+    <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection

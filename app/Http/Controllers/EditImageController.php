@@ -19,20 +19,23 @@ class EditImageController
         $data = DB::table('images')->where('id', $imageID)->first();
         $tags = DB::table('tags')->select('name', 'id')->get();
         $albums = DB::table('albums')->select('name', 'id')->get();
+        $ImageTags = DB::table('tags')->select('id','name')->whereIn('id', explode(',', $data->{'tags'}))->get();
+
         return view('edit-image', [
             'image' => $data,
             'albums' => $albums,
             'tags' => $tags,
+            'ImageTags' => $ImageTags,
 
         ]);
     }
 
     //TODO: ability to update image with another one
     //TODO: implement tags with autocomplite and creating
-    public function saveForm(Request $request)
+    public function saveForm($ImageID, Request $request)
     {
         $form = $request->all();
-        DB::table('images')->where('id', $form['id'])->update(
+        DB::table('images')->where('id', $ImageID)->update(
             [
                 'name' => $form['name'],
                 'album' => $form['album'],
@@ -44,6 +47,7 @@ class EditImageController
                 'updated_at' => date("Y-m-d H:i:s")
             ]
         );
-        return redirect('edit-image/' . $form['id'], 301);
+        //return redirect('edit-image/' . $form['id'], 301);
+        return redirect()->route('edit_form', ['imageID' => $ImageID]);
     }
 }
