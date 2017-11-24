@@ -72,7 +72,7 @@
                 <div class="container" id="buttons">
                     <div class="name">{{$image->name}}</div>
                     <div class="control_buttons">
-                    <a href="{{url('edit-image/'.$image->id)}}"><img class="icons"
+                    <a href="{{route('edit_form', ['ImageID' => $image->id])}}"><img class="icons"
                                                                      src="{{asset('images/edit.png')}}"></a>
                     <a href="{{url('#')}}"><img class="icons" src="{{asset('images/delete.png')}}"></a>
                     </div>

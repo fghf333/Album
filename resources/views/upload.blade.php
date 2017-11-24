@@ -11,8 +11,8 @@
 
         .bootstrap-tagsinput .tag {
             background: #09F;
-            padding: 5px;
-            border-radius: 4px;
+        padding: 5px;
+        border-radius: 4px;
 
         }
 
