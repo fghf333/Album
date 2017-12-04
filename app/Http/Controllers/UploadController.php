@@ -45,6 +45,7 @@ class UploadController extends Controller
 
             foreach ($file as $f) {
                 $photo = $request->all();
+                //dd($photo);
                 $f->move(storage_path('images'), $photo['name']);
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);

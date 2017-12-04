@@ -1,6 +1,8 @@
 @extends('base')
 
 @section('content')
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
     <style>
 
         .FormTable {
@@ -32,7 +34,7 @@
         <small>Secondary Text</small>
     </h1>
     <div class="FormTable">
-        <form name="upload" method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
+        <form id="imageform" name="upload" method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <table class="table">
                 <tr>
@@ -56,7 +58,7 @@
                     </td>
                     <td>
                         <label for="tags-input">Теги:</label>
-                        <input name="tags" type="text" value="" id="tags-input"/>
+                        <input name="tags" type="text" id="tags-input">
                     </td>
                 </tr>
                 <tr>
@@ -82,7 +84,7 @@
 
     <script>
 window.tags = {!! $tags !!};
+window.ImageTags = [];
     </script>
-
     <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection
