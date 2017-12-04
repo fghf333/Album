@@ -1,6 +1,8 @@
 @extends('base')
 
 @section('content')
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
     <!-- Styles -->
     <style>
 
@@ -87,8 +89,6 @@
                         </td>
                     </tr>
                 </table>
-                <label for="files"> Фото:</label>
-                <input class="files" id="files" accept="image/*" type="file" name="file[]">
                 <button @if(count($albums) === 0) disabled @endif type="submit">Загрузить</button>
             </form>
 
@@ -96,7 +96,6 @@
 
     </div>
 
-    </body>
     <script>
         window.ImageTags = {!! $ImageTags !!};
         window.tags = {!! $tags !!};

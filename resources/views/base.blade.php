@@ -7,12 +7,10 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/3-col-portfolio.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
-    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -62,11 +60,6 @@
             margin: 10px;
         }
 
-        .image_preview .img {
-            width: auto;
-            height: 30%;
-        }
-
         .icons {
             width: 25px;
             height: auto;
@@ -88,6 +81,38 @@
             text-align: center;
         }
 
+        #buttons {
+            background-color: white;
+            opacity: 0.5;
+            width: 90%;
+            position: absolute;
+            text-align: right;
+            top: 89%;
+            padding-left: 5px;
+            -webkit-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            height: 30px;
+        }
+
+        #buttons_div {
+            position: relative;
+
+        }
+        img.card-img-top{
+            height: 35%;
+            width: auto;
+        }
+
+        .btn-success.btn-block{
+            margin-bottom: 5px;
+        }
+
+        .img-thumbnail{
+            height: 185px;
+            width: 250px;
+        }
+
     </style>
 
 </head>
@@ -103,10 +128,8 @@
 
 </div>
 <!-- /.container -->
+</body>
 
 @include('footer')
-
-
-</body>
 
 </html>

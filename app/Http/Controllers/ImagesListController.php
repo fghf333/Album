@@ -16,7 +16,7 @@ class ImagesListController
     public function getList()
     {
         $edit = storage_path('images/edit.png');
-        $data = DB::table('images')->get();
+        $data = DB::table('images')->orderByRaw('created_at DESC')->get();
         return view('images-list', [
             'list' => $data,
             'edit' => $edit,
