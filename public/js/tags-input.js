@@ -27,21 +27,12 @@ var exists = new Bloodhound({
 
 var elt = $('#tags-input-edit');
 elt.tagsinput({
-    confirmKeys: [13, 188],
-    itemValue: 'id',
-    itemText: 'name',
     typeaheadjs: {
-        cancelConfirmKeysOnEmpty: true,
         name: 'states',
         displayKey: 'name',
+        valueKey: 'name',
         source: exists.ttAdapter()
     }
 });
-for (var i = 0; i <= window.ImageTags.length - 1; i++) {
-
-    elt.tagsinput('add', window.ImageTags[i]);
-
-}
-
 
 
