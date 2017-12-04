@@ -42,7 +42,7 @@
                 <img class="img" src="{{$image->image_url}}">
             </div>
 
-            <form name="upload" method="post" action="{{ route('edit_file', ['ImageID' => $image->id])  }}" enctype="multipart/form-data">
+            <form name="upload" method="post" action="{{ route('edit_file', ['ImageID' => $image->id])  }}" enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <table class="table">
                     <tr>
@@ -71,7 +71,7 @@
                         </td>
                         <td>
                             <label for="tags-input-edit">Теги:</label>
-                            <input name="tags" type="text" value="" id="tags-input-edit"/>
+                            <input name="tags" type="text" value="{{$image->tags}}" id="tags-input-edit"/>
                         </td>
                     </tr>
                     <tr>
@@ -97,7 +97,6 @@
     </div>
 
     <script>
-        window.ImageTags = {!! $ImageTags !!};
         window.tags = {!! $tags !!};
     </script>
 
