@@ -58,6 +58,10 @@ class EditImageController
     {
         $form = $request->all();
 
+        $image = DB::table('images')->where('id', '=', $ImageID)->first();
+
+        Storage::cloud()->rename('/'.$image->{'image_id'}, '/'.$form['name']);
+
 
         $tagsq = explode(',', $form['tags']);
         $query = '';
