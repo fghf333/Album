@@ -23,6 +23,7 @@ Route::post('upload',['as' => 'upload_file','uses' => 'UploadController@upload']
 //IMAGE EDITOR
 Route::get('edit-image/{imageID}', ['as' => 'edit_form', 'uses' => 'EditImageController@getForm']);
 Route::post('edit-image/{imageID}', ['as' => 'edit_file', 'uses' => 'EditImageController@saveForm']);
+Route::delete('delete/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
 
 //ALBUM
 Route::get('albums',['as' => 'album_form', 'uses' => 'AlbumController@getList']);

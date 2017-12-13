@@ -45,7 +45,20 @@ class UploadController extends Controller
 
             foreach ($file as $f) {
                 $photo = $request->all();
-                //dd($photo);
+
+                $tagsq = explode(',', $photo['tags']);
+                $query = '';
+                $i = 0;
+                foreach ($tagsq as $tag) {
+                    if ($i === 0) {
+                        $query .= '(\'' . $tag . '\',\'' . date("Y-m-d H:i:s") . '\',\'' . date("Y-m-d H:i:s") . '\')';
+                        $i++;
+                    } else {
+                        $query .= ',(\'' . $tag . '\',\'' . date("Y-m-d H:i:s") . '\',\'' . date("Y-m-d H:i:s") . '\')';
+                    }
+                }
+                DB::insert('INSERT IGNORE INTO tags (name, created_at, updated_at) VALUES ' . $query);
+
                 $f->move(storage_path('images'), $photo['name']);
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);

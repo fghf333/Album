@@ -14,23 +14,24 @@ use Illuminate\Support\Facades\DB;
 
 class EditImageController
 {
+
+    public function deleteImage($imageID){
+        DB::table('images')->where('image_id', '=', $imageID)->delete();
+    }
+
     public function getForm($imageID)
     {
         $data = DB::table('images')->where('id', $imageID)->first();
         $tags = DB::table('tags')->select('name')->get();
         $albums = DB::table('albums')->select('name', 'id')->get();
-        //$ImageTags = DB::table('tags')->select('name')->whereIn('id', explode(',', $data->{'tags'}))->get();
 
         return view('edit-image', [
             'image' => $data,
             'albums' => $albums,
             'tags' => $tags,
-            //'ImageTags' => $ImageTags,
-
         ]);
     }
 
-    //TODO: implement tags with autocomplite and creating
     public function saveForm($ImageID, Request $request)
     {
         $form = $request->all();

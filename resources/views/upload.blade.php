@@ -58,7 +58,7 @@
                     </td>
                     <td>
                         <label for="tags-input">Теги:</label>
-                        <input name="tags" type="text" id="tags-input">
+                        <input name="tags" type="text" id="tags-input-edit"/>
                     </td>
                 </tr>
                 <tr>
