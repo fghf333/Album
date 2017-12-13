@@ -11,12 +11,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EditImageController
 {
 
-    public function deleteImage($imageID){
-        DB::table('images')->where('image_id', '=', $imageID)->delete();
+    public function deleteImage(Request $request)
+    {
+        $image = DB::table('images')->where('id', '=', $request['ImageID'])->first();
+        DB::table('images')->where('id', '=', $request['ImageID'])->delete();
+        $filename = $image->{'name'};
+
+        // First we need to create a file to delete
+        //Storage::cloud()->makeDirectory('Test Dir');
+
+        // Now find that file and use its ID (path) to delete it
+        $dir = '/';
+        $recursive = false; // Get subdirectories also?
+        $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+
+        $file = $contents
+            ->where('type', '=', 'file')
+            ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
+            ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
+            ->first(); // there can be duplicate file names!
+
+        Storage::cloud()->delete($file['path']);
+
+        return redirect('images-list', 302);
     }
 
     public function getForm($imageID)
@@ -41,10 +63,10 @@ class EditImageController
         $query = '';
         $i = 0;
         foreach ($tagsq as $tag) {
-            if($i === 0){
+            if ($i === 0) {
                 $query .= '(\'' . $tag . '\',\'' . date("Y-m-d H:i:s") . '\',\'' . date("Y-m-d H:i:s") . '\')';
                 $i++;
-            }else {
+            } else {
                 $query .= ',(\'' . $tag . '\',\'' . date("Y-m-d H:i:s") . '\',\'' . date("Y-m-d H:i:s") . '\')';
             }
         }
