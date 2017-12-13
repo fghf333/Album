@@ -48,8 +48,8 @@
     <h1 class="PageHead">Page Heading
         <small>Secondary Text</small>
     </h1>
-    <form action="/upload">
-    <button class="btn-success btn-block">Загрузить фото</button>
+    <form action="upload">
+        <button class="btn-success btn-block">Загрузить фото</button>
     </form>
     <div class="row text-center text-lg-left" id="buttons_div">
         @forelse($list as $image)
@@ -58,9 +58,11 @@
                 <div class="container" id="buttons">
                     <div class="name">{{$image->name}}</div>
                     <div class="control_buttons">
+
                         <a href="{{route('edit_form', ['ImageID' => $image->id])}}"><img class="icons"
                                                                                          src="{{asset('images/edit.png')}}"></a>
-                        <a href="{{url('#')}}"><img class="icons" src="{{asset('images/delete.png')}}"></a>
+                        <a href="{{route('delete_image', ['ImageID' => $image->id])}}"><img class="icons"
+                                                                                            src="{{asset('images/delete.png')}}"></a>
                     </div>
 
                 </div>
@@ -70,6 +72,5 @@
         @endforelse
 
 
-    </div>
     </div>
 @endsection

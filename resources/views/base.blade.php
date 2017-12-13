@@ -11,6 +11,7 @@
     <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 

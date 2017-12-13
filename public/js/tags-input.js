@@ -1,18 +1,15 @@
 var newvar = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    // `states` is an array of state names defined in "The Basics"
     local: window.tags
 });
 
 var tag = $('#tags-input');
 tag.tagsinput({
-    confirmKeys: [13, 188],
-    itemValue: 'id',
-    itemText: 'name',
     typeaheadjs: {
         name: 'states',
         displayKey: 'name',
+        valueKey: 'name',
         source: newvar.ttAdapter()
     }
 });
