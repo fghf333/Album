@@ -81,6 +81,6 @@ class UploadController extends Controller
                 );
             }
         }
-        return redirect('upload');
+        return redirect('images-list', 302);
     }
 }
