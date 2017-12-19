@@ -20,12 +20,8 @@ class EditImageController
     {
         $image = DB::table('images')->where('id', '=', $request['ImageID'])->first();
         DB::table('images')->where('id', '=', $request['ImageID'])->delete();
-        $filename = $image->{'name'};
+        $filename = $image->{'image_id'};
 
-        // First we need to create a file to delete
-        //Storage::cloud()->makeDirectory('Test Dir');
-
-        // Now find that file and use its ID (path) to delete it
         $dir = '/';
         $recursive = false; // Get subdirectories also?
         $contents = collect(Storage::cloud()->listContents($dir, $recursive));
@@ -57,11 +53,6 @@ class EditImageController
     public function saveForm($ImageID, Request $request)
     {
         $form = $request->all();
-
-        $image = DB::table('images')->where('id', '=', $ImageID)->first();
-
-        Storage::cloud()->rename('/'.$image->{'image_id'}, '/'.$form['name']);
-
 
         $tagsq = explode(',', $form['tags']);
         $query = '';

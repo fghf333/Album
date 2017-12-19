@@ -1,4 +1,5 @@
 <?php
+
 namespace Hypweb\Flysystem\GoogleDrive;
 
 use Google_Service_Drive;
@@ -110,7 +111,7 @@ class GoogleDriveAdapter extends AbstractAdapter
 
     public function __construct(Google_Service_Drive $service, $root = null, $options = [])
     {
-        if (! $root) {
+        if (!$root) {
             $root = 'root';
         }
         $this->service = $service;
@@ -202,18 +203,20 @@ class GoogleDriveAdapter extends AbstractAdapter
         $opts = [
             'fields' => self::FETCHFIELDS_GET
         ];
+
         if ($newParent !== $oldParent) {
             $opts['addParents'] = $newParent;
             $opts['removeParents'] = $oldParent;
         }
+        $file['name'] = trim($file['name']);
 
         $updatedFile = $this->service->files->update($fileId, $file, $opts);
-
         if ($updatedFile) {
             $this->cacheFileObjects[$updatedFile->getId()] = $updatedFile;
             $this->cacheFileObjects[$newName] = $updatedFile;
             return true;
         }
+
 
         return false;
     }
@@ -355,7 +358,7 @@ class GoogleDriveAdapter extends AbstractAdapter
             'alt' => 'media'
         ])) {
             return [
-                'contents' => (string) $response->getBody()
+                'contents' => (string)$response->getBody()
             ];
         }
 
@@ -375,7 +378,7 @@ class GoogleDriveAdapter extends AbstractAdapter
         if (func_num_args() > 1) {
             $redirect = func_get_arg(1);
         }
-        if (! $redirect) {
+        if (!$redirect) {
             $redirect = [
                 'cnt' => 0,
                 'url' => '',
@@ -441,7 +444,7 @@ class GoogleDriveAdapter extends AbstractAdapter
                     if (strpos($res, 'Set-Cookie:') === 0) {
                         $domain = $url['host'];
                         if (preg_match('/^Set-Cookie:(.+)(?:domain=\s*([^ ;]+))?/i', $res, $c1)) {
-                            if (! empty($c1[2])) {
+                            if (!empty($c1[2])) {
                                 $domain = trim($c1[2]);
                             }
                             if (preg_match('/([^ ]+=[^;]+)/', $c1[1], $c2)) {
@@ -451,7 +454,7 @@ class GoogleDriveAdapter extends AbstractAdapter
                     }
                 }
                 if ($redirect['url']) {
-                    $redirect['cnt'] ++;
+                    $redirect['cnt']++;
                     fclose($stream);
                     return $this->readStream($path, $redirect);
                 }
@@ -627,14 +630,14 @@ class GoogleDriveAdapter extends AbstractAdapter
         foreach ($targets as $id) {
             $opts['q'] = sprintf('trashed = false and "%s" in parents and mimeType = "%s"', $id, self::DIRMIME);
             $request = $gFiles->listFiles($opts);
-            $key = ++ $i;
-            $batch->add($request, (string) $key);
+            $key = ++$i;
+            $batch->add($request, (string)$key);
             $paths['response-' . $key] = $id;
         }
         $results = $batch->execute();
         foreach ($results as $key => $result) {
             if ($result instanceof Google_Service_Drive_FileList) {
-                $object[$paths[$key]]['hasdir'] = $this->cacheHasDirs[$paths[$key]] = (bool) $result->getFiles();
+                $object[$paths[$key]]['hasdir'] = $this->cacheHasDirs[$paths[$key]] = (bool)$result->getFiles();
             }
         }
         $client->setUseBatch(false);
@@ -787,7 +790,7 @@ class GoogleDriveAdapter extends AbstractAdapter
         $result['timestamp'] = strtotime($object->getModifiedTime());
         if ($result['type'] === 'file') {
             $result['mimetype'] = $object->mimeType;
-            $result['size'] = (int) $object->getSize();
+            $result['size'] = (int)$object->getSize();
         }
         if ($result['type'] === 'dir') {
             $result['size'] = 0;
@@ -822,10 +825,9 @@ class GoogleDriveAdapter extends AbstractAdapter
             'q' => sprintf('trashed = false and "%s" in parents', $itemId)
         ];
         if ($query) {
-            $parameters['q'] .= ' and (' . $query . ')';
-            ;
+            $parameters['q'] .= ' and (' . $query . ')';;
         }
-        $pageToken = NULL;
+        $pageToken = null;
         $gFiles = $this->service->files;
         $this->cacheHasDirs[$itemId] = false;
         $setHasDir = [];
@@ -851,16 +853,17 @@ class GoogleDriveAdapter extends AbstractAdapter
                                 unset($setHasDir[$itemId]);
                             }
                             if ($recursive) {
-                                $results = array_merge($results, $this->getItems($result['path'], true, $maxResults, $query));
+                                $results = array_merge($results,
+                                    $this->getItems($result['path'], true, $maxResults, $query));
                             }
                         }
                     }
                     $pageToken = $fileObjs->getNextPageToken();
                 } else {
-                    $pageToken = NULL;
+                    $pageToken = null;
                 }
             } catch (Exception $e) {
-                $pageToken = NULL;
+                $pageToken = null;
             }
         } while ($pageToken && $maxResults === 0);
 
@@ -912,11 +915,11 @@ class GoogleDriveAdapter extends AbstractAdapter
         if ($fileObj instanceof Google_Service_Drive_DriveFile) {
             if ($hasdir && $fileObj->mimeType === self::DIRMIME) {
                 if ($hasdir instanceof Google_Service_Drive_FileList) {
-                    $this->cacheHasDirs[$fileObj->getId()] = (bool) $hasdir->getFiles();
+                    $this->cacheHasDirs[$fileObj->getId()] = (bool)$hasdir->getFiles();
                 }
             }
         } else {
-            $fileObj = NULL;
+            $fileObj = null;
         }
         $this->cacheFileObjects[$itemId] = $fileObj;
 
@@ -990,7 +993,7 @@ class GoogleDriveAdapter extends AbstractAdapter
 
         $srcFile = $this->getFileObject($path);
         $file = new Google_Service_Drive_DriveFile();
-        if (! $srcFile) {
+        if (!$srcFile) {
             $mode = 'insert';
             $file->setName($fileName);
             $file->setParents([
@@ -1001,10 +1004,10 @@ class GoogleDriveAdapter extends AbstractAdapter
         $isResource = false;
         if (is_resource($contents)) {
             $fstat = @fstat($contents);
-            if (! empty($fstat['size'])) {
+            if (!empty($fstat['size'])) {
                 $isResource = true;
             }
-            if (! $isResource) {
+            if (!$isResource) {
                 $contents = stream_get_contents($contents);
             }
         }
@@ -1014,7 +1017,7 @@ class GoogleDriveAdapter extends AbstractAdapter
             $chunkSizeBytes = 100 * 1024 * 1024;
             $memory = $this->getIniBytes('memory_limit');
             if ($memory > 0) {
-                $chunkSizeBytes = max(262144 , min([
+                $chunkSizeBytes = max(262144, min([
                     $chunkSizeBytes,
                     (intval($memory / 4 / 256) * 256)
                 ]));
@@ -1025,7 +1028,7 @@ class GoogleDriveAdapter extends AbstractAdapter
             }
         }
 
-        if (! $mime) {
+        if (!$mime) {
             $mime = Util::guessMimeType($fileName, $isResource ? '' : $contents);
         }
         $file->setMimeType($mime);
@@ -1051,7 +1054,7 @@ class GoogleDriveAdapter extends AbstractAdapter
             // complete.
             $status = false;
             $handle = $contents;
-            while (! $status && ! feof($handle)) {
+            while (!$status && !feof($handle)) {
                 // read until you get $chunkSizeBytes from TESTFILE
                 // fread will never return more than 8192 bytes if the stream is read buffered and it does not represent a plain file
                 // An example of a read buffered file is when reading from a URL
@@ -1109,7 +1112,7 @@ class GoogleDriveAdapter extends AbstractAdapter
     {
         $byteCount = 0;
         $giantChunk = '';
-        while (! feof($handle)) {
+        while (!feof($handle)) {
             // fread will never return more than 8192 bytes if the stream is read buffered and it does not represent a plain file
             $chunk = fread($handle, 8192);
             $byteCount += strlen($chunk);
