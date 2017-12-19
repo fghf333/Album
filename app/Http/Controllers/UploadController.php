@@ -63,6 +63,7 @@ class UploadController extends Controller
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);
                 $URL = $this->GetImageURL($ID);
+                Storage::cloud()->rename($ID, $ID." ");
                 unlink(storage_path('images/' . $photo['name']));
                 //Storage::disk('local')->delete($photo['name']);
                 DB::table('images')->insert(
