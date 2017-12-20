@@ -43,6 +43,11 @@ return [
 
     'disks' => [
 
+        'public_uploads' => [
+            'driver' => 'local',
+            'root'   => public_path(),
+        ],
+
         'google' => [
             'driver' => 'google',
             'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),

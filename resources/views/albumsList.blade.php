@@ -11,7 +11,7 @@
     <h1 class="PageHead">Page Heading
         <small>Secondary Text</small>
     </h1>
-    <form action="#">
+    <form action="create-album">
         <button class="btn-success btn-block">Создать новый Альбом</button>
     </form>
     <div class="row">
@@ -20,10 +20,10 @@
                 <div class="card h-100">
                     <div class="text-center text-lg-left" id="buttons_div">
 
-                        <img class="img-fluid " src="{{$album->preview_img}}">
+                        <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
                         <div class="container" id="buttons">
                             <div class="control_buttons">
-                                <a href="{{route('edit_form', ['ImageID' => $image->id])}}"><img class="icons"
+                                <a href="{{route('edit_album_form', ['ImageID' => $album->id])}}"><img class="icons"
                                                  src="{{asset('images/edit.png')}}"></a>
                                 <a href="#"><img class="icons" src="{{asset('images/delete.png')}}"></a>
                             </div>

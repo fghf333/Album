@@ -9,7 +9,10 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class AlbumController
 {
@@ -22,9 +25,26 @@ class AlbumController
         return view('albumsList', ['list' => $data]);
     }
 
-    public function createAlbum()
+    public function getForm()
     {
+        return view('createAlbum');
+    }
 
+    public function createAlbum(Request $request)
+    {
+        $form = $request->all();
+        Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('preview')->getRealPath()), $form['name'].'.png');
+
+        DB::table('albums')->insert(
+            [
+                'name' => $form['name'],
+                'description' => $form['description'],
+                'preview_img' => $form['name'].'.png',
+                'updated_at' => date("Y-m-d H:i:s"),
+                'created_at' => date("Y-m-d H:i:s"),
+            ]
+        );
+        return redirect('albums', 302);
     }
 
 }
