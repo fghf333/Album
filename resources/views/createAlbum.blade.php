@@ -1,11 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: yaroslavgraboveckiy
- * Date: 20.12.2017
- * Time: 17:41
- */
-
 @extends('base')
 
 @section('content')
@@ -23,7 +15,7 @@
         <small>Secondary Text</small>
     </h1>
     <div class="FormTable">
-        <form id="imageform" name="upload" method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
+        <form id="imageform" name="upload" method="post" action="{{ route('create_album') }}" enctype="multipart/form-data">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <table class="table">
                 <tr>
@@ -32,42 +24,14 @@
                         <input name="name" id="name" type="text">
                     </td>
                     <td>
-                        <label for="album">Альбом:</label>
-                        <select name="album" id="album" @if(empty($albums))
-                        disabled>
-                            <option value="0">Альбомов нет</option>
-                            @else
-                                >
-                                <option value="select">Выберите альбом</option>
-                            @endif
-                            @foreach($albums as $album)
-                                <option value="{{$album->id}}">{{$album->name}}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <label for="tags-input">Теги:</label>
-                        <input name="tags" type="text" id="tags-input-edit"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="peoples">Люди:</label>
-                        <input name="peoples" id="peoples" type="text">
-                    </td>
-                    <td>
-                        <label for="place">Место:</label>
-                        <input name="place" id="place" type="text">
-                    </td>
-                    <td>
-                        <label for="CreatedAt"> Дата:</label>
-                        <input name="CreatedAt" id="CreatedAt" type="date">
+                        <label for="description">Описание:</label>
+                        <textarea name="description" id="description" type="text" maxlength="255"></textarea>
                     </td>
                 </tr>
             </table>
-            <label for="files"> Фото:</label>
-            <input class="files" id="files" accept="image/*" type="file" name="file[]">
-            <button @if(count($albums) === 0) disabled @endif type="submit">Загрузить</button>
+            <label for="preview"> Обложка:</label>
+            <input class="preview" id="preview" accept="image/*" type="file" name="preview">
+            <button type="submit">Загрузить</button>
         </form>
     </div>
 @endsection
