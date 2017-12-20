@@ -42,7 +42,7 @@
                 <img class="img" src="{{$image->image_url}}">
             </div>
 
-            <form name="upload" method="post" action="{{ route('edit_file', ['ImageID' => $image->id])  }}" enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
+            <form name="upload" method="post" action="{{ route('edit_image', ['ImageID' => $image->id])  }}" enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <table class="table">
                     <tr>
@@ -54,7 +54,7 @@
                             <label for="album">Альбом:</label>
                             <select name="album" id="album" @if(empty($albums))
                             disabled>
-                                <option value="empty">Альбомов нет</option>
+                                <option value="0">Альбомов нет</option>
                                 @else
                                     >
                                     <option value="0">Выберите альбом</option>
@@ -89,7 +89,7 @@
                         </td>
                     </tr>
                 </table>
-                <button @if(count($albums) === 0) disabled @endif type="submit">Загрузить</button>
+                <button type="submit">Загрузить</button>
             </form>
 
         </div>

@@ -23,17 +23,19 @@ Route::post('upload',['as' => 'upload_file','uses' => 'UploadController@upload']
 //IMAGE EDITOR
 Route::get('edit-image/{imageID}', ['as' => 'edit_image_form', 'uses' => 'EditImageController@getForm']);
 Route::post('edit-image/{imageID}', ['as' => 'edit_image', 'uses' => 'EditImageController@saveForm']);
-Route::delete('delete/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
+Route::delete('delete-image/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
 
 //ALBUM
 Route::get('albums',['as' => 'album_form', 'uses' => 'AlbumController@getList']);
 Route::get('edit-album/{AlbumID}', ['as' => 'edit_album_form', 'uses' => 'AlbumController@getEditForm']);
+Route::post('edit-album/{AlbumID}', ['as' => 'edit_album', 'uses' => 'AlbumController@editAlbum']);
 Route::get('create-album', ['as' => 'create_album_form', 'uses' => 'AlbumController@getForm']);
 Route::post('create-album', ['as' => 'create_album', 'uses' => 'AlbumController@createAlbum']);
-Route::post('edit-album/{AlbumID}', ['as' => 'edit_album', 'uses' => 'AlbumController@editAlbum']);
+Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'AlbumController@deleteAlbum']);
+
 
 //LIST OF IMAGES
-Route::get('images-list', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
+Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
 
 
 

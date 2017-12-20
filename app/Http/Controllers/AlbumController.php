@@ -21,7 +21,7 @@ class AlbumController
      */
     public function getList()
     {
-        $data = DB::table('albums')->orderByRaw('created_at DESC')->get();
+        $data = DB::table('albums')->orderByRaw('created_at ASC')->get();
         return view('albums-list', ['list' => $data]);
     }
 
@@ -32,6 +32,11 @@ class AlbumController
         return view('edit-album', [
             'album' => $data,
         ]);
+    }
+
+    public function getForm()
+    {
+        return view('create-album');
     }
 
     public function editAlbum($AlbumID, Request $request)
@@ -45,6 +50,18 @@ class AlbumController
             ]
         );
         return redirect()->route('edit_album', ['AlbumID' => $AlbumID]);
+    }
+
+    public function deleteAlbum(Request $request)
+    {
+        $data = $request->all();
+        DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 0]);
+        $album = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
+        $image = $album->{'preview_img'};
+        Storage::disk('public_uploads')->delete('/images/albums/' . $image);
+        DB::table('albums')->where('id', '=', $data['AlbumID'])->delete();
+
+        return redirect('albums', 302);
     }
 
     public function createAlbum(Request $request)
@@ -62,7 +79,7 @@ class AlbumController
                 'created_at' => date("Y-m-d H:i:s"),
             ]
         );
-        return redirect('albums-list', 302);
+        return redirect('albums', 302);
     }
 
 }

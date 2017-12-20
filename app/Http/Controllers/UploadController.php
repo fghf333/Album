@@ -45,7 +45,6 @@ class UploadController extends Controller
 
             foreach ($file as $f) {
                 $photo = $request->all();
-
                 $tagsq = explode(',', $photo['tags']);
                 $query = '';
                 $i = 0;
