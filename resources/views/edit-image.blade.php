@@ -42,7 +42,7 @@
                 <img class="img" src="{{$image->image_url}}">
             </div>
 
-            <form name="upload" method="post" action="{{ route('edit_image', ['ImageID' => $image->id])  }}" enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
+            <form name="upload" method="post" action="{{ route('edit_file', ['ImageID' => $image->id])  }}" enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <table class="table">
                     <tr>
