@@ -81,6 +81,6 @@ class EditImageController
             ]
         );
         //return redirect('edit-image/' . $form['id'], 301);
-        return redirect()->route('edit_form', ['imageID' => $ImageID]);
+        return redirect()->route('edit_image_form', ['imageID' => $ImageID]);
     }
 }

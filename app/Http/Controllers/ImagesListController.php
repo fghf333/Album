@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class ImagesListController
 {
-    //TODO: create delete image button
     public function getList()
     {
         $data = DB::table('images')->orderByRaw('created_at DESC')->get();
