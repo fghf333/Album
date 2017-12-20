@@ -101,7 +101,7 @@
         function modal(ImageID) {
             $('#myModal').modal()
             $('#ImageID').val(ImageID);
-            $('#delete').attr('action', '/delete/' + ImageID)
+            $('#delete').attr('action', '/delete-image/' + ImageID)
         }
     </script>
 

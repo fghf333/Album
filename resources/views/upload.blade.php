@@ -49,7 +49,7 @@
                             <option value="0">Альбомов нет</option>
                             @else
                                 >
-                                <option value="select">Выберите альбом</option>
+                                <option value="0">Выберите альбом</option>
                             @endif
                             @foreach($albums as $album)
                                 <option value="{{$album->id}}">{{$album->name}}</option>
@@ -78,7 +78,7 @@
             </table>
             <label for="files"> Фото:</label>
             <input class="files" id="files" accept="image/*" type="file" name="file[]">
-            <button @if(count($albums) === 0) disabled @endif type="submit">Загрузить</button>
+            <button type="submit">Загрузить</button>
         </form>
     </div>
 
