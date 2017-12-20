@@ -21,8 +21,8 @@ Route::get('upload',['as' => 'upload_form', 'uses' => 'UploadController@getForm'
 Route::post('upload',['as' => 'upload_file','uses' => 'UploadController@upload']);
 
 //IMAGE EDITOR
-Route::get('edit-image/{imageID}', ['as' => 'edit_form', 'uses' => 'EditImageController@getForm']);
-Route::post('edit-image/{imageID}', ['as' => 'edit_file', 'uses' => 'EditImageController@saveForm']);
+Route::get('edit-image/{imageID}', ['as' => 'edit_image_form', 'uses' => 'EditImageController@getForm']);
+Route::post('edit-image/{imageID}', ['as' => 'edit_image', 'uses' => 'EditImageController@saveForm']);
 Route::delete('delete/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
 
 //ALBUM
