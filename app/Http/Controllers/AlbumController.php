@@ -22,29 +22,47 @@ class AlbumController
     public function getList()
     {
         $data = DB::table('albums')->orderByRaw('created_at DESC')->get();
-        return view('albumsList', ['list' => $data]);
+        return view('albums-list', ['list' => $data]);
     }
 
-    public function getForm()
+    public function getEditForm($AlbumID)
     {
-        return view('createAlbum');
+        $data = DB::table('albums')->where('id', $AlbumID)->first();
+
+        return view('edit-album', [
+            'album' => $data,
+        ]);
+    }
+
+    public function editAlbum($AlbumID, Request $request)
+    {
+        $form = $request->all();
+        DB::table('albums')->where('id', $AlbumID)->update(
+            [
+                'name' => $form['name'],
+                'description' => $form['description'],
+                'updated_at' => date("Y-m-d H:i:s"),
+            ]
+        );
+        return redirect()->route('edit_album', ['AlbumID' => $AlbumID]);
     }
 
     public function createAlbum(Request $request)
     {
         $form = $request->all();
-        Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('preview')->getRealPath()), $form['name'].'.png');
+        Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('preview')->getRealPath()),
+            $form['name'] . '.png');
 
         DB::table('albums')->insert(
             [
                 'name' => $form['name'],
                 'description' => $form['description'],
-                'preview_img' => $form['name'].'.png',
+                'preview_img' => $form['name'] . '.png',
                 'updated_at' => date("Y-m-d H:i:s"),
                 'created_at' => date("Y-m-d H:i:s"),
             ]
         );
-        return redirect('albums', 302);
+        return redirect('albums-list', 302);
     }
 
 }
