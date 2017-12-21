@@ -11,16 +11,24 @@
         height: 100%;
     }
 
-    footer {
-        height: 100px;
-        margin-top: 50px;
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        background-color: #212529;
+    }
+
+    .text-muted{
+        color: white !important;
     }
 
 </style>
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="footer">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <span class="text-muted">Copyright &copy; Your Website 2017</span>
     </div>
-    <!-- /.container -->
+</footer>
 </footer>
