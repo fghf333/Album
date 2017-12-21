@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="#"> Неосортированное</a>
+                        <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неосортированное</a>
                     </h4>
                     <p class="card-text">
                         Фотографии без альбома
@@ -53,7 +53,7 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="#"> {{$album->name}}</a>
+                            <a href="{{route('images-list', ['AlbumID' => $album->id])}}"> {{$album->name}}</a>
                         </h4>
                         <p class="card-text">
                             {{$album->description}}

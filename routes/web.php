@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 //UPLOADING
-Route::get('upload',['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
+Route::get('upload/{AlbumID?}',['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
 Route::post('upload',['as' => 'upload_file','uses' => 'UploadController@upload']);
 
 //IMAGE EDITOR
@@ -36,7 +36,6 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
-
 
 
 Route::get('put', function() {
