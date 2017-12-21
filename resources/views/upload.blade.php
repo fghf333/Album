@@ -13,8 +13,8 @@
 
         .bootstrap-tagsinput .tag {
             background: #09F;
-        padding: 5px;
-        border-radius: 4px;
+            padding: 5px;
+            border-radius: 4px;
 
         }
 
@@ -24,7 +24,7 @@
             line-height: 35px;
         }
 
-        .bootstrap-tagsinput input{
+        .bootstrap-tagsinput input {
             width: 100%;
         }
 
@@ -34,7 +34,8 @@
         <small>Secondary Text</small>
     </h1>
     <div class="FormTable">
-        <form id="imageform" name="upload" method="post" action="{{ route('upload_file') }}" enctype="multipart/form-data">
+        <form id="imageform" name="upload" method="post" action="{{ route('upload_file') }}"
+              enctype="multipart/form-data">
             <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <table class="table">
                 <tr>
@@ -52,7 +53,11 @@
                                 <option value="0">Выберите альбом</option>
                             @endif
                             @foreach($albums as $album)
-                                <option value="{{$album->id}}">{{$album->name}}</option>
+                                @if($default_album === $album->id)
+                                    <option value="{{$album->id}}" selected>{{$album->name}}</option>
+                                @else
+                                    <option value="{{$album->id}}">{{$album->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </td>
@@ -83,8 +88,8 @@
     </div>
 
     <script>
-window.tags = {!! $tags !!};
-window.ImageTags = [];
+        window.tags = {!! $tags !!};
+        window.ImageTags = [];
     </script>
     <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection

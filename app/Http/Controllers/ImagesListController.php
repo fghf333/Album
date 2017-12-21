@@ -12,11 +12,22 @@ use Illuminate\Support\Facades\DB;
 
 class ImagesListController
 {
-    public function getList()
+    public function getList($AlbumID = null)
     {
-        $data = DB::table('images')->orderByRaw('created_at DESC')->get();
-        return view('images-list', [
-            'list' => $data,
-        ]);
+        if ($AlbumID != null) {
+            $data = DB::table('images')->where('album', '=', $AlbumID)->orderByRaw('created_at DESC')->get();
+
+            return view('images-list', [
+                'list' => $data,
+                'AlbumID' => $AlbumID,
+            ]);
+        } else {
+            $data = DB::table('images')->orderByRaw('created_at DESC')->get();
+
+            return view('images-list', [
+                'list' => $data,
+                'AlbumID' => '',
+            ]);
+        }
     }
 }

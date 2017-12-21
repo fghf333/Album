@@ -28,15 +28,17 @@ class UploadController extends Controller
         return 'https://drive.google.com/uc?export=media&id=' . $path;
     }
 
-    public function getForm()
+    public function getForm($AlbumID = null)
     {
-
         $tags = DB::table('tags')->select('name', 'id')->get();
         $albums = DB::table('albums')->select('name', 'id')->get();
-        return view('upload', [
-            'albums' => $albums,
-            'tags' => $tags,
-        ]);
+        $data = ['albums' => $albums, 'tags' => $tags, 'default_album' => 0];
+
+        if (isset($AlbumID)) {
+           $data['default_album'] = (int)$AlbumID;
+        }
+        //dd($data);
+        return view('upload', $data);
     }
 
     public function upload(Request $request)
@@ -62,7 +64,7 @@ class UploadController extends Controller
                 Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
                 $ID = $this->GetImageId($photo['name']);
                 $URL = $this->GetImageURL($ID);
-                Storage::cloud()->rename($ID, $ID." ");
+                Storage::cloud()->rename($ID, $ID . " ");
                 unlink(storage_path('images/' . $photo['name']));
                 //Storage::disk('local')->delete($photo['name']);
                 DB::table('images')->insert(
