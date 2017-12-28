@@ -30,8 +30,7 @@
 
     </style>
     <!-- Page Heading -->
-    <h1 class="PageHead">Page Heading
-        <small>Secondary Text</small>
+    <h1 class="PageHead">Загрузка фотографии
     </h1>
     <div class="FormTable">
         <form id="imageform" name="upload" method="post" action="{{ route('upload_file') }}"

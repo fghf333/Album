@@ -8,8 +8,7 @@
         }
     </style>
     <!-- Page Heading -->
-    <h1 class="PageHead">Page Heading
-        <small>Secondary Text</small>
+    <h1 class="PageHead">Список альбомов
     </h1>
     <form action="create-album">
         <button class="btn-success btn-block">Создать новый Альбом</button>

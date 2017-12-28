@@ -16,8 +16,7 @@
     </style>
     <div class="flex-center position-ref">
         <div class="content">
-            <h1 class="PageHead">Page Heading
-                <small>Secondary Text</small>
+            <h1 class="PageHead">Редактирование альбома
             </h1>
             <div class="editing_image">
                 <img class="img" src="{{asset('images/albums/'.$album->preview_img)}}">

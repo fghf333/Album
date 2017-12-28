@@ -11,8 +11,7 @@
 
     </style>
     <!-- Page Heading -->
-    <h1 class="PageHead">Page Heading
-        <small>Secondary Text</small>
+    <h1 class="PageHead">Создание альбома
     </h1>
     <div class="FormTable">
         <form id="imageform" name="upload" method="post" action="{{ route('create_album') }}" enctype="multipart/form-data">
