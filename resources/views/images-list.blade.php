@@ -43,18 +43,31 @@
             background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #ffffff 100%);
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-fancybox]').fancybox({
+                toolbar: false,
+                smallBtn: true,
+                iframe: {
+                    preload: false
+                }
+            });
+        });
+    </script>
     <!-- Page Heading -->
-    <h1 class="PageHead">Page Heading
-        <small>Secondary Text</small>
-    </h1>
+    @if(isset($AlbumName->name))
+        <h1 class="PageHead">{{$AlbumName->name}}</h1>
+        @else
+        <h1 class="PageHead">Список фотографий</h1>
+        @endif
     <form action="{{ route('upload_form', ['AlbumID' => $AlbumID])  }}">
         <button class="btn-success btn-block">Загрузить фото</button>
     </form>
     <div class="row text-center text-lg-left" id="buttons_div">
         @forelse($list as $image)
             <div class="col-lg-3 col-md-4 col-xs-6 mb-4">
-                <a data-fancybox="gallery" href="{{$image->image_url}}" data-caption="{{$image->name}}"><img
-                            class="img-thumbnail" src="{{$image->image_url}}"></a>
+                <a data-fancybox="image" href="{{$image->image_url}}"><img class="img-thumbnail"
+                                                                           src="{{$image->image_url}}"></a>
                 <div class="container" id="buttons">
                     <div class="name">{{$image->name}}</div>
                     <div class="control_buttons">
@@ -98,6 +111,7 @@
     </div><!-- /.modal -->
 
     <script>
+
         function modal(ImageID) {
             $('#DeleteConfirm').modal()
             $('#ImageID').val(ImageID);

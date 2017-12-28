@@ -16,10 +16,12 @@ class ImagesListController
     {
         if ($AlbumID != null) {
             $data = DB::table('images')->where('album', '=', $AlbumID)->orderByRaw('created_at DESC')->get();
+            $AlbumName = DB::table('albums')->where('id', '=', $AlbumID)->first();
 
             return view('images-list', [
                 'list' => $data,
                 'AlbumID' => $AlbumID,
+                'AlbumName' => $AlbumName,
             ]);
         } else {
             $data = DB::table('images')->orderByRaw('created_at DESC')->get();
@@ -27,6 +29,7 @@ class ImagesListController
             return view('images-list', [
                 'list' => $data,
                 'AlbumID' => '',
+                'AlbumName' =>'',
             ]);
         }
     }

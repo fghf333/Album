@@ -28,7 +28,7 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Copyright &copy; Your Website 2017</span>
+        <span class="text-muted">Copyright &copy; FamilyAlbum <?php echo date('Y');?></span>
     </div>
 </footer>
 </footer>

@@ -35,8 +35,7 @@
     </style>
     <div class="flex-center position-ref">
         <div class="content">
-            <h1 class="PageHead">Page Heading
-                <small>Secondary Text</small>
+            <h1 class="PageHead">Редактирование фотографии
             </h1>
             <div class="editing_image">
                 <img class="img" src="{{$image->image_url}}">
