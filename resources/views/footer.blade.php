@@ -17,11 +17,12 @@
         width: 100%;
         height: 60px;
         line-height: 60px;
-        background-color: #212529;
+        background-color: #f8f9fa;
     }
 
     .text-muted{
-        color: white !important;
+        color: rgba(0,0,0,.5);
+
     }
 
 </style>
