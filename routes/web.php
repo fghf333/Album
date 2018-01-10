@@ -12,9 +12,7 @@
 */
 
 //HOME
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 
 //UPLOADING
 Route::get('upload/{AlbumID?}',['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
