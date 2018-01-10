@@ -90,5 +90,5 @@
         window.tags = {!! $tags !!};
         window.ImageTags = [];
     </script>
-    <script src="{{asset('js/tags-input.js')}}"></script>
+
 @endsection

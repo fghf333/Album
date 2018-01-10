@@ -43,17 +43,6 @@
             background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #ffffff 100%);
         }
     </style>
-    <script>
-        $(document).ready(function () {
-            $('[data-fancybox]').fancybox({
-                toolbar: false,
-                smallBtn: true,
-                iframe: {
-                    preload: false
-                }
-            });
-        });
-    </script>
     <!-- Page Heading -->
     @if(isset($AlbumName->name))
         <h1 class="PageHead">{{$AlbumName->name}}</h1>
@@ -113,7 +102,7 @@
     <script>
 
         function modal(ImageID) {
-            $('#DeleteConfirm').modal()
+            $('#DeleteConfirm').modal();
             $('#ImageID').val(ImageID);
             $('#delete').attr('action', '/delete-image/' + ImageID)
         }
