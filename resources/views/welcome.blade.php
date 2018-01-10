@@ -7,11 +7,8 @@
             <div class="col-lg-3 col-md-4 col-xs-6 mb-4">
                 <a data-fancybox="image" href="{{$image->image_url}}"><img class="img-thumbnail"
                                                                            src="{{$image->image_url}}"></a>
-                <div class="container" id="buttons">
+                <div class="container buttons" id="buttons">
                     <div class="name">{{$image->name}}</div>
-                    <div class="control_buttons">
-                    </div>
-
                 </div>
             </div>
         @empty
