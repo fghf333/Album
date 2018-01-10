@@ -1,8 +1,6 @@
 @extends('base')
 
 @section('content')
-    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
-    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
     <!-- Styles -->
     <style>
 

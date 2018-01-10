@@ -12,6 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.js"></script>
     <script src="{{asset('js/slider.js')}}"></script>
     <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
 
 
     <title>Семейный альбом</title>
@@ -81,10 +83,10 @@
             text-align: center;
         }
 
-        #buttons {
+        .buttons {
             background-color: white;
             opacity: 0.5;
-            width: 90%;
+            width: 85%;
             position: absolute;
             text-align: right;
             top: 89%;
@@ -93,11 +95,9 @@
             -ms-transform: translate(0, -50%);
             transform: translate(0, -50%);
             height: 30px;
-        }
-
-        #buttons_div {
-            position: relative;
-
+            left: 0;
+            right: 0;
+            margin-right: 24px;
         }
 
         img.card-img-top {
@@ -112,6 +112,10 @@
         .img-thumbnail {
             height: 185px;
             width: 250px;
+        }
+
+        .control_buttons {
+            text-align: right;
         }
 
     </style>

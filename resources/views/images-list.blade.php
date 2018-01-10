@@ -12,7 +12,7 @@
             }
         }
 
-        .container .name {
+        .name {
             position: absolute;
             text-align: left;
             top: 50%;
@@ -25,6 +25,7 @@
             background: white;
             padding: 5px;
             width: 60%;
+
 
         }
 
@@ -52,12 +53,12 @@
     <form action="{{ route('upload_form', ['AlbumID' => $AlbumID])  }}">
         <button class="btn-success btn-block">Загрузить фото</button>
     </form>
-    <div class="row text-center text-lg-left" id="buttons_div">
+    <div class="row text-center text-lg-left">
         @forelse($list as $image)
             <div class="col-lg-3 col-md-4 col-xs-6 mb-4">
                 <a data-fancybox="image" href="{{$image->image_url}}"><img class="img-thumbnail"
                                                                            src="{{$image->image_url}}"></a>
-                <div class="container" id="buttons">
+                <div class="container buttons">
                     <div class="name">{{$image->name}}</div>
                     <div class="control_buttons">
 
