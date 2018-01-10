@@ -16,7 +16,7 @@ class HomeController
     {
         $images = DB::table('images')->latest()->take(25)->get();
 
-        return view('welcome', [
+         return view('welcome', [
             'images' => $images,
         ]);
 

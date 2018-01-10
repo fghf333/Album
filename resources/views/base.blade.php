@@ -8,12 +8,11 @@
     <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.js"></script>
+    <script src="{{asset('js/slider.js')}}"></script>
     <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
-    <script>
 
-    </script>
 
     <title>Семейный альбом</title>
 
@@ -100,37 +99,42 @@
             position: relative;
 
         }
-        img.card-img-top{
+
+        img.card-img-top {
             height: 35%;
             width: auto;
         }
 
-        .btn-success.btn-block{
+        .btn-success.btn-block {
             margin-bottom: 5px;
         }
 
-        .img-thumbnail{
+        .img-thumbnail {
             height: 185px;
             width: 250px;
         }
 
     </style>
+    <script>
+
+    </script>
 
 </head>
 
 <body>
+<script>
 
+</script>
 @include('nav')
 
 <!-- Page Content -->
 <div class="container wrapper">
 
     @yield('content')
-
+    <script src="{{asset('js/tags-input.js')}}"></script>
 </div>
 <!-- /.container -->
 </body>
-
 @include('footer')
 
 </html>

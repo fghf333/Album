@@ -99,5 +99,4 @@
         window.tags = {!! $tags !!};
     </script>
 
-    <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection
