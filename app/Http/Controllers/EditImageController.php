@@ -54,6 +54,10 @@ class EditImageController
     {
         $form = $request->all();
 
+        if(empty($form['album'])){
+            $form['album'] = 0;
+        }
+
         $tagsq = explode(',', $form['tags']);
         $query = '';
         $i = 0;
