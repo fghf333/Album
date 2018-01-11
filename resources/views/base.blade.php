@@ -1,6 +1,7 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/3-col-portfolio.css') }}" rel="stylesheet">
@@ -19,15 +20,6 @@
     <title>Семейный альбом</title>
 
     <style>
-
-        .row {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
 
         .row .text-center .text-lg-left {
             position: relative;
@@ -118,6 +110,31 @@
             text-align: right;
         }
 
+        .bootstrap-tagsinput .tag {
+            background: #09F;
+            padding: 5px;
+            border-radius: 4px;
+
+        }
+
+        .bootstrap-tagsinput {
+            width: 100%;
+            text-align: start;
+            line-height: 35px;
+        }
+
+        .bootstrap-tagsinput input {
+            width: 100%;
+        }
+
+        span.twitter-typeahead {
+            width: 50%;
+        }
+
+        .btn-primary {
+            background-color: #09F;
+        }
+
     </style>
     <script>
 
@@ -132,7 +149,7 @@
 @include('nav')
 
 <!-- Page Content -->
-<div class="container wrapper">
+<div class="container-fluid wrapper">
 
     @yield('content')
     <script src="{{asset('js/tags-input.js')}}"></script>
@@ -142,3 +159,4 @@
 @include('footer')
 
 </html>
+
