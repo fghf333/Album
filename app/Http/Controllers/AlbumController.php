@@ -16,7 +16,6 @@ use Illuminate\Http\File;
 
 class AlbumController
 {
-    //TODO: Fix footer (make it sticky)
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
