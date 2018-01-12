@@ -1,19 +1,6 @@
 @extends('base')
 
 @section('content')
-    <!-- Styles -->
-    <style>
-
-        .img {
-            width: 350px;
-            height: auto;
-        }
-
-        .editing_image{
-            margin: auto;
-        }
-
-    </style>
     <div class="flex-center position-ref">
         <div class="content">
             <h1 class="PageHead">Редактирование альбома
@@ -22,7 +9,8 @@
                 <img class="img" src="{{asset('images/albums/'.$album->preview_img)}}">
             </div>
 
-            <form name="upload" method="post" action="{{ route('edit_album', ['AlbumID' => $album->id])  }}" onkeypress="if(event.keyCode === 13) return false;">
+            <form name="upload" method="post" action="{{ route('edit_album', ['AlbumID' => $album->id])  }}"
+                  onkeypress="if(event.keyCode === 13) return false;">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <table class="table">
                     <tr>
@@ -32,7 +20,8 @@
                         </td>
                         <td>
                             <label for="description">Описание:</label>
-                            <textarea name="description" id="description" type="text" maxlength="255">{{$album->description}}</textarea>
+                            <textarea name="description" id="description" type="text"
+                                      maxlength="255">{{$album->description}}</textarea>
                         </td>
                     </tr>
                 </table>

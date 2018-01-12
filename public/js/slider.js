@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('[data-fancybox]').fancybox({
-        hash : false,
+        hash: false,
         toolbar: true,
         buttons: [
             'slideShow',

@@ -1,12 +1,6 @@
 @extends('base')
 
 @section('content')
-    <style>
-        #buttons {
-            width: 100%;
-            top: 94%;
-        }
-    </style>
     <!-- Page Heading -->
     <h1 class="PageHead">Список альбомов
     </h1>
