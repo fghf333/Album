@@ -1,33 +1,6 @@
 @extends('base')
 
 @section('content')
-
-    <style>
-
-        .FormTable {
-            display: table;
-            margin: auto;
-            text-align: center;
-        }
-
-        .bootstrap-tagsinput .tag {
-            background: #09F;
-            padding: 5px;
-            border-radius: 4px;
-
-        }
-
-        .bootstrap-tagsinput {
-            width: 79%;
-            text-align: start;
-            line-height: 35px;
-        }
-
-        .bootstrap-tagsinput input {
-            width: 100%;
-        }
-
-    </style>
     <!-- Page Heading -->
     <h1 class="PageHead">Загрузка фотографии
     </h1>

@@ -1,7 +1,7 @@
 @extends('base')
 @section('content')
     <!-- Page Heading -->
-    <h1 style="padding-top: 10vh; text-align: center;">Семейный альбом</h1>
+    <h1 class="home-message">Семейный альбом</h1>
     <div class="row text-center text-lg-left" id="buttons_div">
         @forelse($images as $image)
             <div class="col-lg-3 col-md-4 col-xs-6 mb-4">

@@ -1,17 +1,15 @@
 @extends('base')
 
 @section('content')
-    <style>
-
-    </style>
     <h1 class="PageHead">Редактирование фотографии
     </h1>
     <div class="row">
-        <div class="col-md-6 d-flex align-items-center">
-            <img class="edit_image img-responsive center-block" src="{{$image->image_url}}">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img class="edit_image img-responsive" src="{{$image->image_url}}">
         </div>
         <div class="col-md-6 align-items-center">
-            <form role="form" name="upload" method="post" action="{{ route('edit_image', ['ImageID' => $image->id])  }}" enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
+            <form role="form" name="upload" method="post" action="{{ route('edit_image', ['ImageID' => $image->id])  }}"
+                  enctype="multipart/form-data" onkeypress="if(event.keyCode === 13) return false;">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="name">Имя:</label>
@@ -50,7 +48,8 @@
                 </div>
                 <div class="form-group">
                     <label for="CreatedAt"> Дата:</label>
-                    <input class="form-control" name="CreatedAt" id="CreatedAt" type="date" value="{{$image->createdAt}}">
+                    <input class="form-control" name="CreatedAt" id="CreatedAt" type="date"
+                           value="{{$image->createdAt}}">
                 </div>
                 <button class="btn btn-primary" type="submit">Загрузить</button>
             </form>
