@@ -35,6 +35,10 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
 
+//TEST ROUTE
+Route::get('test', function(){
+   return view('test');
+});
 
 Route::get('put', function() {
     Storage::cloud()->put('test.txt', 'Hello World');
