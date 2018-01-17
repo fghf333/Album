@@ -37,7 +37,6 @@ class UploadController extends Controller
         if (isset($AlbumID)) {
            $data['default_album'] = (int)$AlbumID;
         }
-        //dd($data);
         return view('upload', $data);
     }
 
@@ -47,6 +46,11 @@ class UploadController extends Controller
 
             foreach ($file as $f) {
                 $photo = $request->all();
+                /**
+                 * @var Illuminate\Http\UploadedFile $file
+                 */
+                $file = $request->file('file')[0];
+                dd($file->path());
                 $tagsq = explode(',', $photo['tags']);
                 $query = '';
                 $i = 0;
