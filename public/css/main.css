@@ -47,23 +47,6 @@
     position: relative;
 }
 
-.buttons {
-    background-color: white;
-    opacity: 0.5;
-    width: 85%;
-    position: absolute;
-    text-align: right;
-    top: 89%;
-    padding-left: 5px;
-    -webkit-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    height: 30px;
-    left: 0;
-    right: 0;
-    margin-right: 24px;
-}
-
 img.card-img-top {
     height: 35%;
     width: auto;
@@ -193,4 +176,24 @@ body {
 
 .thumb {
     padding-bottom: 25px;
+}
+
+.img-container {
+    height: 185px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.img-thumb {
+    height: 100%;
+    width: 100%;
+}
+
+.buttons {
+    background-color: white;
+    opacity: 0.5;
+    width: 100%;
+    position: absolute;
+    height: 30px;
+    bottom: 0;
 }

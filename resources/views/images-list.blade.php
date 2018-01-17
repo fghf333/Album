@@ -2,28 +2,35 @@
 
 @section('content')
 
+    <style>
+
+    </style>
+
     <!-- Page Heading -->
     @if(isset($AlbumName->name))
         <h1 class="PageHead">{{$AlbumName->name}}</h1>
     @else
         <h1 class="PageHead">Список фотографий</h1>
     @endif
-        <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
+    <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
     <div class="row text-center text-lg-left">
         @forelse($list as $image)
-            <div class="col-lg-3 col-md-4 col-xs-6 mb-4">
-                <a data-fancybox="image" href="{{$image->image_url}}"><img class="img-thumbnail"
-                                                                           src="{{$image->image_url}}"></a>
-                <div class="container buttons">
-                    <div class="name">{{$image->name}}</div>
-                    <div class="control_buttons">
+            <div class="col-lg-3 col-md-4 col-6 md-4">
+                <div class="img-container">
+                    <a data-fancybox="image" href="{{$image->image_url}}">
+                        <img class="rounded img-thumb" src="{{$image->image_url}}">
+                    </a>
+                    <div class="buttons">
+                        <div class="name">{{$image->name}}</div>
+                        <div class="control_buttons">
 
-                        <a href="{{route('edit_image_form', ['ImageID' => $image->id])}}"><img class="icons"
-                                                                                               src="{{asset('images/edit.png')}}"></a>
-                        <a href="#" onclick="modal({{$image->id}})"><img class="icons"
-                                                                         src="{{asset('images/delete.png')}}"></a>
+                            <a href="{{route('edit_image_form', ['ImageID' => $image->id])}}"><img class="icons"
+                                                                                                   src="{{asset('images/edit.png')}}"></a>
+                            <a href="#" onclick="modal({{$image->id}})"><img class="icons"
+                                                                             src="{{asset('images/delete.png')}}"></a>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         @empty
