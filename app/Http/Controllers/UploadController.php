@@ -50,7 +50,6 @@ class UploadController extends Controller
                  * @var Illuminate\Http\UploadedFile $file
                  */
                 $file = $request->file('file')[0];
-                dd($file->path());
                 $tagsq = explode(',', $photo['tags']);
                 $query = '';
                 $i = 0;
