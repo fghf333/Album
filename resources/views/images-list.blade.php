@@ -8,7 +8,7 @@
     @else
         <h1 class="PageHead">Список фотографий</h1>
     @endif
-        <a href="{{route('upload_form')}}" class="btn btn-success btn-block">Загрузить фото</a>
+        <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
     <div class="row text-center text-lg-left">
         @forelse($list as $image)
             <div class="col-lg-3 col-md-4 col-xs-6 mb-4">
