@@ -2,10 +2,6 @@
 
 @section('content')
 
-    <style>
-
-    </style>
-
     <!-- Page Heading -->
     @if(isset($AlbumName->name))
         <h1 class="PageHead">{{$AlbumName->name}}</h1>
