@@ -4,9 +4,7 @@
     <!-- Page Heading -->
     <h1 class="PageHead">Список альбомов
     </h1>
-    <form action="create-album">
-        <button class="btn-success btn-block">Создать новый Альбом</button>
-    </form>
+    <a href="{{route('create_album_form')}}" class="btn btn-success btn-block">Создать новый Альбом</a>
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
@@ -35,10 +33,12 @@
                         <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
                         <div class="container" id="buttons">
                             <div class="control_buttons">
-                                <a href="{{route('edit_album_form', ['ImageID' => $album->id])}}"><img class="icons"
-                                                                                                       src="{{asset('images/edit.png')}}"></a>
-                                <a href="#" onclick="modal({{$album->id}})"><img class="icons"
-                                                                                 src="{{asset('images/delete.png')}}"></a>
+                                <a href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
+                                    <img class="icons" src="{{asset('images/edit.png')}}">
+                                </a>
+                                <a href="#" onclick="modal({{$album->id}})">
+                                    <img class="icons" src="{{asset('images/delete.png')}}">
+                                </a>
                             </div>
 
                         </div>
