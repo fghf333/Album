@@ -19,11 +19,12 @@
                     <div class="buttons">
                         <div class="name">{{$image->name}}</div>
                         <div class="control_buttons">
-
-                            <a href="{{route('edit_image_form', ['ImageID' => $image->id])}}"><img class="icons"
-                                                                                                   src="{{asset('images/edit.png')}}"></a>
-                            <a href="#" onclick="modal({{$image->id}})"><img class="icons"
-                                                                             src="{{asset('images/delete.png')}}"></a>
+                            <a href="{{route('edit_image_form', ['ImageID' => $image->id])}}">
+                                <img class="icons" src="{{asset('images/edit.png')}}">
+                            </a>
+                            <a href="#" onclick="modal({{$image->id}})">
+                                <img class="icons" src="{{asset('images/delete.png')}}">
+                            </a>
                         </div>
 
                     </div>
