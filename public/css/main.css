@@ -186,3 +186,11 @@ body {
     width: 90px;
     height: auto;
 }
+
+.inputfile {
+    display: none;
+}
+
+.thumb {
+    padding-bottom: 25px;
+}
