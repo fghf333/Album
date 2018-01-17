@@ -1,15 +1,7 @@
 @extends('base')
 
 @section('content')
-    <style>
-        .inputfile {
-            display: none;
-        }
 
-        .thumb {
-    padding-bottom: 25px;
-        }
-    </style>
     <!-- Page Heading -->
     <h1 class="PageHead">Загрузка фотографии
     </h1>
@@ -61,7 +53,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
                     <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
                 </svg>
-                <span>Выберите фото</span></label>
+                <span class="upload_text">Выберите фото</span></label>
         </div>
         <div class="text-center">
             <output id="list"></output>
@@ -74,43 +66,5 @@
         window.tags = {!! $tags !!};
         window.ImageTags = [];
     </script>
-
-    <script type="text/javascript">
-        function handleFileSelect(evt) {
-            var files = evt.target.files; // FileList object
-
-            // Loop through the FileList and render image files as thumbnails.
-            for (var i = 0, f; f = files[i]; i++) {
-
-                // Only process image files.
-                if (!f.type.match('image.*')) {
-                    continue;
-                }
-
-                var reader = new FileReader();
-
-                // Closure to capture the file information.
-                reader.onload = (function (theFile) {
-                    return function (e) {
-                        // Render thumbnail.
-                        var span = document.createElement('span');
-                        span.innerHTML = ['<img class="thumb img-fluid rounded" src="', e.target.result,
-                            '" title="', theFile.name, '"/>'].join('');
-                        document.getElementById('list').insertBefore(span, null);
-                    };
-                })(f);
-
-                // Read in the image file as a data URL.
-                reader.readAsDataURL(f);
-            }
-
-            $('input[type="file"]').attr('disabled', 'disabled').next('label').addClass('disabled');
-
-        }
-
-        document.getElementById('files').addEventListener('change', handleFileSelect, false);
-    </script>
-
-
-
+    <script src="{{asset('js/preview-image.js')}}"></script>
 @endsection
