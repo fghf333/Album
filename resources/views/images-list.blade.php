@@ -2,6 +2,10 @@
 
 @section('content')
 
+    <style>
+
+    </style>
+
     <!-- Page Heading -->
     @if(isset($AlbumName->name))
         <h1 class="PageHead">{{$AlbumName->name}}</h1>
@@ -19,10 +23,10 @@
                     <div class="buttons">
                         <div class="name">{{$image->name}}</div>
                         <div class="control_buttons">
-                            <a href="{{route('edit_image_form', ['ImageID' => $image->id])}}">
+                            <a class="badge badge-light" href="{{route('edit_image_form', ['ImageID' => $image->id])}}">
                                 <img class="icons" src="{{asset('images/edit.png')}}">
                             </a>
-                            <a href="#" onclick="modal({{$image->id}})">
+                            <a class="badge badge-light" href="#" onclick="modal({{$image->id}})">
                                 <img class="icons" src="{{asset('images/delete.png')}}">
                             </a>
                         </div>

@@ -197,3 +197,7 @@ body {
     height: 30px;
     bottom: 0;
 }
+
+.badge-light{
+    background-color: #ffffff;
+}
