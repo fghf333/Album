@@ -33,10 +33,10 @@
                         <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
                         <div class="container" id="buttons">
                             <div class="control_buttons">
-                                <a href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
+                                <a class="badge badge-light" href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
                                     <img class="icons" src="{{asset('images/edit.png')}}">
                                 </a>
-                                <a href="#" onclick="modal({{$album->id}})">
+                                <a class="badge badge-light" href="#" onclick="modal({{$album->id}})">
                                     <img class="icons" src="{{asset('images/delete.png')}}">
                                 </a>
                             </div>
