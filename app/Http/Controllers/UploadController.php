@@ -46,10 +46,6 @@ class UploadController extends Controller
 
             foreach ($file as $f) {
                 $photo = $request->all();
-                /**
-                 * @var Illuminate\Http\UploadedFile $file
-                 */
-                $file = $request->file('file')[0];
                 $tagsq = explode(',', $photo['tags']);
                 $query = '';
                 $i = 0;
