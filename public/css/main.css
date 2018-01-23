@@ -201,3 +201,8 @@ body {
 .badge-light{
     background-color: #ffffff;
 }
+
+.card-footer{
+    padding: .5rem;
+    border-top: none;
+}

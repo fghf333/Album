@@ -8,51 +8,36 @@
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <div class="text-center text-lg-left" id="buttons_div">
-
-                    <img class="img-fluid" src="{{asset('images/albums/empty.png')}}">
-                </div>
+                <img class="img-fluid" src="{{asset('images/albums/empty.png')}}">
                 <div class="card-body">
-                    <h4 class="card-title">
+                    <h5 class="card-title">
                         <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неосортированное</a>
-                    </h4>
-                    <p class="card-text">
-                        Фотографии без альбома
-                    </p>
-                    <div class="card_footer">
-                        <p>Колличество фото:</p>
-                    </div>
+                    </h5>
+                    <p class="card-text">Фотографии без альбома</p>
+                </div>
+                <div class="card-footer bg-transparent text-right">
                 </div>
             </div>
         </div>
         @foreach($list as $album)
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
-                    <div class="text-center text-lg-left" id="buttons_div">
-
-                        <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
-                        <div class="container" id="buttons">
-                            <div class="control_buttons">
-                                <a class="badge badge-light" href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
-                                    <img class="icons" src="{{asset('images/edit.png')}}">
-                                </a>
-                                <a class="badge badge-light" href="#" onclick="modal({{$album->id}})">
-                                    <img class="icons" src="{{asset('images/delete.png')}}">
-                                </a>
-                            </div>
-
-                        </div>
-
-                    </div>
+                    <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
                     <div class="card-body">
-                        <h4 class="card-title">
+                        <h5 class="card-title">
                             <a href="{{route('images-list', ['AlbumID' => $album->id])}}"> {{$album->name}}</a>
-                        </h4>
-                        <p class="card-text">
-                            {{$album->description}}
-                        </p>
-                        <div class="card_footer">
-                            <p>Колличество фото: {{$album->photo_num}}</p>
+                        </h5>
+                        <p class="card-text">{{$album->description}}</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <p>Колличество фото: {{$album->photo_num}}</p>
+                        <div class="text-right">
+                            <a class="badge badge-light" href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
+                                <img class="icons" src="{{asset('images/edit.png')}}">
+                            </a>
+                            <a class="badge badge-light text-right" href="#" onclick="modal({{$album->id}})">
+                                <img class="icons" src="{{asset('images/delete.png')}}">
+                            </a>
                         </div>
                     </div>
                 </div>
