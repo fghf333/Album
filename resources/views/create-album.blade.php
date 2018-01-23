@@ -3,14 +3,12 @@
 @section('content')
 
     <!-- Page Heading -->
-    <h1 class="PageHead">Создание альбома
-    </h1>
-    <div class="FormTable">
-        <div class="row">
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <img class="edit_image img-responsive" src="{{asset('images/logo.png')}}">
-            </div>
-            <div class="col-md-6 align-items-center">
+    <h1 class="PageHead">Создание альбома</h1>
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img class="edit_image img-responsive" src="{{asset('images/logo.png')}}">
+        </div>
+        <div class="col-md-6 align-items-center">
             <form id="album" name="upload" method="post" action="{{route('create_album')}}"
                   enctype="multipart/form-data">
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
@@ -20,8 +18,9 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Описание:</label>
-                    <textarea class="form-control" name="description" id="description" type="text"
-                              maxlength="255"></textarea>
+                    <textarea class="form-control" name="description" id="description" type="text" maxlength="255">
+
+                    </textarea>
                 </div>
                 <div class="form-group">
 
@@ -34,7 +33,6 @@
                 </div>
                 <button class="btn btn-primary mb-2" type="submit">Создать</button>
             </form>
-        </div>
         </div>
     </div>
     <script src="{{asset('js/preview-image.js')}}"></script>
