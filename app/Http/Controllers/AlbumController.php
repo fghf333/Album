@@ -67,7 +67,7 @@ class AlbumController
     public function createAlbum(Request $request)
     {
         $form = $request->all();
-        Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('preview')->getRealPath()),
+        Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('file')->getRealPath()),
             $form['name'] . '.png');
 
         DB::table('albums')->insert(

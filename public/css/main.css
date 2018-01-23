@@ -206,3 +206,8 @@ body {
     padding: .5rem;
     border-top: none;
 }
+
+textarea{
+    min-height: 66px;
+    max-height: 250px;
+}
