@@ -16,11 +16,8 @@
             reader.onload = (function (theFile) {
                 return function (e) {
                     // Render thumbnail.
-                    $( "output" ).empty();
-                    var span = document.createElement('span');
-                    span.innerHTML = ['<img class="thumb img-fluid rounded" src="', e.target.result,
-                        '" title="', theFile.name, '"/>'].join('');
-                    document.getElementById('list').insertBefore(span, null);
+
+                    $('.edit_image').attr('src', e.target.result);
                     $('.upload_text').html(theFile.name);
                 };
             })(f);
