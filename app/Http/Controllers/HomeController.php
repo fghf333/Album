@@ -14,7 +14,7 @@ class HomeController
 {
     function getHome()
     {
-        $images = DB::table('images')->latest()->take(25)->get();
+        $images = DB::table('images')->latest()->take(12)->get();
 
          return view('welcome', [
             'images' => $images,
