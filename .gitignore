@@ -1,4 +1,4 @@
 .gitignore
 .idea/
-config/
+config/*
 public/images/albums/*

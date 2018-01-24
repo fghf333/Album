@@ -48,11 +48,11 @@
                     {{ method_field('DELETE') }}
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <div class="modal-header">
-                        <h4 class="modal-title">Название модали</h4>
+                        <h4 class="modal-title">Удалить фотографию?</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <p>Вы действительно хотите удалить это изображение?</p>
+                        <p>Вы действительно хотите удалить эту фотографию?</p>
                         <input type="hidden" value="" id="ImageID" name="ImageID">
                     </div>
                     <div class="modal-footer">
