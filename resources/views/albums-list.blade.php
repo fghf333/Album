@@ -11,7 +11,7 @@
                 <img class="img-fluid" src="{{asset('images/albums/empty.png')}}">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неосортированное</a>
+                        <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неотсортированное</a>
                     </h5>
                     <p class="card-text">Фотографии без альбома</p>
                 </div>
@@ -30,7 +30,6 @@
                         <p class="card-text">{{$album->description}}</p>
                     </div>
                     <div class="card-footer bg-transparent">
-                        <p>Колличество фото: {{$album->photo_num}}</p>
                         <div class="text-right">
                             <a class="badge badge-light" href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
                                 <img class="icons" src="{{asset('images/edit.png')}}">
@@ -52,7 +51,7 @@
                     {{ method_field('DELETE') }}
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <div class="modal-header">
-                        <h4 class="modal-title">Название модали</h4>
+                        <h4 class="modal-title">Удалить альбом?</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
