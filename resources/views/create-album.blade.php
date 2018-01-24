@@ -18,9 +18,8 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Описание:</label>
-                    <textarea class="form-control" name="description" id="description" type="text" maxlength="255">
-
-                    </textarea>
+                    <textarea class="form-control" name="description" id="description" type="text"
+                              maxlength="255"></textarea>
                 </div>
                 <div class="form-group">
 
