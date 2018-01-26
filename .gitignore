@@ -3,4 +3,5 @@
 config/*
 .env
 public/images/albums/*
-storage/images/
+
+
