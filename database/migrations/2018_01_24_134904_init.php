@@ -37,7 +37,7 @@ class Init extends Migration
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
             $table->date('createdAt');
-            $table->text('tags');
+            $table->text('tags')->nullable();
             $table->unique('image_id', 'image_url');
         });
 

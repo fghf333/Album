@@ -19,6 +19,7 @@
 
                     $('.edit_image').attr('src', e.target.result);
                     $('.upload_text').html(theFile.name);
+                    $('button[type=submit]').prop("disabled", false);
                 };
             })(f);
 
