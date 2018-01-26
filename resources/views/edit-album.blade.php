@@ -14,7 +14,7 @@
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label for="name">Имя:</label>
-                        <input class="form-control" name="name" id="name" type="text" value="{{$album->name}}">
+                        <input class="form-control" name="name" id="name" type="text" value="{{$album->name}}" required>
                     </div>
                     <div class="form-group">
                         <label for="description">Описание:</label>
