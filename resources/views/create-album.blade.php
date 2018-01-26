@@ -14,7 +14,7 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input class="form-control" name="name" id="name" type="text">
+                    <input class="form-control" name="name" id="name" type="text" required>
                 </div>
                 <div class="form-group">
                     <label for="description">Описание:</label>
@@ -30,7 +30,7 @@
                         </svg>
                         <span class="upload_text">Выбрать обложку</span></label>
                 </div>
-                <button class="btn btn-primary mb-2" type="submit">Создать</button>
+                <button class="btn btn-primary mb-2" type="submit" disabled>Создать</button>
             </form>
         </div>
     </div>

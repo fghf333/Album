@@ -17,7 +17,7 @@ class Init extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
-            $table->string('description', 255);
+            $table->string('description', 255)->nullable();
             $table->string('preview_img', 255);
             $table->integer('photo_num')->default(0);
             $table->dateTime('updated_at');
