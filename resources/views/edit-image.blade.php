@@ -13,7 +13,7 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input name="name" type="text" class="form-control" id="name" value="{{$image->name}}">
+                    <input name="name" type="text" class="form-control" id="name" value="{{$image->name}}" required>
                 </div>
                 <div class="form-group">
                     <label for="album">Альбом:</label>
@@ -40,16 +40,16 @@
                 </div>
                 <div class="form-group">
                     <label for="peoples">Люди:</label>
-                    <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}">
+                    <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}" required>
                 </div>
                 <div class="form-group">
                     <label for="place">Место:</label>
-                    <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}">
+                    <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}" required>
                 </div>
                 <div class="form-group">
                     <label for="CreatedAt"> Дата:</label>
                     <input class="form-control" name="CreatedAt" id="CreatedAt" type="date"
-                           value="{{$image->createdAt}}">
+                           value="{{$image->createdAt}}" required>
                 </div>
                 <button class="btn btn-primary" type="submit">Загрузить</button>
             </form>
