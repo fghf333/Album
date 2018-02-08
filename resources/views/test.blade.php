@@ -10,6 +10,9 @@
 </head>
 <body>
 <!-- Begin page content -->
+
+<div>{{$data}}</div>
+
 <main role="main" class="container">
     <div class="mt-1">
         <h1>Sticky footer</h1>
