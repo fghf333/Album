@@ -692,6 +692,21 @@ class Google_Service_ShoppingContent extends Google_Service
                   'required' => true,
                 ),
               ),
+            ),'instorerefundlineitem' => array(
+              'path' => '{merchantId}/orders/{orderId}/inStoreRefundLineItem',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
             ),'list' => array(
               'path' => '{merchantId}/orders',
               'httpMethod' => 'GET',
@@ -746,6 +761,21 @@ class Google_Service_ShoppingContent extends Google_Service
                   'required' => true,
                 ),
               ),
+            ),'rejectreturnlineitem' => array(
+              'path' => '{merchantId}/orders/{orderId}/rejectReturnLineItem',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
             ),'returnlineitem' => array(
               'path' => '{merchantId}/orders/{orderId}/returnLineItem',
               'httpMethod' => 'POST',
@@ -761,8 +791,53 @@ class Google_Service_ShoppingContent extends Google_Service
                   'required' => true,
                 ),
               ),
+            ),'returnrefundlineitem' => array(
+              'path' => '{merchantId}/orders/{orderId}/returnRefundLineItem',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'setlineitemmetadata' => array(
+              'path' => '{merchantId}/orders/{orderId}/setLineItemMetadata',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
             ),'shiplineitems' => array(
               'path' => '{merchantId}/orders/{orderId}/shipLineItems',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'updatelineitemshippingdetails' => array(
+              'path' => '{merchantId}/orders/{orderId}/updateLineItemShippingDetails',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -995,6 +1070,16 @@ class Google_Service_ShoppingContent extends Google_Service
               ),
             ),'getsupportedcarriers' => array(
               'path' => '{merchantId}/supportedCarriers',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'getsupportedholidays' => array(
+              'path' => '{merchantId}/supportedHolidays',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(

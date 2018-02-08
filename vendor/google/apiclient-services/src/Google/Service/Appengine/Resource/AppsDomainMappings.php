@@ -35,6 +35,10 @@ class Google_Service_Appengine_Resource_AppsDomainMappings extends Google_Servic
    * resource. Example: apps/myapp.
    * @param Google_Service_Appengine_DomainMapping $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string overrideStrategy Whether the domain creation should
+   * override any existing mappings for this domain. By default, overrides are
+   * rejected.
    * @return Google_Service_Appengine_Operation
    */
   public function create($appsId, Google_Service_Appengine_DomainMapping $postBody, $optParams = array())
@@ -85,9 +89,9 @@ class Google_Service_Appengine_Resource_AppsDomainMappings extends Google_Servic
    * resource. Example: apps/myapp.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param int pageSize Maximum results to return per page.
    * @opt_param string pageToken Continuation token for fetching the next page of
    * results.
-   * @opt_param int pageSize Maximum results to return per page.
    * @return Google_Service_Appengine_ListDomainMappingsResponse
    */
   public function listAppsDomainMappings($appsId, $optParams = array())

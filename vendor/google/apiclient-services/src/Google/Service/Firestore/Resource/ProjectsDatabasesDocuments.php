@@ -126,10 +126,10 @@ class Google_Service_Firestore_Resource_ProjectsDatabasesDocuments extends Googl
    * `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string readTime Reads the version of the document at the given
-   * time. This may not be older than 60 seconds.
    * @opt_param string mask.fieldPaths The list of field paths in the mask. See
    * Document.fields for a field path syntax reference.
+   * @opt_param string readTime Reads the version of the document at the given
+   * time. This may not be older than 60 seconds.
    * @opt_param string transaction Reads the document in a transaction.
    * @return Google_Service_Firestore_Document
    */
@@ -218,10 +218,10 @@ class Google_Service_Firestore_Resource_ProjectsDatabasesDocuments extends Googl
    *
    * @opt_param bool currentDocument.exists When set to `true`, the target
    * document must exist. When set to `false`, the target document must not exist.
-   * @opt_param string mask.fieldPaths The list of field paths in the mask. See
-   * Document.fields for a field path syntax reference.
    * @opt_param string updateMask.fieldPaths The list of field paths in the mask.
    * See Document.fields for a field path syntax reference.
+   * @opt_param string mask.fieldPaths The list of field paths in the mask. See
+   * Document.fields for a field path syntax reference.
    * @opt_param string currentDocument.updateTime When set, the target document
    * must exist and have been last updated at that time.
    * @return Google_Service_Firestore_Document

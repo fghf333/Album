@@ -140,14 +140,14 @@ class Google_Service_Firestore extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'readTime' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'mask.fieldPaths' => array(
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,
+                ),
+                'readTime' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'transaction' => array(
                   'location' => 'query',
@@ -231,12 +231,12 @@ class Google_Service_Firestore extends Google_Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
-                'mask.fieldPaths' => array(
+                'updateMask.fieldPaths' => array(
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,
                 ),
-                'updateMask.fieldPaths' => array(
+                'mask.fieldPaths' => array(
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,

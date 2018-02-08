@@ -97,7 +97,7 @@ class Google_Service_Storage_Resource_Buckets extends Google_Service_Resource
    * @opt_param string projection Set of properties to return. Defaults to noAcl,
    * unless the bucket resource specifies acl or defaultObjectAcl properties, when
    * it defaults to full.
-   * @opt_param string userProject The project to be billed for this request
+   * @opt_param string userProject The project to be billed for this request.
    * @return Google_Service_Storage_Bucket
    */
   public function insert($project, Google_Service_Storage_Bucket $postBody, $optParams = array())
@@ -128,6 +128,24 @@ class Google_Service_Storage_Resource_Buckets extends Google_Service_Resource
     $params = array('project' => $project);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Storage_Buckets");
+  }
+  /**
+   * Locks retention policy on a bucket. (buckets.lockRetentionPolicy)
+   *
+   * @param string $bucket Name of a bucket.
+   * @param string $ifMetagenerationMatch Makes the operation conditional on
+   * whether bucket's current metageneration matches the given value.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string userProject The project to be billed for this request.
+   * Required for Requester Pays buckets.
+   * @return Google_Service_Storage_Bucket
+   */
+  public function lockRetentionPolicy($bucket, $ifMetagenerationMatch, $optParams = array())
+  {
+    $params = array('bucket' => $bucket, 'ifMetagenerationMatch' => $ifMetagenerationMatch);
+    $params = array_merge($params, $optParams);
+    return $this->call('lockRetentionPolicy', array($params), "Google_Service_Storage_Bucket");
   }
   /**
    * Updates a bucket. Changes to the bucket will be readable immediately after
