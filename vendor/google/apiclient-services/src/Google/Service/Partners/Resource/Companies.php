@@ -48,17 +48,17 @@ class Google_Service_Partners_Resource_Companies extends Google_Service_Resource
    * Currently, only `address` and `address desc` is supported which will sorted
    * by closest to farthest in distance from given address and farthest to closest
    * distance from given address respectively.
-   * @opt_param string requestMetadata.userOverrides.userId Logged-in user ID to
-   * impersonate instead of the user's ID.
    * @opt_param string requestMetadata.partnersSessionId Google Partners session
    * ID.
+   * @opt_param string requestMetadata.userOverrides.userId Logged-in user ID to
+   * impersonate instead of the user's ID.
    * @opt_param string view The view of `Company` resource to be returned. This
    * must not be `COMPANY_VIEW_UNSPECIFIED`.
+   * @opt_param string requestMetadata.locale Locale to use for the current
+   * request.
    * @opt_param string address The address to use for sorting the company's
    * addresses by proximity. If not given, the geo-located address of the request
    * is used. Used when order_by is set.
-   * @opt_param string requestMetadata.locale Locale to use for the current
-   * request.
    * @return Google_Service_Partners_GetCompanyResponse
    */
   public function get($companyId, $optParams = array())
@@ -72,6 +72,11 @@ class Google_Service_Partners_Resource_Companies extends Google_Service_Resource
    *
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string industries List of industries the company can help with.
+   * @opt_param string websiteUrl Website URL that will help to find a better
+   * matched company. .
+   * @opt_param string gpsMotivations List of reasons for using Google Partner
+   * Search to get companies.
    * @opt_param string languageCodes List of language codes that company can
    * support. Only primary language subtags are accepted as defined by BCP 47
    * (IETF BCP 47, "Tags for Identifying Languages").
@@ -129,16 +134,11 @@ class Google_Service_Partners_Resource_Companies extends Google_Service_Resource
    * multiple letters created by a team which redirected the traffic to us.
    * @opt_param string requestMetadata.partnersSessionId Google Partners session
    * ID.
+   * @opt_param string companyName Company name to search for.
    * @opt_param string pageToken A token identifying a page of results that the
    * server returns. Typically, this is the value of
    * `ListCompaniesResponse.next_page_token` returned from the previous call to
    * ListCompanies.
-   * @opt_param string companyName Company name to search for.
-   * @opt_param string industries List of industries the company can help with.
-   * @opt_param string websiteUrl Website URL that will help to find a better
-   * matched company. .
-   * @opt_param string gpsMotivations List of reasons for using Google Partner
-   * Search to get companies.
    * @return Google_Service_Partners_ListCompaniesResponse
    */
   public function listCompanies($optParams = array())

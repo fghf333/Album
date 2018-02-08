@@ -229,7 +229,8 @@ class Google_Service_Storage_Resource_Objects extends Google_Service_Resource
    * @opt_param string kmsKeyName Resource name of the Cloud KMS key, of the form
    * projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that
    * will be used to encrypt the object. Overrides the object metadata's
-   * kms_key_name value, if any.
+   * kms_key_name value, if any. Limited availability; usable only by enabled
+   * projects.
    * @opt_param string name Name of the object. Required when the object metadata
    * is not otherwise provided. Overrides the object metadata's name value, if
    * any. For information about how to URL encode object names to be path safe,
@@ -282,8 +283,7 @@ class Google_Service_Storage_Resource_Objects extends Google_Service_Resource
     return $this->call('list', array($params), "Google_Service_Storage_Objects");
   }
   /**
-   * Updates an object's metadata. This method supports patch semantics.
-   * (objects.patch)
+   * Patches an object's metadata. (objects.patch)
    *
    * @param string $bucket Name of the bucket in which the object resides.
    * @param string $object Name of the object. For information about how to URL
@@ -307,8 +307,8 @@ class Google_Service_Storage_Resource_Objects extends Google_Service_Resource
    * @opt_param string predefinedAcl Apply a predefined set of access controls to
    * this object.
    * @opt_param string projection Set of properties to return. Defaults to full.
-   * @opt_param string userProject The project to be billed for this request.
-   * Required for Requester Pays buckets.
+   * @opt_param string userProject The project to be billed for this request, for
+   * Requester Pays buckets.
    * @return Google_Service_Storage_StorageObject
    */
   public function patch($bucket, $object, Google_Service_Storage_StorageObject $postBody, $optParams = array())
