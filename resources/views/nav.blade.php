@@ -8,12 +8,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item {{ Request::is('albums') ? 'active' : '' }}">
-                    <a class="nav-link" href="/albums">Альбомы</a>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('albums') ? 'active' : '' }}" href="/albums">Альбомы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="/images-list">Список
-                        фотографий</a>
+                    <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="/images-list">
+                        Список фотографий
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-success" href="{{route('register')}}">
+                        Регистрация
+                    </a>
                 </li>
             </ul>
         </div>

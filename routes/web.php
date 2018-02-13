@@ -35,8 +35,39 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
 
+//USER REGISTRATION
+Route::get('register', ['as' => 'register', 'uses' => 'RegisterController@getForm']);
+Route::post('register', ['as' => 'register_as', 'uses' => 'RegisterController@register']);
+
 //TEST ROUTE
 Route::get('test', ['as' => 'test', 'uses' => 'TestController@test']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('put', function() {
     Storage::cloud()->put('test.txt', 'Hello World');
