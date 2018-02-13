@@ -15,8 +15,8 @@
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 
 //UPLOADING
-Route::get('upload/{AlbumID?}',['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
-Route::post('upload',['as' => 'upload_file','uses' => 'UploadController@upload']);
+Route::get('upload/{AlbumID?}', ['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
+Route::post('upload', ['as' => 'upload_file', 'uses' => 'UploadController@upload']);
 
 //IMAGE EDITOR
 Route::get('edit-image/{imageID}', ['as' => 'edit_image_form', 'uses' => 'EditImageController@getForm']);
@@ -24,7 +24,7 @@ Route::post('edit-image/{imageID}', ['as' => 'edit_image', 'uses' => 'EditImageC
 Route::delete('delete-image/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
 
 //ALBUM
-Route::get('albums',['as' => 'album_form', 'uses' => 'AlbumController@getList']);
+Route::get('albums', ['as' => 'album_form', 'uses' => 'AlbumController@getList']);
 Route::get('edit-album/{AlbumID}', ['as' => 'edit_album_form', 'uses' => 'AlbumController@getEditForm']);
 Route::post('edit-album/{AlbumID}', ['as' => 'edit_album', 'uses' => 'AlbumController@editAlbum']);
 Route::get('create-album', ['as' => 'create_album_form', 'uses' => 'AlbumController@getForm']);
@@ -35,13 +35,23 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
 
-//USER REGISTRATION
-Route::get('register', ['as' => 'register', 'uses' => 'RegisterController@getForm']);
-Route::post('register', ['as' => 'register_as', 'uses' => 'RegisterController@register']);
-
 //TEST ROUTE
 Route::get('test', ['as' => 'test', 'uses' => 'TestController@test']);
 
+// Authentication Routes...
+Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
+Route::post('login', ['as' => '', 'uses' => 'Auth\LoginController@login']);
+Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
+
+// Password Reset Routes...
+Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
+Route::get('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
+Route::post('password/reset', ['as' => '', 'uses' => 'Auth\ResetPasswordController@reset']);
+Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+
+// Registration Routes...
+Route::get('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
+Route::post('register', ['as' => '', 'uses' => 'Auth\RegisterController@register']);
 
 
 
@@ -65,16 +75,12 @@ Route::get('test', ['as' => 'test', 'uses' => 'TestController@test']);
 
 
 
-
-
-
-
-Route::get('put', function() {
+Route::get('put', function () {
     Storage::cloud()->put('test.txt', 'Hello World');
     return 'File was saved to Google Drive';
 });
 
-Route::get('put-existing', function() {
+Route::get('put-existing', function () {
     $filename = 'laravel.png';
     $filePath = public_path($filename);
     $fileData = File::get($filePath);
@@ -83,7 +89,7 @@ Route::get('put-existing', function() {
     return 'File was saved to Google Drive';
 });
 
-Route::get('list', function() {
+Route::get('list', function () {
     $dir = '/';
     $recursive = false; // Get subdirectories also?
     $contents = collect(Storage::cloud()->listContents($dir, $recursive));
@@ -92,7 +98,7 @@ Route::get('list', function() {
     return $contents->where('type', '=', 'file'); // files
 });
 
-Route::get('list-folder-contents', function() {
+Route::get('list-folder-contents', function () {
     // The human readable folder name to get the contents of...
     // For simplicity, this folder is assumed to exist in the root directory.
     $folder = 'Test Dir';
@@ -105,7 +111,7 @@ Route::get('list-folder-contents', function() {
         ->where('filename', '=', $folder)
         ->first(); // There could be duplicate directory names!
 
-    if ( ! $dir) {
+    if (!$dir) {
         return 'No such folder!';
     }
 
@@ -113,8 +119,8 @@ Route::get('list-folder-contents', function() {
     $files = collect(Storage::cloud()->listContents($dir['path'], false))
         ->where('type', '=', 'file');
 
-    return $files->mapWithKeys(function($file) {
-        $filename = $file['filename'].'.'.$file['extension'];
+    return $files->mapWithKeys(function ($file) {
+        $filename = $file['filename'] . '.' . $file['extension'];
         $path = $file['path'];
 
         // Use the path to download each file via a generated link..
@@ -124,7 +130,7 @@ Route::get('list-folder-contents', function() {
     });
 });
 
-Route::get('get', function() {
+Route::get('get', function () {
     $filename = 'test.txt';
 
     $dir = '/';
@@ -146,7 +152,7 @@ Route::get('get', function() {
         ->header('Content-Disposition', "attachment; filename='$filename'");
 });
 
-Route::get('put-get-stream', function() {
+Route::get('put-get-stream', function () {
     // Use a stream to upload and download larger files
     // to avoid exceeding PHP's memory limit.
 
@@ -192,12 +198,12 @@ Route::get('put-get-stream', function() {
     ]);
 });
 
-Route::get('create-dir', function() {
+Route::get('create-dir', function () {
     Storage::cloud()->makeDirectory('Test Dir');
     return 'Directory was created in Google Drive';
 });
 
-Route::get('put-in-dir', function() {
+Route::get('put-in-dir', function () {
     $dir = '/';
     $recursive = false; // Get subdirectories also?
     $contents = collect(Storage::cloud()->listContents($dir, $recursive));
@@ -206,16 +212,16 @@ Route::get('put-in-dir', function() {
         ->where('filename', '=', 'Test Dir')
         ->first(); // There could be duplicate directory names!
 
-    if ( ! $dir) {
+    if (!$dir) {
         return 'Directory does not exist!';
     }
 
-    Storage::cloud()->put($dir['path'].'/test.txt', 'Hello World');
+    Storage::cloud()->put($dir['path'] . '/test.txt', 'Hello World');
 
     return 'File was created in the sub directory in Google Drive';
 });
 
-Route::get('newest', function() {
+Route::get('newest', function () {
     $filename = 'test.txt';
 
     Storage::cloud()->put($filename, \Carbon\Carbon::now()->toDateTimeString());
@@ -233,7 +239,7 @@ Route::get('newest', function() {
     return Storage::cloud()->get($file['path']);
 });
 
-Route::get('delete', function() {
+Route::get('delete', function () {
     $filename = 'laravel.png';
 
     // First we need to create a file to delete
@@ -255,7 +261,7 @@ Route::get('delete', function() {
     return 'File was deleted from Google Drive';
 });
 
-Route::get('delete-dir', function() {
+Route::get('delete-dir', function () {
     $directoryName = 'test';
 
     // First we need to create a directory to delete
@@ -276,7 +282,7 @@ Route::get('delete-dir', function() {
     return 'Directory was deleted from Google Drive';
 });
 
-Route::get('rename-dir', function() {
+Route::get('rename-dir', function () {
     $directoryName = 'test';
 
     // First we need to create a directory to rename
@@ -297,7 +303,7 @@ Route::get('rename-dir', function() {
     return 'Directory was renamed in Google Drive';
 });
 
-Route::get('upload-file', function() {
+Route::get('upload-file', function () {
     // Use a stream to upload and download larger files
     // to avoid exceeding PHP's memory limit.
 
@@ -308,7 +314,7 @@ Route::get('upload-file', function() {
 
     // Assume this is a large file...
     $filename = 'img.jpg';
-    $filePath = '/Users/yaroslavgraboveckiy/Documents/Images/'.$filename;
+    $filePath = '/Users/yaroslavgraboveckiy/Documents/Images/' . $filename;
 
     // Upload using a stream...
     Storage::cloud()->put($filename, fopen($filePath, 'r+'));
@@ -342,3 +348,4 @@ Route::get('upload-file', function() {
         //'Content-disposition' => 'attachment; filename="'.$filename.'"', // force download?
     ]);
 });
+

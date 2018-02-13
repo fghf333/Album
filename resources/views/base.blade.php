@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/3-col-portfolio.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet">
@@ -13,10 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.0/jquery.fancybox.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
-
-
     <title>Семейный альбом</title>
-
 </head>
 
 <body>

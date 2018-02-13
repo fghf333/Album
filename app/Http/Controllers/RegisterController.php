@@ -9,9 +9,6 @@
 namespace App\Http\Controllers;
 
 
-use App\User;
-use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Goutte\Client;
 
