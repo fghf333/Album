@@ -15,7 +15,8 @@
                     <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="/images-list">
                         Список фотографий
                     </a>
-                </li>@if(\Illuminate\Support\Facades\Auth::check() != true)
+                </li>
+                @if(Auth::guest())
                     <li class="nav-item">
                         <a class="btn btn-outline-success" href="{{route('login')}}">
                             Вход
@@ -26,7 +27,6 @@
                             Регистрация
                         </a>
                     </li>
-
                 @else
                     <li>
                         <a class="btn btn-outline-primary" href="#">
@@ -34,9 +34,15 @@
                         </a>
                     </li>
                     <li>
-                        <a class="btn btn-primary nav-button" href="{{route('logout')}}">
+                        <a class="btn btn-primary nav-button" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                             Выход
                         </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     </li>
                 @endif
             </ul>

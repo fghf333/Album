@@ -113,7 +113,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        return redirect('/');
     }
 
     /**
@@ -153,6 +153,7 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
+
         $this->guard()->logout();
 
         $request->session()->invalidate();
