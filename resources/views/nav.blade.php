@@ -15,17 +15,30 @@
                     <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="/images-list">
                         Список фотографий
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-success" href="{{route('register')}}">
-                        Регистрация
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-outline-success login" href="{{route('login')}}">
-                        Вход
-                    </a>
-                </li>
+                </li>@if(\Illuminate\Support\Facades\Auth::check() != true)
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success" href="{{route('login')}}">
+                            Вход
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-success nav-button" href="{{route('register')}}">
+                            Регистрация
+                        </a>
+                    </li>
+
+                @else
+                    <li>
+                        <a class="btn btn-outline-primary" href="#">
+                            Личный кабинет
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary nav-button" href="{{route('logout')}}">
+                            Выход
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
