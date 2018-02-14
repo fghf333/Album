@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group flex-center">
                         <button type="submit" class="btn btn-primary">
-                            Reset Password
+                            Сбросить пароль
                         </button>
                     </div>
                 </form>
