@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Goutte\Client;
@@ -64,10 +65,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $data['password'] = Hash::make($data['password']);
         $credentials = $this->Cloudinary_register($data['username'], $data['email'], $data['password']);
         $user = array_merge($data, $credentials);
-        User::create($user);
-        return view('welcome');
+        return User::create($user);
     }
 
     function Cloudinary_register($form_user_name, $form_user_email, $form_user_password)
