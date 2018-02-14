@@ -28,10 +28,17 @@
                         </a>
                     </li>
                 @else
-                    <li>
-                        <a class="btn btn-outline-primary" href="#">
-                            Личный кабинет
+                    <li class="dropdown">
+                        <a href="#" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">
+                            {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="dropdown-item" href="#"> TBC
+                                </a>
+                        </ul>
                     </li>
                     <li>
                         <a class="btn btn-primary nav-button" href="{{ route('logout') }}"
