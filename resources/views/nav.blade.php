@@ -21,6 +21,11 @@
                         Регистрация
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-success login" href="{{route('login')}}">
+                        Вход
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

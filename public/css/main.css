@@ -211,3 +211,7 @@ textarea{
     min-height: 66px;
     max-height: 250px;
 }
+
+.login{
+    margin-left: 8px;
+}
