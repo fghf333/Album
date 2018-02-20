@@ -18,6 +18,7 @@ class Init extends Migration
             $table->increments('id');
             $table->string('name', 45);
             $table->integer('creator');
+            $table->boolean('shared')->default(0);
             $table->string('description', 255)->nullable();
             $table->string('preview_img', 255);
             $table->integer('photo_num')->default(0);

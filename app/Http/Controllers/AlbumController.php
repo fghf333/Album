@@ -22,9 +22,13 @@ class AlbumController
      */
     public function getList()
     {
-        $userID = Auth::user()->getAuthIdentifier();
-        $data = DB::table('albums')->where('creator', '=', $userID)->orderByRaw('created_at ASC')->get();
-        return view('albums-list', ['list' => $data]);
+        if (Auth::check() !== false) {
+            $userID = Auth::user()->getAuthIdentifier();
+            $data = DB::table('albums')->where('creator', '=', $userID)->orderByRaw('created_at ASC')->get();
+            return view('albums-list', ['list' => $data]);
+        }else{
+            return view('albums-list', ['list' => []]);
+        }
     }
 
     public function getEditForm($AlbumID)
@@ -80,6 +84,7 @@ class AlbumController
             [
                 'name' => $form['name'],
                 'creator' => $userID,
+                'shared' => 0,
                 'description' => $form['description'],
                 'preview_img' => $form['name'] . '.png',
                 'updated_at' => date("Y-m-d H:i:s"),
