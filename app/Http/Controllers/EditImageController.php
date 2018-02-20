@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,17 +23,15 @@ class EditImageController
         DB::table('images')->where('id', '=', $request['ImageID'])->delete();
         $filename = $image->{'image_id'};
 
-        $dir = '/';
-        $recursive = false; // Get subdirectories also?
-        $contents = collect(Storage::cloud()->listContents($dir, $recursive));
-
-        $file = $contents
-            ->where('type', '=', 'file')
-            ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
-            ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
-            ->first(); // there can be duplicate file names!
-
-        Storage::cloud()->delete($file['path']);
+        $userID = Auth::user()->getAuthIdentifier();
+        $userData = DB::table('users')->where('id', '=', $userID)->first();
+        \Cloudinary::config([
+            'cloud_name' => $userData->{'cloud_name'},
+            'api_key' => $userData->{'api_key'},
+            'api_secret' => $userData->{'api_secret'},
+        ]);
+        \Cloudinary\Uploader::destroy($filename, array("invalidate" => true));
+        \Cloudinary::reset_config();
 
         return redirect('images-list', 302);
     }
