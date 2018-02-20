@@ -9,20 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-
-    function GetImageId($filename)
-    {
-        $dir = '/';
-        $recursive = true;
-        $file = collect(Storage::cloud()->listContents($dir, $recursive))
-            ->where('type', '=', 'file')
-            ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
-            ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
-            ->sortBy('timestamp')
-            ->last();
-        return $file['path'];
-    }
-
     function GetImageURL($path)
     {
 
@@ -59,14 +45,6 @@ class UploadController extends Controller
                     }
                 }
                 DB::insert('INSERT IGNORE INTO tags (name, created_at, updated_at) VALUES ' . $query);
-
-                //$f->move(storage_path('images'), $photo['name']);
-                //Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
-                //$ID = $this->GetImageId($photo['name']);
-                //$URL = $this->GetImageURL($ID);
-                //Storage::cloud()->rename($ID, $ID . " ");
-                //unlink(storage_path('images/' . $photo['name']));
-                //Storage::disk('local')->delete($photo['name']);
 
                 $userID = Auth::user()->getAuthIdentifier();
                 $userData = DB::table('users')->where('id', '=', $userID)->first();
