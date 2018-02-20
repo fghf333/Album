@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,19 +60,33 @@ class UploadController extends Controller
                 }
                 DB::insert('INSERT IGNORE INTO tags (name, created_at, updated_at) VALUES ' . $query);
 
-                $f->move(storage_path('images'), $photo['name']);
-                Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
-                $ID = $this->GetImageId($photo['name']);
-                $URL = $this->GetImageURL($ID);
-                Storage::cloud()->rename($ID, $ID . " ");
-                unlink(storage_path('images/' . $photo['name']));
+                //$f->move(storage_path('images'), $photo['name']);
+                //Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
+                //$ID = $this->GetImageId($photo['name']);
+                //$URL = $this->GetImageURL($ID);
+                //Storage::cloud()->rename($ID, $ID . " ");
+                //unlink(storage_path('images/' . $photo['name']));
                 //Storage::disk('local')->delete($photo['name']);
+
+                $userID = Auth::user()->getAuthIdentifier();
+                $userData = DB::table('users')->where('id', '=', $userID)->first();
+
+                \Cloudinary::config([
+                    'cloud_name' => $userData->{'cloud_name'},
+                    'api_key' => $userData->{'api_key'},
+                    'api_secret' => $userData->{'api_secret'},
+                ]);
+
+                $uploaded = \Cloudinary\Uploader::upload($request->file('file.0')->getRealPath());
+                $id = $uploaded['public_id'];
+                $url = $uploaded['secure_url'];
+
                 DB::table('images')->insert(
                     [
                         'name' => $photo['name'],
                         'album' => $photo['album'],
-                        'image_id' => $ID,
-                        'image_URL' => $URL,
+                        'image_id' => $id,
+                        'image_URL' => $url,
                         'createdAt' => $photo['CreatedAt'],
                         'tags' => $photo['tags'],
                         'peoples' => $photo['peoples'],

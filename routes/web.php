@@ -36,7 +36,8 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
 
 //TEST ROUTE
-Route::get('test', ['as' => 'test', 'uses' => 'TestController@test']);
+Route::get('test', ['as' => 'test_form', 'uses' => 'TestController@test']);
+Route::post('test', ['as' => 'test_upload', 'uses' => 'TestController@upload']);
 
 // Authentication Routes...
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
