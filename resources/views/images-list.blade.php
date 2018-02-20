@@ -1,11 +1,6 @@
 @extends('base')
 
 @section('content')
-
-    <style>
-
-    </style>
-
     <!-- Page Heading -->
     @if(isset($AlbumName->name))
         <h1 class="PageHead">{{$AlbumName->name}}</h1>
@@ -13,7 +8,7 @@
         <h1 class="PageHead">Список фотографий</h1>
     @endif
     @if(\Illuminate\Support\Facades\Auth::user() !== null)
-    <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
+        <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
     @endif
     <div class="row text-center text-lg-left">
         @forelse($list as $image)
