@@ -4,7 +4,9 @@
     <!-- Page Heading -->
     <h1 class="PageHead">Список альбомов
     </h1>
+    @if(\Illuminate\Support\Facades\Auth::user() !== null)
     <a href="{{route('create_album_form')}}" class="btn btn-success btn-block">Создать новый Альбом</a>
+    @endif
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
