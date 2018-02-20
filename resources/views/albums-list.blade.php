@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <img class="img-fluid" src="{{asset('images/albums/empty.png')}}">
+                <img class="img-fluid" src="{{asset('images/empty.png')}}">
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неотсортированное</a>
@@ -24,7 +24,7 @@
         @foreach($list as $album)
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
-                    <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
+                    <img class="img-fluid" src="{{$album->preview_img}}">
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{{route('images-list', ['AlbumID' => $album->id])}}"> {{$album->name}}</a>
