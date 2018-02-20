@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
@@ -21,17 +22,21 @@ class AlbumController
      */
     public function getList()
     {
-        $data = DB::table('albums')->orderByRaw('created_at ASC')->get();
+        $userID = Auth::user()->getAuthIdentifier();
+        $data = DB::table('albums')->where('creator', '=', $userID)->orderByRaw('created_at ASC')->get();
         return view('albums-list', ['list' => $data]);
     }
 
     public function getEditForm($AlbumID)
     {
         $data = DB::table('albums')->where('id', $AlbumID)->first();
-
-        return view('edit-album', [
-            'album' => $data,
-        ]);
+        if (Auth::check() && Auth::user()->getAuthIdentifier() == $data->{'creator'}) {
+            return view('edit-album', [
+                'album' => $data,
+            ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function getForm()
@@ -66,6 +71,7 @@ class AlbumController
 
     public function createAlbum(Request $request)
     {
+        $userID = Auth::user()->getAuthIdentifier();
         $form = $request->all();
         Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('file')->getRealPath()),
             $form['name'] . '.png');
@@ -73,6 +79,7 @@ class AlbumController
         DB::table('albums')->insert(
             [
                 'name' => $form['name'],
+                'creator' => $userID,
                 'description' => $form['description'],
                 'preview_img' => $form['name'] . '.png',
                 'updated_at' => date("Y-m-d H:i:s"),
