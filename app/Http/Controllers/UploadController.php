@@ -5,15 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Cloudinary;
+use Cloudinary\Uploader;
 
 class UploadController extends Controller
 {
-    function GetImageURL($path)
-    {
-
-        return 'https://drive.google.com/uc?export=media&id=' . $path;
-    }
 
     public function getForm($AlbumID = null)
     {
@@ -48,16 +44,16 @@ class UploadController extends Controller
 
                 $userID = Auth::user()->getAuthIdentifier();
                 $userData = DB::table('users')->where('id', '=', $userID)->first();
-                \Cloudinary::config([
+                Cloudinary::config([
                     'cloud_name' => $userData->{'cloud_name'},
                     'api_key' => $userData->{'api_key'},
                     'api_secret' => $userData->{'api_secret'},
                 ]);
 
-                $uploaded = \Cloudinary\Uploader::upload($request->file('file.0')->getRealPath());
+                $uploaded = Uploader::upload($request->file('file.0')->getRealPath());
                 $id = $uploaded['public_id'];
                 $url = $uploaded['secure_url'];
-                \Cloudinary::reset_config();
+                Cloudinary::reset_config();
 
                 DB::table('images')->insert(
                     [
@@ -75,6 +71,6 @@ class UploadController extends Controller
                 );
             }
         }
-        return redirect('images-list', 302);
+        return redirect('images-list/'.$request->{'album'}, 302);
     }
 }

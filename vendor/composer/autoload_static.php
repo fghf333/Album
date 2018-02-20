@@ -8677,6 +8677,7 @@ class ComposerStaticInit05408778592c251f7c9721479e8c8020
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
         'Init' => __DIR__ . '/../..' . '/database/migrations/2018_01_24_134904_init.php',
+        'InitSeeder' => __DIR__ . '/../..' . '/database/seeds/InitSeeder.php',
         'JD\\Cloudder\\CloudderServiceProvider' => __DIR__ . '/..' . '/jrm2k6/cloudder/src/JD/Cloudder/CloudderServiceProvider.php',
         'JD\\Cloudder\\CloudinaryWrapper' => __DIR__ . '/..' . '/jrm2k6/cloudder/src/JD/Cloudder/CloudinaryWrapper.php',
         'JD\\Cloudder\\Facades\\Cloudder' => __DIR__ . '/..' . '/jrm2k6/cloudder/src/JD/Cloudder/Facades/Cloudder.php',

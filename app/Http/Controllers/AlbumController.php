@@ -13,8 +13,7 @@ use Cloudinary\Uploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
+use Cloudinary;
 
 class AlbumController
 {
@@ -25,7 +24,7 @@ class AlbumController
     {
         if (Auth::check() !== false) {
             $userID = Auth::user()->getAuthIdentifier();
-            $data = DB::table('albums')->where('creator', '=', $userID)->orderByRaw('created_at ASC')->get();
+            $data = DB::table('albums')->where('creator', '=', $userID)->where('id', '>', '1')->orderByRaw('created_at ASC')->get();
             return view('albums-list', ['list' => $data]);
         } else {
             return view('albums-list', ['list' => []]);
@@ -71,13 +70,13 @@ class AlbumController
 
         $userID = Auth::user()->getAuthIdentifier();
         $userData = DB::table('users')->where('id', '=', $userID)->first();
-        \Cloudinary::config([
+        Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},
             'api_key' => $userData->{'api_key'},
             'api_secret' => $userData->{'api_secret'},
         ]);
-        \Cloudinary\Uploader::destroy($image, array("invalidate" => true));
-        \Cloudinary::reset_config();
+        Uploader::destroy($image, array("invalidate" => true));
+        Cloudinary::reset_config();
 
         DB::table('albums')->where('id', '=', $data['AlbumID'])->delete();
 
@@ -90,15 +89,15 @@ class AlbumController
 
         $userID = Auth::user()->getAuthIdentifier();
         $userData = DB::table('users')->where('id', '=', $userID)->first();
-        \Cloudinary::config([
+        Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},
             'api_key' => $userData->{'api_key'},
             'api_secret' => $userData->{'api_secret'},
         ]);
-        $uploaded = \Cloudinary\Uploader::upload($request->file('file')->getRealPath());
+        $uploaded = Uploader::upload($request->file('file')->getRealPath());
         $id = $uploaded['public_id'];
         $url = $uploaded['secure_url'];
-        \Cloudinary::reset_config();
+        Cloudinary::reset_config();
 
         DB::table('albums')->insert(
             [

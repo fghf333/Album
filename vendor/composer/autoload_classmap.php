@@ -8299,6 +8299,7 @@ return array(
     'Illuminate\\View\\ViewName' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewName.php',
     'Illuminate\\View\\ViewServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
     'Init' => $baseDir . '/database/migrations/2018_01_24_134904_init.php',
+    'InitSeeder' => $baseDir . '/database/seeds/InitSeeder.php',
     'JD\\Cloudder\\CloudderServiceProvider' => $vendorDir . '/jrm2k6/cloudder/src/JD/Cloudder/CloudderServiceProvider.php',
     'JD\\Cloudder\\CloudinaryWrapper' => $vendorDir . '/jrm2k6/cloudder/src/JD/Cloudder/CloudinaryWrapper.php',
     'JD\\Cloudder\\Facades\\Cloudder' => $vendorDir . '/jrm2k6/cloudder/src/JD/Cloudder/Facades/Cloudder.php',
