@@ -36,7 +36,7 @@ class UploadController extends Controller
         $data = ['albums' => $albums, 'tags' => $tags, 'default_album' => 0];
 
         if (isset($AlbumID)) {
-           $data['default_album'] = (int)$AlbumID;
+            $data['default_album'] = (int)$AlbumID;
         }
         return view('upload', $data);
     }
@@ -70,7 +70,6 @@ class UploadController extends Controller
 
                 $userID = Auth::user()->getAuthIdentifier();
                 $userData = DB::table('users')->where('id', '=', $userID)->first();
-
                 \Cloudinary::config([
                     'cloud_name' => $userData->{'cloud_name'},
                     'api_key' => $userData->{'api_key'},
@@ -80,6 +79,7 @@ class UploadController extends Controller
                 $uploaded = \Cloudinary\Uploader::upload($request->file('file.0')->getRealPath());
                 $id = $uploaded['public_id'];
                 $url = $uploaded['secure_url'];
+                \Cloudinary::reset_config();
 
                 DB::table('images')->insert(
                     [
