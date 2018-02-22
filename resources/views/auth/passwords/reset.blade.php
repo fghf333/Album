@@ -38,7 +38,7 @@
                         @endif
                     </div>
                     <div class="form-group flex-center">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-success">
                             Сбросить пароль
                         </button>
                     </div>

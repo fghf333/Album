@@ -51,7 +51,7 @@
                     <input class="form-control" name="CreatedAt" id="CreatedAt" type="date"
                            value="{{$image->createdAt}}" required>
                 </div>
-                <button class="btn btn-primary" type="submit">Загрузить</button>
+                <button class="btn btn-success" type="submit">Загрузить</button>
             </form>
         </div>
     </div>
