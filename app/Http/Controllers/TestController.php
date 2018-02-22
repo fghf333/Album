@@ -17,24 +17,10 @@ class TestController
 {
     public function test()
     {
-        return view('test');
-    }
-
-    public function upload(Request $request)
-    {
-        $userID = Auth::user()->getAuthIdentifier();
-        $userData = DB::table('users')->where('id', '=', $userID)->first();
-
-       \Cloudinary::config([
-           'cloud_name' => $userData->{'cloud_name'},
-           'api_key' => $userData->{'api_key'},
-           'api_secret' => $userData->{'api_secret'},
-       ]);
-
-      $uploaded = \Cloudinary\Uploader::upload($request->file('file.0')->getRealPath());
-      $id = $uploaded['public_id'];
-      $url = $uploaded['secure_url'];
-
-      return '<img src="'.$url.'"></img>';
+        return view('vendor.notifications.email',[
+            'level' => 'success',
+            'introLines' => ['Hello', 'world', '!'],
+            'outroLines' => ['Hello', 'human', '!'],
+        ]);
     }
 }
