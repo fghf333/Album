@@ -33,10 +33,10 @@
                     <label class="form-check-label" for="remember">Запомнить меня</label>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-success">
                         Войти
                     </button>
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                    <a class="btn btn-outline-success" href="{{ route('password.request') }}">
                         Забыли пароль?
                     </a>
                 </div>

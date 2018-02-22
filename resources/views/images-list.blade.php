@@ -53,8 +53,8 @@
                         <input type="hidden" value="" id="ImageID" name="ImageID">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-primary">Удалить</button>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-success">Удалить</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->

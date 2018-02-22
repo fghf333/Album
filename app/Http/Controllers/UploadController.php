@@ -14,8 +14,12 @@ class UploadController extends Controller
     public function getForm($AlbumID = null)
     {
         $tags = DB::table('tags')->select('name', 'id')->get();
-        $albums = DB::table('albums')->select('name', 'id')->get();
-        $data = ['albums' => $albums, 'tags' => $tags, 'default_album' => 0];
+        $albums = DB::table('albums')->where('id', '>', 1)->select('name', 'id')->get();
+        $data = [
+            'albums' => $albums,
+            'tags' => $tags,
+            'default_album' => 0,
+        ];
 
         if (isset($AlbumID)) {
             $data['default_album'] = (int)$AlbumID;
@@ -55,12 +59,17 @@ class UploadController extends Controller
                 $url = $uploaded['secure_url'];
                 Cloudinary::reset_config();
 
+                if (!isset($photo['album'])) {
+                    $photo['album'] = 1;
+                }
+
                 DB::table('images')->insert(
                     [
                         'name' => $photo['name'],
                         'album' => $photo['album'],
                         'image_id' => $id,
-                        'image_URL' => $url,
+                        'image_url' => $url,
+                        'preview_img_url' => $url,
                         'createdAt' => $photo['CreatedAt'],
                         'tags' => $photo['tags'],
                         'peoples' => $photo['peoples'],
@@ -71,6 +80,6 @@ class UploadController extends Controller
                 );
             }
         }
-        return redirect('images-list/'.$request->{'album'}, 302);
+        return redirect('images-list/' . $request->{'album'}, 302);
     }
 }
