@@ -21,13 +21,13 @@
 <?php
     switch ($level) {
         case 'success':
-            $color = 'green';
+            $color = 'blue';
             break;
         case 'error':
             $color = 'red';
             break;
         default:
-            $color = 'blue';
+            $color = 'green';
     }
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
