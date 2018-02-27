@@ -96,7 +96,16 @@ class AlbumController
         ]);
         $uploaded = Uploader::upload($request->file('file')->getRealPath());
         $id = $uploaded['public_id'];
-        $url = $uploaded['secure_url'];
+
+        $options = [
+            'transformation' => [
+                'height' => '220',
+                'width' => '255',
+                'crop' => 'fill',
+            ]
+        ];
+        $preview_img_url = Cloudinary::cloudinary_url($id, $options);
+
         Cloudinary::reset_config();
 
         DB::table('albums')->insert(
@@ -106,7 +115,7 @@ class AlbumController
                 'shared' => 0,
                 'preview_img_id' => $id,
                 'description' => $form['description'],
-                'preview_img' => $url,
+                'preview_img' => $preview_img_url,
                 'updated_at' => date("Y-m-d H:i:s"),
                 'created_at' => date("Y-m-d H:i:s"),
             ]

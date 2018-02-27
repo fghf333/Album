@@ -7,7 +7,7 @@
     </h1>
     <div class="row">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
-<img class="edit_image img-responsive" src="{{asset('images/logo.png')}}">
+<img class="edit_image img-responsive" src="http://res.cloudinary.com/happy-moments/image/upload/c_fill,h_200,w_500/logo_zt2vwd.png">
         </div>
         <div class="col-md-6 align-items-center">
             <form id="imageform" name="upload" method="post" action="{{ route('upload_file') }}"
