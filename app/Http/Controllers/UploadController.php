@@ -32,6 +32,7 @@ class UploadController extends Controller
         foreach ($request->file() as $file) {
 
             foreach ($file as $f) {
+
                 $photo = $request->all();
                 $tagsq = explode(',', $photo['tags']);
                 $query = '';
@@ -57,11 +58,21 @@ class UploadController extends Controller
                 $uploaded = Uploader::upload($request->file('file.0')->getRealPath());
                 $id = $uploaded['public_id'];
                 $url = $uploaded['secure_url'];
-                Cloudinary::reset_config();
 
                 if (!isset($photo['album'])) {
                     $photo['album'] = 1;
                 }
+
+                $options = [
+                    'transformation' => [
+                        'height' => '185',
+                        'width' => '255',
+                        'crop' => 'fill',
+                    ]
+                ];
+                $preview_img_url = Cloudinary::cloudinary_url($id, $options);
+
+                Cloudinary::reset_config();
 
                 DB::table('images')->insert(
                     [
@@ -69,7 +80,7 @@ class UploadController extends Controller
                         'album' => $photo['album'],
                         'image_id' => $id,
                         'image_url' => $url,
-                        'preview_img_url' => $url,
+                        'preview_img_url' => $preview_img_url,
                         'createdAt' => $photo['CreatedAt'],
                         'tags' => $photo['tags'],
                         'peoples' => $photo['peoples'],
