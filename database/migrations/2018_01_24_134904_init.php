@@ -17,8 +17,11 @@ class Init extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
+            $table->integer('creator');
+            $table->string('preview_img_id', 255)->nullable();
+            $table->boolean('shared')->default(0);
             $table->string('description', 255)->nullable();
-            $table->string('preview_img', 255);
+            $table->string('preview_img', 255)->nullable();
             $table->integer('photo_num')->default(0);
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
@@ -32,6 +35,7 @@ class Init extends Migration
             $table->integer('album');
             $table->string('image_id', 255);
             $table->string('image_url', 255);
+            $table->string('preview_img_url', 255);
             $table->string('peoples', 255);
             $table->string('place', 255);
             $table->dateTime('created_at');

@@ -9,10 +9,11 @@
 namespace App\Http\Controllers;
 
 
+use Cloudinary\Uploader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
+use Cloudinary;
 
 class AlbumController
 {
@@ -21,17 +22,25 @@ class AlbumController
      */
     public function getList()
     {
-        $data = DB::table('albums')->orderByRaw('created_at ASC')->get();
-        return view('albums-list', ['list' => $data]);
+        if (Auth::check() !== false) {
+            $userID = Auth::user()->getAuthIdentifier();
+            $data = DB::table('albums')->where('creator', '=', $userID)->where('id', '>', '1')->orderByRaw('created_at ASC')->get();
+            return view('albums-list', ['list' => $data]);
+        } else {
+            return view('albums-list', ['list' => []]);
+        }
     }
 
     public function getEditForm($AlbumID)
     {
         $data = DB::table('albums')->where('id', $AlbumID)->first();
-
-        return view('edit-album', [
-            'album' => $data,
-        ]);
+        if (Auth::check() && Auth::user()->getAuthIdentifier() == $data->{'creator'}) {
+            return view('edit-album', [
+                'album' => $data,
+            ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function getForm()
@@ -57,8 +66,18 @@ class AlbumController
         $data = $request->all();
         DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 0]);
         $album = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
-        $image = $album->{'preview_img'};
-        Storage::disk('public_uploads')->delete('/images/albums/' . $image);
+        $image = $album->{'preview_img_id'};
+
+        $userID = Auth::user()->getAuthIdentifier();
+        $userData = DB::table('users')->where('id', '=', $userID)->first();
+        Cloudinary::config([
+            'cloud_name' => $userData->{'cloud_name'},
+            'api_key' => $userData->{'api_key'},
+            'api_secret' => $userData->{'api_secret'},
+        ]);
+        Uploader::destroy($image, array("invalidate" => true));
+        Cloudinary::reset_config();
+
         DB::table('albums')->where('id', '=', $data['AlbumID'])->delete();
 
         return redirect('albums', 302);
@@ -67,14 +86,36 @@ class AlbumController
     public function createAlbum(Request $request)
     {
         $form = $request->all();
-        Storage::disk('public_uploads')->putFileAs('images/albums', new File($request->file('file')->getRealPath()),
-            $form['name'] . '.png');
+
+        $userID = Auth::user()->getAuthIdentifier();
+        $userData = DB::table('users')->where('id', '=', $userID)->first();
+        Cloudinary::config([
+            'cloud_name' => $userData->{'cloud_name'},
+            'api_key' => $userData->{'api_key'},
+            'api_secret' => $userData->{'api_secret'},
+        ]);
+        $uploaded = Uploader::upload($request->file('file')->getRealPath());
+        $id = $uploaded['public_id'];
+
+        $options = [
+            'transformation' => [
+                'height' => '220',
+                'width' => '255',
+                'crop' => 'fill',
+            ]
+        ];
+        $preview_img_url = Cloudinary::cloudinary_url($id, $options);
+
+        Cloudinary::reset_config();
 
         DB::table('albums')->insert(
             [
                 'name' => $form['name'],
+                'creator' => $userID,
+                'shared' => 0,
+                'preview_img_id' => $id,
                 'description' => $form['description'],
-                'preview_img' => $form['name'] . '.png',
+                'preview_img' => $preview_img_url,
                 'updated_at' => date("Y-m-d H:i:s"),
                 'created_at' => date("Y-m-d H:i:s"),
             ]

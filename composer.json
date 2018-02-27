@@ -7,10 +7,9 @@
     "require": {
         "php": ">=5.6.4",
         "fabpot/goutte": "^3.2",
+        "jrm2k6/cloudder": "^0.4.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.3.0",
-        "nao-pon/flysystem-google-drive": "~1.1",
         "rtconner/laravel-tagging": "^2.2"
     },
     "require-dev": {

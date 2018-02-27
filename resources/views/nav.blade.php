@@ -29,7 +29,7 @@
                     </li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" role="button"
+                        <a href="#" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">
                             {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
@@ -41,7 +41,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="btn btn-primary nav-button" href="{{ route('logout') }}"
+                        <a class="btn btn-success nav-button" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             Выход
