@@ -59,10 +59,6 @@ class UploadController extends Controller
                 $id = $uploaded['public_id'];
                 $url = $uploaded['secure_url'];
 
-                if (!isset($photo['album'])) {
-                    $photo['album'] = 1;
-                }
-
                 $options = [
                     'transformation' => [
                         'height' => '185',
@@ -73,6 +69,10 @@ class UploadController extends Controller
                 $preview_img_url = Cloudinary::cloudinary_url($id, $options);
 
                 Cloudinary::reset_config();
+
+                if (!isset($photo['album'])) {
+                    $photo['album'] = 1;
+                }
 
                 DB::table('images')->insert(
                     [

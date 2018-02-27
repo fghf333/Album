@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <img class="img-fluid" src="{{asset('images/empty.png')}}">
+                <img class="img-fluid" src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_uzgemw.png">
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неотсортированное</a>
