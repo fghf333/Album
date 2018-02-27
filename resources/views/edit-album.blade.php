@@ -5,7 +5,7 @@
     <div class="editing_image">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <img class="img" src="{{asset('images/albums/'.$album->preview_img)}}">
+                <img class="img" src="{{$album->preview_img}}">
             </div>
 
             <div class="col-md-6 align-items-center">
@@ -21,7 +21,7 @@
                         <textarea class="form-control" name="description" id="description" type="text"
                                   maxlength="255">{{$album->description}}</textarea>
                     </div>
-                    <button class="btn btn-primary mb-2" type="submit">Создать</button>
+                    <button class="btn btn-success mb-2" type="submit">Создать</button>
                 </form>
             </div>
         </div>

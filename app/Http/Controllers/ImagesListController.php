@@ -14,9 +14,9 @@ class ImagesListController
 {
     public function getList($AlbumID = null)
     {
-        if ($AlbumID != null) {
+        if ($AlbumID !== null) {
             $data = DB::table('images')->where('album', '=', $AlbumID)->orderByRaw('created_at DESC')->get();
-            $AlbumName = DB::table('albums')->where('id', '=', $AlbumID)->first();
+            $AlbumName = DB::table('albums')->where('id', '=', $AlbumID)->select('name')->first();
 
             return view('images-list', [
                 'list' => $data,
@@ -28,8 +28,8 @@ class ImagesListController
 
             return view('images-list', [
                 'list' => $data,
-                'AlbumID' => '',
-                'AlbumName' =>'',
+                'AlbumID' => '0',
+                'AlbumName' => '',
             ]);
         }
     }

@@ -31,12 +31,8 @@ Route::get('create-album', ['as' => 'create_album_form', 'uses' => 'AlbumControl
 Route::post('create-album', ['as' => 'create_album', 'uses' => 'AlbumController@createAlbum']);
 Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'AlbumController@deleteAlbum']);
 
-
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
-
-//TEST ROUTE
-Route::get('test', ['as' => 'test', 'uses' => 'TestController@test']);
 
 // Authentication Routes...
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
@@ -53,6 +49,9 @@ Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\
 Route::get('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
 Route::post('register', ['as' => '', 'uses' => 'Auth\RegisterController@register']);
 
+//TEST ROUTE
+Route::get('test', ['as' => 'test_form', 'uses' => 'TestController@test']);
+Route::post('test', ['as' => 'test_upload', 'uses' => 'TestController@upload']);
 
 
 

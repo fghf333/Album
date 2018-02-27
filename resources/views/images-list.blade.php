@@ -1,24 +1,21 @@
 @extends('base')
 
 @section('content')
-
-    <style>
-
-    </style>
-
     <!-- Page Heading -->
     @if(isset($AlbumName->name))
         <h1 class="PageHead">{{$AlbumName->name}}</h1>
     @else
         <h1 class="PageHead">Список фотографий</h1>
     @endif
-    <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
+    @if(\Illuminate\Support\Facades\Auth::user() !== null)
+        <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
+    @endif
     <div class="row text-center text-lg-left">
         @forelse($list as $image)
             <div class="col-lg-3 col-md-4 col-6 md-4">
                 <div class="img-container">
                     <a data-fancybox="image" href="{{$image->image_url}}">
-                        <img class="rounded img-thumb" src="{{$image->image_url}}">
+                        <img class="rounded img-thumb" src="{{$image->preview_img_url}}">
                     </a>
                     <div class="buttons">
                         <div class="name">{{$image->name}}</div>
@@ -56,8 +53,8 @@
                         <input type="hidden" value="" id="ImageID" name="ImageID">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-primary">Удалить</button>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-success">Удалить</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->

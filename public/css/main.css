@@ -150,7 +150,7 @@ body {
 }
 
 .bootstrap-tagsinput .tag {
-    background: #09F;
+    background: #28a745;
     padding: 5px;
     border-radius: 4px;
 
@@ -184,11 +184,6 @@ body {
     position: relative;
 }
 
-.img-thumb {
-    height: 100%;
-    width: 100%;
-}
-
 .buttons {
     background-color: white;
     opacity: 0.8;
@@ -214,4 +209,17 @@ textarea{
 
 .nav-button{
     margin-left: 8px;
+}
+
+.upload-svg{
+    fill: white;
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 10px #28a745;
+}
+
+.cloudinary_logo{
+    height: 25px;
 }

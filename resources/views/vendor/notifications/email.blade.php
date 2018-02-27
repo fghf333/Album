@@ -4,9 +4,9 @@
 # {{ $greeting }}
 @else
 @if ($level == 'error')
-# Whoops!
+# Упс...!
 @else
-# Hello!
+# Приветствуем!
 @endif
 @endif
 
@@ -21,13 +21,13 @@
 <?php
     switch ($level) {
         case 'success':
-            $color = 'green';
+            $color = 'blue';
             break;
         case 'error':
             $color = 'red';
             break;
         default:
-            $color = 'blue';
+            $color = 'green';
     }
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
@@ -45,14 +45,14 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-Regards,<br>{{ config('app.name') }}
+С наилучшими пожеланиями,<br>{{ config('app.name') }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 @component('mail::subcopy')
-If you’re having trouble clicking the "{{ $actionText }}" button, copy and paste the URL below
-into your web browser: [{{ $actionUrl }}]({{ $actionUrl }})
+Если у вас возникли проблемы с кнопкой "{{ $actionText }}", скопируйте и вставьте следующую ссылку
+в ваш браузер: [{{ $actionUrl }}]({{ $actionUrl }})
 @endcomponent
 @endisset
 @endcomponent

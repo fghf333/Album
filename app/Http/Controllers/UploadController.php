@@ -3,39 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Cloudinary;
+use Cloudinary\Uploader;
 
 class UploadController extends Controller
 {
 
-    function GetImageId($filename)
-    {
-        $dir = '/';
-        $recursive = true;
-        $file = collect(Storage::cloud()->listContents($dir, $recursive))
-            ->where('type', '=', 'file')
-            ->where('filename', '=', pathinfo($filename, PATHINFO_FILENAME))
-            ->where('extension', '=', pathinfo($filename, PATHINFO_EXTENSION))
-            ->sortBy('timestamp')
-            ->last();
-        return $file['path'];
-    }
-
-    function GetImageURL($path)
-    {
-
-        return 'https://drive.google.com/uc?export=media&id=' . $path;
-    }
-
     public function getForm($AlbumID = null)
     {
         $tags = DB::table('tags')->select('name', 'id')->get();
-        $albums = DB::table('albums')->select('name', 'id')->get();
-        $data = ['albums' => $albums, 'tags' => $tags, 'default_album' => 0];
+        $albums = DB::table('albums')->where('id', '>', 1)->select('name', 'id')->get();
+        $data = [
+            'albums' => $albums,
+            'tags' => $tags,
+            'default_album' => 0,
+        ];
 
         if (isset($AlbumID)) {
-           $data['default_album'] = (int)$AlbumID;
+            $data['default_album'] = (int)$AlbumID;
         }
         return view('upload', $data);
     }
@@ -45,6 +32,7 @@ class UploadController extends Controller
         foreach ($request->file() as $file) {
 
             foreach ($file as $f) {
+
                 $photo = $request->all();
                 $tagsq = explode(',', $photo['tags']);
                 $query = '';
@@ -59,19 +47,40 @@ class UploadController extends Controller
                 }
                 DB::insert('INSERT IGNORE INTO tags (name, created_at, updated_at) VALUES ' . $query);
 
-                $f->move(storage_path('images'), $photo['name']);
-                Storage::cloud()->put($photo['name'], fopen(storage_path('images/') . $photo['name'], 'r+'));
-                $ID = $this->GetImageId($photo['name']);
-                $URL = $this->GetImageURL($ID);
-                Storage::cloud()->rename($ID, $ID . " ");
-                unlink(storage_path('images/' . $photo['name']));
-                //Storage::disk('local')->delete($photo['name']);
+                $userID = Auth::user()->getAuthIdentifier();
+                $userData = DB::table('users')->where('id', '=', $userID)->first();
+                Cloudinary::config([
+                    'cloud_name' => $userData->{'cloud_name'},
+                    'api_key' => $userData->{'api_key'},
+                    'api_secret' => $userData->{'api_secret'},
+                ]);
+
+                $uploaded = Uploader::upload($request->file('file.0')->getRealPath());
+                $id = $uploaded['public_id'];
+                $url = $uploaded['secure_url'];
+
+                $options = [
+                    'transformation' => [
+                        'height' => '185',
+                        'width' => '255',
+                        'crop' => 'fill',
+                    ]
+                ];
+                $preview_img_url = Cloudinary::cloudinary_url($id, $options);
+
+                Cloudinary::reset_config();
+
+                if (!isset($photo['album'])) {
+                    $photo['album'] = 1;
+                }
+
                 DB::table('images')->insert(
                     [
                         'name' => $photo['name'],
                         'album' => $photo['album'],
-                        'image_id' => $ID,
-                        'image_URL' => $URL,
+                        'image_id' => $id,
+                        'image_url' => $url,
+                        'preview_img_url' => $preview_img_url,
                         'createdAt' => $photo['CreatedAt'],
                         'tags' => $photo['tags'],
                         'peoples' => $photo['peoples'],
@@ -82,6 +91,6 @@ class UploadController extends Controller
                 );
             }
         }
-        return redirect('images-list', 302);
+        return redirect('images-list/' . $request->{'album'}, 302);
     }
 }

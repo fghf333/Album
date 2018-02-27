@@ -4,11 +4,13 @@
     <!-- Page Heading -->
     <h1 class="PageHead">Список альбомов
     </h1>
+    @if(\Illuminate\Support\Facades\Auth::user() !== null)
     <a href="{{route('create_album_form')}}" class="btn btn-success btn-block">Создать новый Альбом</a>
+    @endif
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <img class="img-fluid" src="{{asset('images/albums/empty.png')}}">
+                <img class="img-fluid" src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_uzgemw.png">
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неотсортированное</a>
@@ -22,7 +24,7 @@
         @foreach($list as $album)
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
-                    <img class="img-fluid" src="{{asset('images/albums/'.$album->preview_img)}}">
+                    <img class="img-fluid" src="{{$album->preview_img}}">
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{{route('images-list', ['AlbumID' => $album->id])}}"> {{$album->name}}</a>
@@ -59,8 +61,8 @@
                         <input type="hidden" value="" id="AlbumID" name="AlbumID">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-primary">Удалить</button>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-success">Удалить</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
