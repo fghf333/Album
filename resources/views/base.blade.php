@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="yandex-verification" content="90771ee8024386dc" />
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/3-col-portfolio.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet">
@@ -35,5 +36,40 @@
 <script src="{{asset('js/typeahead.bundle.js')}}"></script>
 <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
 <script src="{{asset('js/tags-input.js')}}"></script>
+<script src="{{asset('js/slider.js')}}"></script>
+<script src="{{asset('js/bootstrap.bundle.js')}}"></script>
+<script src="{{asset('js/typeahead.bundle.js')}}"></script>
+<script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
+<script src="{{asset('js/tags-input.js')}}"></script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter47899634 = new Ya.Metrika({
+                    id:47899634,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true,
+                    ut:"noindex"
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/47899634?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </html>
 
