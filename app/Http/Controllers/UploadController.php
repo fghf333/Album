@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Cloudinary;
 use Cloudinary\Uploader;
+use Illuminate\Validation\Validator;
 
 class UploadController extends Controller
 {
@@ -29,6 +30,14 @@ class UploadController extends Controller
 
     public function upload(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|max:250',
+            'peoples' => 'required|max:250',
+            'place' => 'required|max:250',
+            'CreatedAt' => 'required|date',
+            'file.0' => 'required|image|size:81920',
+        ]);
+
         foreach ($request->file() as $file) {
 
             foreach ($file as $f) {

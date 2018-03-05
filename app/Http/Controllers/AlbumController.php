@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Cloudinary;
 
-class AlbumController
+class AlbumController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -50,6 +50,12 @@ class AlbumController
 
     public function editAlbum($AlbumID, Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|max:250',
+            'description' => 'max:250',
+        ]);
+
         $form = $request->all();
         DB::table('albums')->where('id', $AlbumID)->update(
             [
@@ -85,6 +91,13 @@ class AlbumController
 
     public function createAlbum(Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|max:250',
+            'description' => 'max:250',
+            'file' => 'required|image|size:81920',
+        ]);
+
         $form = $request->all();
 
         $userID = Auth::user()->getAuthIdentifier();

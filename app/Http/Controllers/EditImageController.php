@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class EditImageController
+class EditImageController extends Controller
 {
 
     public function deleteImage(Request $request)
@@ -51,9 +51,18 @@ class EditImageController
 
     public function saveForm($ImageID, Request $request)
     {
+
+        $this->validate($request, [
+            'name' => 'required|max:250',
+            'peoples' => 'required|max:250',
+            'place' => 'required|max:250',
+            'CreatedAt' => 'required|date',
+            'file.0' => 'required|image|size:81920',
+        ]);
+
         $form = $request->all();
 
-        if(empty($form['album'])){
+        if (empty($form['album'])) {
             $form['album'] = 0;
         }
 

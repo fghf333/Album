@@ -13,7 +13,15 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input name="name" type="text" class="form-control" id="name" value="{{$image->name}}" required>
+                    <input name="name" type="text" class="form-control" id="name" value="{{$image->name}}" required
+                           maxlength="250">
+
+                    @if ($errors->has('name'))
+                        <span class="text-danger">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                    @endif
+
                 </div>
                 <div class="form-group">
                     <label for="album">Альбом:</label>
@@ -40,18 +48,46 @@
                 </div>
                 <div class="form-group">
                     <label for="peoples">Люди:</label>
-                    <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}" required>
+                    <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}" required maxlength="250">
+
+                    @if ($errors->has('peoples'))
+                        <span class="text-danger">
+                                        <strong>{{ $errors->first('peoples') }}</strong>
+                                    </span>
+                    @endif
+
                 </div>
                 <div class="form-group">
                     <label for="place">Место:</label>
-                    <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}" required>
+                    <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}" required maxlength="250">
+
+                    @if ($errors->has('place'))
+                        <span class="text-danger">
+                                        <strong>{{ $errors->first('place') }}</strong>
+                                    </span>
+                    @endif
+
                 </div>
                 <div class="form-group">
                     <label for="CreatedAt"> Дата:</label>
                     <input class="form-control" name="CreatedAt" id="CreatedAt" type="date"
                            value="{{$image->createdAt}}" required>
+
+                    @if ($errors->has('CreatedAt'))
+                        <span class="text-danger">
+                                        <strong>{{ $errors->first('CreatedAt') }}</strong>
+                                    </span>
+                    @endif
+
                 </div>
                 <button class="btn btn-success" type="submit">Загрузить</button>
+
+                @if ($errors->has('file.0'))
+                    <span class="text-danger">
+                                        <strong>{{ $errors->first('file.0') }}</strong>
+                                    </span>
+                @endif
+
             </form>
         </div>
     </div>

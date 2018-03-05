@@ -14,14 +14,35 @@
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label for="name">Имя:</label>
-                        <input class="form-control" name="name" id="name" type="text" value="{{$album->name}}" required>
+                        <input class="form-control" name="name" id="name" type="text" value="{{$album->name}}" required maxlength="250">
+
+                        @if ($errors->has('name'))
+                            <span class="text-danger">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                        @endif
+
                     </div>
                     <div class="form-group">
                         <label for="description">Описание:</label>
                         <textarea class="form-control" name="description" id="description" type="text"
-                                  maxlength="255">{{$album->description}}</textarea>
+                                  maxlength="250">{{$album->description}}</textarea>
+
+                        @if ($errors->has('description'))
+                            <span class="text-danger">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                        @endif
+
                     </div>
                     <button class="btn btn-success mb-2" type="submit">Создать</button>
+
+                    @if ($errors->has('file'))
+                        <span class="text-danger">
+                                        <strong>{{ $errors->first('file') }}</strong>
+                                    </span>
+                    @endif
+
                 </form>
             </div>
         </div>
