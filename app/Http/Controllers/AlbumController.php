@@ -95,7 +95,7 @@ class AlbumController extends Controller
         $this->validate($request, [
             'name' => 'required|max:250',
             'description' => 'max:250',
-            'file' => 'required|image|size:81920',
+            'file' => 'required|image',
         ]);
 
         $form = $request->all();
