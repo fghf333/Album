@@ -29,8 +29,6 @@
 
 </div>
 <!-- /.container -->
-</body>
-@include('footer')
 <script src="{{asset('js/slider.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
 <script src="{{asset('js/typeahead.bundle.js')}}"></script>
@@ -41,6 +39,7 @@
 <script src="{{asset('js/typeahead.bundle.js')}}"></script>
 <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
 <script src="{{asset('js/tags-input.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
@@ -71,5 +70,7 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/47899634?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+</body>
+@include('footer')
 </html>
 

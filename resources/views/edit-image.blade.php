@@ -80,7 +80,7 @@
                     @endif
 
                 </div>
-                <button class="btn btn-success" type="submit">Загрузить</button>
+                <button class="btn btn-success" id="submit_button" type="submit">Обновить</button>
 
                 @if ($errors->has('file.0'))
                     <span class="text-danger">

@@ -57,7 +57,6 @@ class EditImageController extends Controller
             'peoples' => 'required|max:250',
             'place' => 'required|max:250',
             'CreatedAt' => 'required|date',
-            'file.0' => 'required|image|size:81920',
         ]);
 
         $form = $request->all();

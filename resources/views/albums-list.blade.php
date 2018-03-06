@@ -62,7 +62,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-success" data-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-success">Удалить</button>
+                        <button type="submit" id="submit_button" class="btn btn-success">Удалить</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->

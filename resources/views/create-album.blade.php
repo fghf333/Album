@@ -46,7 +46,7 @@
                         </svg>
                         <span class="upload_text">Выбрать обложку</span></label>
                 </div>
-                <button class="btn btn-success mb-2" type="submit" disabled>Создать</button>
+                <button class="btn btn-success mb-2" type="submit" id="submit_button" disabled>Создать</button>
 
                 @if ($errors->has('file'))
                     <span class="text-danger">
