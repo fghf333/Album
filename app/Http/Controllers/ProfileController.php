@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -16,9 +17,9 @@ class ProfileController extends Controller
    public function getProfile(){
        $user = Auth::user()['original'];
        
-       $oldDate = date_create($user['created_at']);
-       $newDate = date_create(date('Y-m-d H:i:s'));
-       $dateDiff = date_diff($oldDate, $newDate)->format('%y Лет %m Месяцев %d Дней %h Часов %i Минут %s Секунд');
+       $oldDate = new Carbon($user['created_at']);
+       $newDate = Carbon::now();
+       $dateDiff = $oldDate->diffForHumans($newDate,false,false, 6);
        
        $data['username'] = $user['username'];
        $data['email'] = $user['email'];
