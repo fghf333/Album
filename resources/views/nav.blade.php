@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('albums') ? 'active' : '' }}" href="/albums">Альбомы</a>
+                    <a class="nav-link {{ Request::is('albums') ? 'active' : '' }}" href="{{route('albums_list')}}">Альбомы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="/images-list">
+                    <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="{{route('images-list')}}">
                         Список фотографий
                     </a>
                 </li>
@@ -29,14 +29,14 @@
                     </li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="btn btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown"
-                           aria-haspopup="true" role="button" aria-expanded="false">
+                        <a href="#" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">
                             {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a class="dropdown-item" href="#"> Профиль
+                                <a class="dropdown-item" href="{{route('profile', ['UserID' => Auth::user()->id])}}"> Профиль
                                 </a>
                         </ul>
                     </li>
