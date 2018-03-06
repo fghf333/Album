@@ -29,14 +29,14 @@
                     </li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false">
+                        <a href="#" class="btn btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown"
+                           aria-haspopup="true" role="button" aria-expanded="false">
                             {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a class="dropdown-item" href="#"> TBC
+                                <a class="dropdown-item" href="#"> Профиль
                                 </a>
                         </ul>
                     </li>
