@@ -34,6 +34,9 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
 
+//USER PAGE
+Route::get('profile/{UserID}', ['as' => 'profile', 'uses' => 'ProfileController@getProfile']);
+
 // Authentication Routes...
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('login', ['as' => '', 'uses' => 'Auth\LoginController@login']);
