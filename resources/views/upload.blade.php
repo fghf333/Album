@@ -91,7 +91,7 @@
                         </svg>
                         <span class="upload_text">Выберите фото</span></label>
                 </div>
-                <button class="btn btn-success mb-2" type="submit" disabled>Загрузить</button>
+                <button class="btn btn-success mb-2" id="submit_button" type="submit" disabled>Загрузить</button>
 
                 @if ($errors->has('file'))
                     <span class="text-danger">

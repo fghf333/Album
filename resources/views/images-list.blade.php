@@ -23,7 +23,7 @@
                             <a class="badge badge-light" href="{{route('edit_image_form', ['ImageID' => $image->id])}}">
                                 <img class="icons" src="{{asset('images/edit.png')}}">
                             </a>
-                            <a class="badge badge-light" href="#" onclick="modal({{$image->id}})">
+                            <a class="badge badge-light" href="#" onclick="modalImage({{$image->id}})">
                                 <img class="icons" src="{{asset('images/delete.png')}}">
                             </a>
                         </div>
@@ -54,22 +54,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-success" data-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-success">Удалить</button>
+                        <button type="submit" id="submit_button" class="btn btn-success">Удалить</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-    <script>
-
-        function modal(ImageID) {
-            $('#DeleteConfirm').modal();
-            $('#ImageID').val(ImageID);
-            $('#delete').attr('action', '/delete-image/' + ImageID)
-        }
-    </script>
-
     <!-- End delete confirmation -->
+
+
 
 @endsection

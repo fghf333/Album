@@ -35,7 +35,7 @@
                         @endif
 
                     </div>
-                    <button class="btn btn-success mb-2" type="submit">Создать</button>
+                    <button class="btn btn-success mb-2" id="submit_button" type="submit">Обновить</button>
 
                     @if ($errors->has('file'))
                         <span class="text-danger">
