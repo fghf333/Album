@@ -52,6 +52,7 @@ Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\
 Route::get('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
 Route::post('register', ['as' => '', 'uses' => 'Auth\RegisterController@register']);
 
+Route::get('404', ['as' => '404_page', function(){return view('404page');}]);
 //TEST ROUTE
 Route::get('test', ['as' => 'test_form', 'uses' => 'TestController@test']);
 Route::post('test', ['as' => 'test_upload', 'uses' => 'TestController@upload']);
