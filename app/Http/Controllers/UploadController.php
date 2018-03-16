@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Cloudinary;
 use Cloudinary\Uploader;
-use Illuminate\Validation\Validator;
 
 class UploadController extends Controller
 {

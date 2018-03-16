@@ -23,7 +23,7 @@
 
 </script>
 @include('nav')
-
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- Page Content -->
 <div role="main" class="container">
 
@@ -31,7 +31,6 @@
 
 </div>
 <!-- /.container -->
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="{{asset('js/slider.js')}}"></script>
