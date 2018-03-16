@@ -37,6 +37,7 @@ Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesLi
 //USER PAGE
 Route::get('profile/{UserID}', ['as' => 'profile', 'uses' => 'ProfileController@getProfile']);
 Route::post('change-password', ['as' => 'password_change', 'uses' => 'ProfileController@changePassword']);
+Route::get('charts','ProfileController@charts');
 
 // Authentication Routes...
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);

@@ -76,7 +76,141 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">...</div>
+        <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+            <div style="margin-top: 25px;" class="row">
+                <div class="col-md-3">
+                    <canvas id="bandwidth" width="250" height="250"></canvas>
+                </div>
+                <div class="col-md-3">
+                    <canvas id="storage" width="250" height="250"></canvas>
+                </div>
+                <div class="col-md-3">
+                    <canvas id="images" width="250" height="250"></canvas>
+                </div>
+                <div class="col-md-3">
+                    <canvas id="transformations" width="250" height="250"></canvas>
+                </div>
+                <div class="row">
+                    <div class="legend"></div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script>
+        var url = "{{url('charts')}}";
+        $(document).ready(function () {
+            $.get(url, function (response) {
+                var ctx = document.getElementById("bandwidth").getContext('2d');
+                var bandwidth = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Лимит', 'Использовано'],
+                        datasets: [{
+                            data: [response.bandwidth.limit, response.bandwidth.usage],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            labels: [response.bandwidth.human_limit, response.bandwidth.human_usage]
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Трафик'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    return label = data.datasets[0].labels[tooltipItem.index];
+                                }
+                            }
+                        }
+                    }
 
+                });
+                var xtc = document.getElementById("storage").getContext('2d');
+                var storage = new Chart(xtc, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Лимит', 'Использовано'],
+                        datasets: [{
+                            data: [response.storage.limit, response.storage.usage],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            labels: [response.storage.human_limit, response.storage.human_usage]
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Место'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    return label = data.datasets[0].labels[tooltipItem.index];
+                                }
+                            }
+                        }
+                    }
+                });
+                var tcx = document.getElementById("images").getContext('2d');
+                var images = new Chart(tcx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Лимит', 'Использовано'],
+                        datasets: [{
+                            data: [response.images.limit, response.images.usage],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Изображения'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                });
+                var txc = document.getElementById("transformations").getContext('2d');
+                var transformations = new Chart(txc, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Лимит', 'Использовано'],
+                        datasets: [{
+                            data: [response.transformations.limit, response.transformations.usage],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Трансформации'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
