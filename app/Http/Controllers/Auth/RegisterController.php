@@ -66,6 +66,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $data['password'] = Hash::make($data['password']);
+        $data['old_password'] = $data['password'];
         $credentials = $this->Cloudinary_register($data['username'], $data['email'], $data['password']);
         $user = array_merge($data, $credentials);
         return User::create($user);

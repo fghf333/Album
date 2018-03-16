@@ -9,26 +9,45 @@
 namespace App\Http\Controllers;
 
 
-use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
     public function getProfile($UserID = null)
     {
-        if (!Auth::guest() && Auth::id() == $UserID) {
-
-            $user = DB::table('users')->select()->where('id', '=', $UserID)->first();
-
-            $data['username'] = $user->{'username'};
-            $data['email'] = $user->{'email'};
-            return view('profile', ['data' => $data]);
-
-        }else{
-            abort(404) ;
+        if (Auth::guest() && Auth::id() !== $UserID) {
+            abort(404);
         }
 
+        $user = DB::table('users')->select()->where('id', '=', $UserID)->first();
 
+        $data['Имя пользователя'] = $user->{'username'};
+        $data['Имейл'] = $user->{'email'};
+        return view('profile', [
+            'data' => $data,
+            'tab' => 'default',
+        ]);
+
+    }
+
+    public function changePassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $new_Password = Hash::make($request->get('password'));
+        DB::table('users')->where('id', '=', Auth::id())->update(['password' => $new_Password]);
+
+        $data = $this->getProfile(Auth::id());
+
+        return view('profile', [
+            'data' => $data->{'data'},
+            'tab' => 'password',
+            'message' => 'Пароль успешно изменен',
+        ]);
     }
 }

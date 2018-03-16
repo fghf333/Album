@@ -61,6 +61,7 @@ class Init extends Migration
             $table->string('username', 255);
             $table->string('email', 255);
             $table->string('password', 255);
+            $table->string('old_password', 255);
             $table->string('api_key', 255);
             $table->string('api_secret', 255);
             $table->string('cloud_name', 255);
