@@ -5,7 +5,6 @@
     <!-- Page Heading -->
     <h1 class="PageHead">Загрузка фотографии
     </h1>
-    <?php echo var_dump($errors) ?>
     <div class="row">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
             <img class="edit_image img-responsive"
@@ -107,4 +106,7 @@
         window.ImageTags = [];
     </script>
     <script src="{{asset('js/preview-image.js')}}"></script>
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
+    <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection

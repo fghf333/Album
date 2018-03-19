@@ -77,15 +77,21 @@ class ProfileController extends Controller
         $bandwidth = $usage['bandwidth'];
         $bandwidth['human_usage'] = $this->FBytes($bandwidth['usage']);
         $bandwidth['human_limit'] = $this->FBytes($bandwidth['limit']);
-        return response()->json(['transformations' => $transformations, 'images' => $images, 'storage' => $storage, 'bandwidth' => $bandwidth,]);
+        return response()->json([
+            'transformations' => $transformations,
+            'images' => $images,
+            'storage' => $storage,
+            'bandwidth' => $bandwidth,
+        ]);
     }
 
-    function FBytes($bytes, $precision = 2) {
+    function FBytes($bytes, $precision = 2)
+    {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes?log($bytes):0)/log(1024));
-        $pow = min($pow, count($units)-1);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
         $bytes /= pow(1024, $pow);
-        return round($bytes, $precision).' '.$units[$pow];
+        return round($bytes, $precision) . ' ' . $units[$pow];
     }
 }
