@@ -35,7 +35,6 @@
             <div class="message">Вы не загрузили ни одной фотографии</div>
         @endforelse
 
-
     </div>
     <!-- Start delete confirmation -->
     <div class="modal fade" id="DeleteConfirm">

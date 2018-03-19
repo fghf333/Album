@@ -193,25 +193,25 @@ body {
     bottom: 0;
 }
 
-.badge-light{
+.badge-light {
     background-color: #ffffff;
 }
 
-.card-footer{
+.card-footer {
     padding: .5rem;
     border-top: none;
 }
 
-textarea{
+textarea {
     min-height: 66px;
     max-height: 250px;
 }
 
-.nav-button{
+.nav-button {
     margin-left: 8px;
 }
 
-.upload-svg{
+.upload-svg {
     fill: white;
 }
 
@@ -220,6 +220,14 @@ textarea{
     box-shadow: 0 0 10px #28a745;
 }
 
-.cloudinary_logo{
+.cloudinary_logo {
     height: 25px;
+}
+
+.stats {
+    margin-top: 25px;
+}
+
+.user-data {
+    margin-top: 16px;
 }

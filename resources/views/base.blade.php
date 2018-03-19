@@ -24,6 +24,12 @@
 </script>
 @include('nav')
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{{asset('js/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="{{asset('js/slider.js')}}"></script>
+<script src="{{asset('js/bootstrap.bundle.js')}}"></script>
+
 <!-- Page Content -->
 <div role="main" class="container">
 
@@ -31,14 +37,6 @@
 
 </div>
 <!-- /.container -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="{{asset('js/slider.js')}}"></script>
-<script src="{{asset('js/bootstrap.bundle.js')}}"></script>
-<script src="{{asset('js/typeahead.bundle.js')}}"></script>
-<script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
-<script src="{{asset('js/tags-input.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
