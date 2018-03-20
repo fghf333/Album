@@ -24,7 +24,7 @@ Route::post('edit-image/{imageID}', ['as' => 'edit_image', 'uses' => 'EditImageC
 Route::delete('delete-image/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
 
 //ALBUM
-Route::get('albums', ['as' => 'album_form', 'uses' => 'AlbumController@getList']);
+Route::get('albums', ['as' => 'albums_list', 'uses' => 'AlbumController@getList']);
 Route::get('edit-album/{AlbumID}', ['as' => 'edit_album_form', 'uses' => 'AlbumController@getEditForm']);
 Route::post('edit-album/{AlbumID}', ['as' => 'edit_album', 'uses' => 'AlbumController@editAlbum']);
 Route::get('create-album', ['as' => 'create_album_form', 'uses' => 'AlbumController@getForm']);
@@ -33,6 +33,11 @@ Route::delete('delete-album/{AlbumID}', ['as' => 'delete_album', 'uses' => 'Albu
 
 //LIST OF IMAGES
 Route::get('images-list/{AlbumID?}', ['as' => 'images-list', 'uses' => 'ImagesListController@getList']);
+
+//USER PAGE
+Route::get('profile/{UserID}', ['as' => 'profile', 'uses' => 'ProfileController@getProfile']);
+Route::post('change-password', ['as' => 'password_change', 'uses' => 'ProfileController@changePassword']);
+Route::get('charts','ProfileController@charts');
 
 // Authentication Routes...
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
@@ -49,6 +54,7 @@ Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\
 Route::get('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
 Route::post('register', ['as' => '', 'uses' => 'Auth\RegisterController@register']);
 
+Route::get('404', ['as' => '404_page', function(){return view('404page');}]);
 //TEST ROUTE
 Route::get('test', ['as' => 'test_form', 'uses' => 'TestController@test']);
 Route::post('test', ['as' => 'test_upload', 'uses' => 'TestController@upload']);

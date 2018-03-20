@@ -106,4 +106,7 @@
         window.ImageTags = [];
     </script>
     <script src="{{asset('js/preview-image.js')}}"></script>
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
+    <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection

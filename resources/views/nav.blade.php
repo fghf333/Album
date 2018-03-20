@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('albums') ? 'active' : '' }}" href="/albums">Альбомы</a>
+                    <a class="nav-link {{ Request::is('albums') ? 'active' : '' }}" href="{{route('albums_list')}}">Альбомы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="/images-list">
+                    <a class="nav-link {{ Request::is('images-list') ? 'active' : '' }}" href="{{route('images-list')}}">
                         Список фотографий
                     </a>
                 </li>
@@ -36,7 +36,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a class="dropdown-item" href="#"> TBC
+                                <a class="dropdown-item" href="{{route('profile', ['UserID' => Auth::user()->id])}}"> Профиль
                                 </a>
                         </ul>
                     </li>

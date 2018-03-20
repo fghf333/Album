@@ -14,7 +14,8 @@
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label for="name">Имя:</label>
-                        <input class="form-control" name="name" id="name" type="text" value="{{$album->name}}" required maxlength="250">
+                        <input class="form-control" name="name" id="name" type="text" value="{{$album->name}}" required
+                               maxlength="250">
 
                         @if ($errors->has('name'))
                             <span class="text-danger">

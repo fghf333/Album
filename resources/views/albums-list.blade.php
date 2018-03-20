@@ -5,12 +5,13 @@
     <h1 class="PageHead">Список альбомов
     </h1>
     @if(\Illuminate\Support\Facades\Auth::user() !== null)
-    <a href="{{route('create_album_form')}}" class="btn btn-success btn-block">Создать новый Альбом</a>
+        <a href="{{route('create_album_form')}}" class="btn btn-success btn-block">Создать новый Альбом</a>
     @endif
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item">
             <div class="card h-100">
-                <img class="img-fluid" src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_uzgemw.png">
+                <img class="img-fluid"
+                     src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_uzgemw.png">
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неотсортированное</a>
@@ -68,13 +69,5 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
-    <script>
-        function modal(AlbumID) {
-            $('#myModal').modal();
-            $('#AlbumID').val(AlbumID);
-            $('#delete').attr('action', '/delete-album/' + AlbumID)
-        }
-    </script>
 @endsection
 

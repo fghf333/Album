@@ -48,7 +48,8 @@
                 </div>
                 <div class="form-group">
                     <label for="peoples">Люди:</label>
-                    <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}" required maxlength="250">
+                    <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}"
+                           required maxlength="250">
 
                     @if ($errors->has('peoples'))
                         <span class="text-danger">
@@ -59,7 +60,8 @@
                 </div>
                 <div class="form-group">
                     <label for="place">Место:</label>
-                    <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}" required maxlength="250">
+                    <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}" required
+                           maxlength="250">
 
                     @if ($errors->has('place'))
                         <span class="text-danger">
@@ -95,5 +97,7 @@
     <script>
         window.tags = {!! $tags !!};
     </script>
-
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
+    <script src="{{asset('js/tags-input.js')}}"></script>
 @endsection
