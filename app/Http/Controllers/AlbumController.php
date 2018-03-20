@@ -34,13 +34,16 @@ class AlbumController extends Controller
     public function getEditForm($AlbumID)
     {
         $data = DB::table('albums')->where('id', $AlbumID)->first();
-        if (Auth::check() && Auth::user()->getAuthIdentifier() == $data->{'creator'}) {
-            return view('edit-album', [
-                'album' => $data,
-            ]);
-        } else {
-            return redirect('/');
+        if($data !== null) {
+            if (Auth::check() && Auth::user()->getAuthIdentifier() == $data->{'creator'}) {
+                return view('edit-album', [
+                    'album' => $data,
+                ]);
+            } else {
+                return redirect('/');
+            }
         }
+        return abort(404);
     }
 
     public function getForm()
@@ -70,6 +73,10 @@ class AlbumController extends Controller
     public function deleteAlbum(Request $request)
     {
         $data = $request->all();
+        $check = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
+        if($check == null){
+            return abort(404);
+        }
         DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 0]);
         $album = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
         $image = $album->{'preview_img_id'};
