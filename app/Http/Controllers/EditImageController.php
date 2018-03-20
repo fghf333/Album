@@ -12,7 +12,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Cloudinary;
+use Cloudinary\Uploader;
 
 class EditImageController extends Controller
 {
@@ -25,13 +26,13 @@ class EditImageController extends Controller
 
         $userID = Auth::user()->getAuthIdentifier();
         $userData = DB::table('users')->where('id', '=', $userID)->first();
-        \Cloudinary::config([
+        Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},
             'api_key' => $userData->{'api_key'},
             'api_secret' => $userData->{'api_secret'},
         ]);
-        \Cloudinary\Uploader::destroy($filename, array("invalidate" => true));
-        \Cloudinary::reset_config();
+        Uploader::destroy($filename, array("invalidate" => true));
+        Cloudinary::reset_config();
 
         return redirect('images-list', 302);
     }
@@ -91,7 +92,6 @@ class EditImageController extends Controller
                 'updated_at' => date("Y-m-d H:i:s")
             ]
         );
-        //return redirect('edit-image/' . $form['id'], 301);
         return redirect()->route('edit_image_form', ['imageID' => $ImageID]);
     }
 }
