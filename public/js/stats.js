@@ -10,6 +10,7 @@ $(document).ready(function () {
                 datasets: [{
                     data: [response.bandwidth.limit, response.bandwidth.usage],
                     percent: response.bandwidth.used_percent,
+                    name: 'Трафик',
                     backgroundColor: [
                         'rgba(190, 190, 190, 0.3)',
                         'rgba(40 ,167 ,69, 0.5)'
@@ -29,6 +30,7 @@ $(document).ready(function () {
                 datasets: [{
                     data: [response.storage.limit, response.storage.usage],
                     percent: response.storage.used_percent,
+                    name: 'Место',
                     backgroundColor: [
                         'rgba(190, 190, 190, 0.3)',
                         'rgba(40 ,167 ,69, 0.5)'
@@ -48,6 +50,7 @@ $(document).ready(function () {
                 datasets: [{
                     data: [response.images.limit, response.images.usage],
                     percent: response.images.used_percent,
+                    name: 'Изображения',
                     backgroundColor: [
                         'rgba(190, 190, 190, 0.3)',
                         'rgba(40 ,167 ,69, 0.5)'
@@ -66,6 +69,7 @@ $(document).ready(function () {
                 datasets: [{
                     data: [response.transformations.limit, response.transformations.usage],
                     percent: response.transformations.used_percent,
+                    name: 'Трансформация',
                     backgroundColor: [
                         'rgba(190, 190, 190, 0.3)',
                         'rgba(40 ,167 ,69, 0.5)'
@@ -92,11 +96,11 @@ $(document).ready(function () {
                 plugins: [{
                     beforeDraw: function (chart) {
                         var width = chart.chart.width,
-                            height = chart.chart.height - chart.legend.height,
+                            height = chart.chart.height - chart.legend.height + chart.config.options.title.lineHeight + chart.config.options.title.padding + 20,
                             ctx = chart.chart.ctx;
 
                         ctx.restore();
-                        var fontSize = (height / 114).toFixed(2);
+                        var fontSize = (height / 150).toFixed(2);
                         ctx.font = fontSize + "em sans-serif";
                         ctx.textBaseline = "middle";
 
@@ -133,6 +137,10 @@ $(document).ready(function () {
 
                         return legend;
 
+                    },
+                    title: {
+                        display: true,
+                        text: data[el].datasets[0].name
                     }
                 }
             });
