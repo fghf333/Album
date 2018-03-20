@@ -27,13 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label for="album">Альбом:</label>
-                    <select class="form-control" name="album" id="album" @if(count($albums) < 1)
-                    disabled>
-                        <option value="1">Альбомов нет</option>
-                        @else
-                            >
-                            <option value="1">Выберите альбом</option>
-                        @endif
+                    <select class="form-control" name="album" id="album">
                         @foreach($albums as $album)
                             @if($default_album === $album->id)
                                 <option value="{{$album->id}}" selected>{{$album->name}}</option>
