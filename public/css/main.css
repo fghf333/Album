@@ -231,3 +231,14 @@ textarea {
 .user-data {
     margin-top: 16px;
 }
+
+.legend div span {
+    display: inline-block;
+    width: 40px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.legend {
+    margin-top: 25px;
+}
