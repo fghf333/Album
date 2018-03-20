@@ -40,7 +40,7 @@ $(document).ready(function () {
                     labels: [response.storage.human_limit, response.storage.human_usage]
                 }]
             },
-            images:{
+            images: {
                 labels: [
                     "Лимит",
                     "Использовано"
@@ -58,7 +58,7 @@ $(document).ready(function () {
                     ]
                 }]
             },
-            transformations:{
+            transformations: {
                 labels: [
                     "Лимит",
                     "Использовано"
@@ -113,7 +113,7 @@ $(document).ready(function () {
                     tooltips: {
                         callbacks: {
                             label: function (tooltipItem, data) {
-                                if(data.datasets[0].labels !== undefined) {
+                                if (data.datasets[0].labels !== undefined) {
                                     return label = data.datasets[0].labels[tooltipItem.index];
                                 }
                                 return label = data.labels[tooltipItem.index];
@@ -121,11 +121,22 @@ $(document).ready(function () {
                         }
                     },
                     legend: {
-                        display: true,
+                        display: false,
                         position: 'bottom'
+                    },
+                    legendCallback: function (chart) {
+
+                        var legend = '';
+                        chart.boxes[0].legendItems.forEach(function (el) {
+                            legend += '<div class="col-lg-3"><span style="background-color:' + el.fillStyle + '"></span>' + el.text + '</div>';
+                        });
+
+                        return legend;
+
                     }
                 }
             });
+            document.getElementById('legend').innerHTML = chart.generateLegend();
         });
     });
 });
