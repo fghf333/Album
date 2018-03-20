@@ -15,7 +15,7 @@ class ImagesListController
     public function getList($AlbumID = null)
     {
         $check = DB::table('albums')->where('id', '=', $AlbumID)->first();
-        if($check == null){
+        if($check == null && $AlbumID !== null){
             return abort(404);
         }
         if ($AlbumID !== null) {
