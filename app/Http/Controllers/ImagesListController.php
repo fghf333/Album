@@ -14,6 +14,10 @@ class ImagesListController
 {
     public function getList($AlbumID = null)
     {
+        $check = DB::table('albums')->where('id', '=', $AlbumID)->first();
+        if($check == null){
+            return abort(404);
+        }
         if ($AlbumID !== null) {
             $data = DB::table('images')->where('album', '=', $AlbumID)->orderByRaw('created_at DESC')->get();
             $AlbumName = DB::table('albums')->where('id', '=', $AlbumID)->select('name')->first();
