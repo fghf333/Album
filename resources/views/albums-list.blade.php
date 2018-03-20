@@ -14,7 +14,7 @@
                      src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_uzgemw.png">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{{route('images-list', ['AlbumID' => 0])}}"> Неотсортированное</a>
+                        <a href="{{route('images-list', ['AlbumID' => 1])}}"> Неотсортированное</a>
                     </h5>
                     <p class="card-text">Фотографии без альбома</p>
                 </div>
