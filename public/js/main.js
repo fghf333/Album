@@ -14,3 +14,8 @@ $('form').submit(function () {
     $('#submit_button').prop('disabled', true);
 });
 
+function modal(AlbumID) {
+    $('#myModal').modal();
+    $('#AlbumID').val(AlbumID);
+    $('#delete').attr('action', '/delete-album/' + AlbumID)
+}
