@@ -15,7 +15,7 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input class="form-control" name="name" id="name" type="text" required maxlength="250">
+                    <input class="form-control" name="name" id="name" type="text" required maxlength="250" value="{{old('name')}}">
 
                     @if ($errors->has('name'))
                         <span class="text-danger">
@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="description">Описание:</label>
                     <textarea class="form-control" name="description" id="description" type="text"
-                              maxlength="250"></textarea>
+                              maxlength="250">{{old('description')}}</textarea>
 
                     @if ($errors->has('description'))
                         <span class="text-danger">
