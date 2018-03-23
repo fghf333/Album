@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
 
-                    <input class="inputfile" id="files" accept="image/*" type="file" name="file">
+                    <input class="inputfile" id="files" accept="image/*" type="file" name="file[]">
                     <label class="btn btn-success mb-2" for="files">
                         <svg class="upload-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="17"
                              viewBox="0 0 20 17">
@@ -46,14 +46,14 @@
                         </svg>
                         <span class="upload_text">Выбрать обложку</span></label>
                 </div>
-                <button class="btn btn-success mb-2" type="submit" id="submit_button" disabled>Создать</button>
-
-                @if ($errors->has('file'))
+                @if ($errors->has('file.0'))
                     <span class="text-danger">
-                                        <strong>{{ $errors->first('file') }}</strong>
+                                        <strong>{{ $errors->first('file.0') }}</strong>
                                     </span>
                 @endif
-
+                <div class="form-group">
+                    <button class="btn btn-success mb-2" type="submit" id="submit_button" disabled>Создать</button>
+                </div>
             </form>
         </div>
     </div>
