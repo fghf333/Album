@@ -9,7 +9,8 @@
     @endif
     @if(\Illuminate\Support\Facades\Auth::user() !== null)
         <a href="
-        @if(isset($AlbumdID))
+
+        @if(isset($AlbumID))
         {{route('upload_form', ['AlbumID' => $AlbumID])}}
         @else
         {{route('upload_form')}}
