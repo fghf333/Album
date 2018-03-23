@@ -8,7 +8,13 @@
         <h1 class="PageHead">Список фотографий</h1>
     @endif
     @if(\Illuminate\Support\Facades\Auth::user() !== null)
-        <a href="{{route('upload_form', ['AlbumID' => $AlbumID])}}" class="btn btn-success btn-block">Загрузить фото</a>
+        <a href="
+        @if(isset($AlbumdID))
+        {{route('upload_form', ['AlbumID' => $AlbumID])}}
+        @else
+        {{route('upload_form')}}
+        @endif
+                " class="btn btn-success btn-block">Загрузить фото</a>
     @endif
     <div class="row text-center text-lg-left">
         @forelse($list as $image)

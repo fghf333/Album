@@ -16,7 +16,7 @@
                 <input name="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="name">Имя:</label>
-                    <input name="name" type="text" class="form-control" id="name" required maxlength="250">
+                    <input name="name" type="text" class="form-control" id="name" required maxlength="250" value="{{old('name')}}">
 
                     @if ($errors->has('name'))
                         <span class="text-danger">
@@ -29,7 +29,7 @@
                     <label for="album">Альбом:</label>
                     <select class="form-control" name="album" id="album">
                         @foreach($albums as $album)
-                            @if($default_album === $album->id)
+                            @if(isset($default_album) and $default_album === $album->id or (int)old('album') === $album->id)
                                 <option value="{{$album->id}}" selected>{{$album->name}}</option>
                             @else
                                 <option value="{{$album->id}}">{{$album->name}}</option>
@@ -39,11 +39,11 @@
                 </div>
                 <div class="form-group">
                     <label for="tags-input-edit">Теги:</label>
-                    <input class="form-control" name="tags" type="text" id="tags-input-edit">
+                    <input class="form-control" name="tags" type="text" id="tags-input-edit" value="{{old('tags')}}">
                 </div>
                 <div class="form-group">
                     <label for="peoples">Люди:</label>
-                    <input class="form-control" name="peoples" id="peoples" type="text" required maxlength="250">
+                    <input class="form-control" name="peoples" id="peoples" type="text" required maxlength="250" value="{{ old('peoples') }}">
 
                     @if ($errors->has('peoples'))
                         <span class="text-danger">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label for="place">Место:</label>
-                    <input class="form-control" name="place" id="place" type="text" required maxlength="250">
+                    <input class="form-control" name="place" id="place" type="text" required maxlength="250" value="{{ old('place') }}">
 
                     @if ($errors->has('place'))
                         <span class="text-danger">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <label for="CreatedAt"> Дата:</label>
-                    <input class="form-control" name="CreatedAt" id="CreatedAt" type="date" required>
+                    <input class="form-control" name="CreatedAt" id="CreatedAt" type="date" required value="{{old('CreatedAt')}}">
 
                     @if ($errors->has('CreatedAt'))
                         <span class="text-danger">

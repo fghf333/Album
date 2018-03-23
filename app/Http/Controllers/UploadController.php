@@ -18,7 +18,6 @@ class UploadController extends Controller
         $data = [
             'albums' => $albums,
             'tags' => $tags,
-            'default_album' => 0,
         ];
 
         if (isset($AlbumID)) {

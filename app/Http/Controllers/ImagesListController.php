@@ -32,7 +32,6 @@ class ImagesListController
 
             return view('images-list', [
                 'list' => $data,
-                'AlbumID' => '0',
                 'AlbumName' => '',
             ]);
         }
