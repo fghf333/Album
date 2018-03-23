@@ -104,6 +104,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'file.0' => [
+            'max' => 'Размер фото не должен превышать 20MB.',
+        ],
     ],
 
     /*
@@ -118,13 +121,14 @@ return [
     */
 
     'attributes' => [
-        'username' => '"имя пользователя"',
+        'username' => '"Имя пользователя"',
         'email' => '"Имейл"',
         'password' => '"Пароль"',
         'name' => '"Имя"',
         'peoples' => '"Люди"',
         'place' => '"Место"',
         'CreatedAt' => '"Дата"',
+        'file.0' => 'Фото',
     ],
 
 ];

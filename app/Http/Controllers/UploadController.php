@@ -33,7 +33,7 @@ class UploadController extends Controller
             'peoples' => 'required|max:250',
             'place' => 'required|max:250',
             'CreatedAt' => 'required|date',
-            'file.0' => 'required|image',
+            'file.0' => 'required|image|max:20440',
         ]);
 
         foreach ($request->file() as $file) {
