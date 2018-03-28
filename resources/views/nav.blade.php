@@ -38,8 +38,11 @@
                             <li>
                                 <a class="dropdown-item" href="{{route('profile', ['UserID' => Auth::user()->id])}}"> Профиль
                                 </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{route('family_list', ['FamilyID' => Auth::user()['family_id']])}}"> Семья </a>
+                            </li>
                         </ul>
-                    </li>
                     <li>
                         <a class="btn btn-success nav-button" href="{{ route('logout') }}"
                            onclick="event.preventDefault();

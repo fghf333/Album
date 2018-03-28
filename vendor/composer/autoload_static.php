@@ -328,6 +328,7 @@ class ComposerStaticInit05408778592c251f7c9721479e8c8020
     );
 
     public static $classMap = array (
+        'AddFamilys' => __DIR__ . '/../..' . '/database/migrations/2018_03_28_180758_add_familys.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AlbumController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlbumController.php',
@@ -337,8 +338,10 @@ class ComposerStaticInit05408778592c251f7c9721479e8c8020
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\EditImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/EditImageController.php',
+        'App\\Http\\Controllers\\Family\\FamilyController' => __DIR__ . '/../..' . '/app/Http/Controllers/Family/FamilyController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ImagesListController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImagesListController.php',
+        'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegisterController.php',
         'App\\Http\\Controllers\\TestController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestController.php',
         'App\\Http\\Controllers\\UploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/UploadController.php',
