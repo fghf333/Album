@@ -59,6 +59,7 @@ class Init extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 255);
+            $table->integer('family_id')->default(NULL);
             $table->string('email', 255);
             $table->string('password', 255);
             $table->string('old_password', 255);
