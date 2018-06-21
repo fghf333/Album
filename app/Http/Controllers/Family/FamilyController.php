@@ -23,8 +23,6 @@ class FamilyController
 
                 $familyList = DB::table('users')->where('family_id', '=', $FamilyID)->select()->get();
 
-                dd($familyList);
-
                 return view('family.family-list', ['data' => $familyList]);
 
             } else {

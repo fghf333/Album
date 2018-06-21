@@ -16,6 +16,7 @@ class AddFamilys extends Migration
         Schema::table('users', function($table){
           $table->string('first_name', 25)->default(NULL)->after('username');
           $table->string('last_name', 50)->default(NULL)->after('first_name');
+          $table->boolean('family_admin')->default(0);
         });
     }
 

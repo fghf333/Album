@@ -99,8 +99,8 @@ body {
 }
 
 .col-md-6 {
-    margin-bottom: 25px;
-    margin-top: 25px;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 .edit_image {
@@ -241,4 +241,12 @@ textarea {
 
 .legend {
     margin-top: 25px;
+}
+
+.avatar{
+    border:1px solid black;
+    max-width: 150px;
+    min-width: 150px;
+    max-height: 150px;
+    min-height: 150px;
 }

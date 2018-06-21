@@ -5,7 +5,7 @@
     </h1>
     <div class="row">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <img class="edit_image img-responsive" src="{{$image->image_url}}">
+            <img class=" preview_image edit_image img-responsive" src="{{$image->image_url}}">
         </div>
         <div class="col-md-6 align-items-center">
             <form role="form" name="upload" method="post" action="{{ route('edit_image', ['ImageID' => $image->id])  }}"

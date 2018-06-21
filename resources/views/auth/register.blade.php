@@ -1,7 +1,6 @@
 @extends('base')
 
 @section('content')
-    <h1 class="PageHead">Регистрация нового пользователя</h1>
     <div class="row">
         <div class="col-md-6 align-items-center offset-md-3 alert alert-success">
             После регистрации на указанный вами Имейл придёт письмо от <b>Cloudinary</b> с ссылкой подтверждения.
@@ -62,7 +61,7 @@
                 </div>
 
                 <div class="form-group offset-md-4">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" id="submit_button" class="btn btn-success" disabled>
                         Зарегистрироваться
                     </button>
                 </div>
@@ -70,4 +69,5 @@
             </form>
         </div>
     </div>
+    <script src="{{asset('js/preview-image.js')}}"></script>
 @endsection
