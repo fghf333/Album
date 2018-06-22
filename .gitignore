@@ -1,7 +1,7 @@
 .gitignore
 .idea/
-config/*
 .env
 public/images/albums/*
-
-
+vendor/
+.phpstorm.meta.php
+_ide_helper.php
