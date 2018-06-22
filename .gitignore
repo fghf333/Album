@@ -1,7 +1,0 @@
-.gitignore
-.idea/
-config/*
-.env
-public/images/albums/*
-
-
