@@ -17,6 +17,10 @@ class AddFamilys extends Migration
           $table->string('first_name', 25)->default(NULL)->after('username');
           $table->string('last_name', 50)->default(NULL)->after('first_name');
         });
+
+        Schema::table('images', function($table){
+           $table->integer('author');
+        });
     }
 
     /**
