@@ -2,6 +2,7 @@
 @section('content')
     <!-- Page Heading -->
     <h1 class="home-message">Семейный альбом</h1>
+    <?php //dd($images) ?>
     <div class="row text-center text-lg-left" id="buttons_div">
         @forelse($images as $image)
             <div class="col-lg-3 col-md-4 col-6 md-4">

@@ -10,11 +10,22 @@
         <div class="col-md-6 align-items-center offset-md-3">
             <form method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
-
+                <div class="row justify-content-center">
+                    <div class="col-6 form-group">
+                        <label for="first_name">Имя:</label>
+                        <input id="first_name" type="text" class="form-control" name="first_name"
+                               value="{{old('first_name')}}" required>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="last_name">Фамилия:</label>
+                        <input id="last_name" type="text" class="form-control" name="last_name"
+                               value="{{old('last_name')}}" required>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="username">Имя пользователя:</label>
                     <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}"
-                           required autofocus>
+                           required>
                     @if ($errors->has('username'))
                         <span class="text-danger">
                                         <strong>{{ $errors->first('username') }}</strong>
