@@ -8,27 +8,42 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ImagesListController
 {
     public function getList($AlbumID = null)
     {
+        if (Auth::check()) {
+            $user = Auth::user()->getAuthIdentifier();
+        } else {
+            $user = 0;
+        }
+
         $check = DB::table('albums')->where('id', '=', $AlbumID)->first();
-        if($check == null && $AlbumID !== null){
+
+        if ($check == null && $AlbumID !== null) {
             return abort(404);
         }
-        if ($AlbumID !== null) {
-            $data = DB::table('images')->where('album', '=', $AlbumID)->orderByRaw('created_at DESC')->get();
-            $AlbumName = DB::table('albums')->where('id', '=', $AlbumID)->select('name')->first();
 
-            return view('images-list', [
-                'list' => $data,
-                'AlbumID' => $AlbumID,
-                'AlbumName' => $AlbumName,
-            ]);
+        if ($AlbumID !== null) {
+
+            $album = DB::table('albums')->where('id', '=', $AlbumID)->first();
+
+            if ($album->{'creator'} == $user || $AlbumID == 1 && Auth::check()) {
+                $data = DB::table('images')->where('album', '=', $AlbumID)->orderByRaw('created_at DESC')->get();
+
+                return view('images-list', [
+                    'list' => $data,
+                    'AlbumID' => $AlbumID,
+                    'AlbumName' => $album->{'name'},
+                ]);
+            } else {
+                return abort(404);
+            }
         } else {
-            $data = DB::table('images')->orderByRaw('created_at DESC')->get();
+            $data = DB::table('images')->orderByRaw('created_at DESC')->where('author', '=', $user)->get();
 
             return view('images-list', [
                 'list' => $data,

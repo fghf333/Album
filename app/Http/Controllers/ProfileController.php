@@ -20,8 +20,9 @@ class ProfileController extends Controller
 {
     public function getProfile($UserID = null)
     {
-        if (Auth::guest() && Auth::id() !== $UserID) {
-            abort(404);
+
+        if (!Auth::check() || Auth::user()->getAuthIdentifier() != $UserID) {
+            return abort(404);
         }
 
         $userID = Auth::user()->getAuthIdentifier();

@@ -40,6 +40,11 @@ class EditImageController extends Controller
     public function getForm($imageID)
     {
         $data = DB::table('images')->where('id', $imageID)->first();
+
+        if (!Auth::check() || $data == null || Auth::user()->getAuthIdentifier() != $data->{'author'}) {
+            return abort(404);
+        }
+
         $tags = DB::table('tags')->select('name')->get();
         $albums = DB::table('albums')->select('name', 'id')->get();
 
