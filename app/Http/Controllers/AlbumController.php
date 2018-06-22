@@ -80,13 +80,12 @@ class AlbumController extends Controller
 
     public function deleteAlbum(Request $request)
     {
-        dd($request->all());
         $data = $request->all();
         $check = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
         if ($check == null) {
             return abort(404);
         }
-        DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 0]);
+        DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 1]);
         $album = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
         $image = $album->{'preview_img_id'};
 
@@ -111,7 +110,7 @@ class AlbumController extends Controller
         $this->validate($request, [
             'name' => 'required|max:250',
             'description' => 'max:250',
-            'file.0' => 'required|image|max:20440',
+            'file' => 'required|image|max:20440',
         ]);
 
         $form = $request->all();
@@ -123,6 +122,7 @@ class AlbumController extends Controller
             'api_key' => $userData->{'api_key'},
             'api_secret' => $userData->{'api_secret'},
         ]);
+
         $uploaded = Uploader::upload($request->file('file')->getRealPath());
         $id = $uploaded['public_id'];
 

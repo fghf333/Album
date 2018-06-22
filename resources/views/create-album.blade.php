@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
 
-                    <input class="inputfile" id="files" accept="image/*" type="file" name="file[]">
+                    <input class="inputfile" id="files" accept="image/*" type="file" name="file">
                     <label class="btn btn-success mb-2" for="files">
                         <svg class="upload-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="17"
                              viewBox="0 0 20 17">

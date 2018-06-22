@@ -16,8 +16,9 @@ class UploadController extends Controller
         if(!Auth::check()){
             return abort(404);
         }
+        $user = Auth::user()->getAuthIdentifier();
         $tags = DB::table('tags')->select('name', 'id')->get();
-        $albums = DB::table('albums')->select('name', 'id')->get();
+        $albums = DB::table('albums')->where('creator', '=', $user)->select('name', 'id')->get();
         $data = [
             'albums' => $albums,
             'tags' => $tags,
