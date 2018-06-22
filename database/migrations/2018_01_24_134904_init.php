@@ -25,7 +25,6 @@ class Init extends Migration
             $table->integer('photo_num')->default(0);
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
-            $table->index('preview_img');
         });
 
         //Create 'images' table
