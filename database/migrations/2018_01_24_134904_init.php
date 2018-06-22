@@ -25,7 +25,7 @@ class Init extends Migration
             $table->integer('photo_num')->default(0);
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
-            $table->unique('preview_img');
+            $table->index('preview_img');
         });
 
         //Create 'images' table
@@ -42,7 +42,7 @@ class Init extends Migration
             $table->dateTime('updated_at');
             $table->date('createdAt');
             $table->text('tags')->nullable();
-            $table->unique('image_id');
+            $table->index('image_id');
         });
 
         //Create 'tags' table
@@ -52,7 +52,7 @@ class Init extends Migration
             $table->integer('photos_num')->default(0);
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
-            $table->unique('name');
+            $table->index('name');
         });
 
         //Create 'users' table
@@ -69,7 +69,7 @@ class Init extends Migration
             $table->dateTime('updated_at');
             $table->dateTime('created_at');
             $table->string('remember_token', 255)->nullable();
-            $table->unique('email');
+            $table->index('email');
         });
 
         //Create 'password_resets' table
@@ -78,7 +78,7 @@ class Init extends Migration
             $table->string('email', 255);
             $table->string('token', 255);
             $table->dateTime('created_at');
-            $table->unique('email');
+            $table->index('email');
         });
     }
 
