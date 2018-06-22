@@ -13,6 +13,9 @@ class UploadController extends Controller
 
     public function getForm($AlbumID = null)
     {
+        if(!Auth::check()){
+            return abort(404);
+        }
         $tags = DB::table('tags')->select('name', 'id')->get();
         $albums = DB::table('albums')->select('name', 'id')->get();
         $data = [

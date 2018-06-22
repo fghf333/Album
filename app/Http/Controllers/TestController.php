@@ -17,10 +17,10 @@ class TestController
 {
     public function test()
     {
-        return view('vendor.notifications.email',[
-            'level' => 'success',
-            'introLines' => ['Hello', 'world', '!'],
-            'outroLines' => ['Hello', 'human', '!'],
-        ]);
+        return view('test');
+    }
+
+    public function upload(){
+        return view('test');
     }
 }
