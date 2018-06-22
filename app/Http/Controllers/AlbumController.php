@@ -24,23 +24,24 @@ class AlbumController extends Controller
     {
         if (Auth::check() !== false) {
             $userID = Auth::user()->getAuthIdentifier();
-            $data = DB::table('albums')->where('creator', '=', $userID)->where('id', '>', '1')->orderByRaw('created_at ASC')->get();
+            $data = DB::table('albums')->where('creator', '=', $userID)->where('id', '>',
+                '1')->orderByRaw('created_at ASC')->get();
             return view('albums-list', ['list' => $data]);
         } else {
-            return view('albums-list', ['list' => []]);
+            return abort(404);
         }
     }
 
     public function getEditForm($AlbumID)
     {
         $data = DB::table('albums')->where('id', $AlbumID)->first();
-        if($data !== null) {
+        if ($data !== null) {
             if (Auth::check() && Auth::user()->getAuthIdentifier() == $data->{'creator'}) {
                 return view('edit-album', [
                     'album' => $data,
                 ]);
             } else {
-                return redirect('/');
+                return abort(404);
             }
         }
         return abort(404);
@@ -48,7 +49,11 @@ class AlbumController extends Controller
 
     public function getForm()
     {
-        return view('create-album');
+        if(Auth::check()) {
+            return view('create-album');
+        } else {
+            return abort(404);
+        }
     }
 
     public function editAlbum($AlbumID, Request $request)
@@ -72,9 +77,10 @@ class AlbumController extends Controller
 
     public function deleteAlbum(Request $request)
     {
+        dd($request->all());
         $data = $request->all();
         $check = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
-        if($check == null){
+        if ($check == null) {
             return abort(404);
         }
         DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 0]);

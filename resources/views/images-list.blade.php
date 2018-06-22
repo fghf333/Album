@@ -2,8 +2,8 @@
 
 @section('content')
     <!-- Page Heading -->
-    @if(isset($AlbumName->name))
-        <h1 class="PageHead">{{$AlbumName->name}}</h1>
+    @if(isset($AlbumName))
+        <h1 class="PageHead">{{$AlbumName}}</h1>
     @else
         <h1 class="PageHead">Список фотографий</h1>
     @endif

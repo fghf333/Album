@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -22,11 +23,18 @@ class HomeController extends Controller
 
     function getHome()
     {
-        $images = DB::table('images')->latest()->take(12)->get();
+        $check = Auth::check();
+        if($check == true) {
+            $images = DB::table('images')->latest()->take(12)->get();
 
-         return view('welcome', [
-            'images' => $images,
-        ]);
+            return view('welcome', [
+                'images' => $images,
+            ]);
+        } else {
+            return view('welcome', [
+                'images' => [],
+            ]);
+        }
 
     }
 }

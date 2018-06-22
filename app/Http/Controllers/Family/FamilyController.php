@@ -15,6 +15,13 @@ class FamilyController
 {
     public function getFamilyList($FamilyID = null)
     {
+
+        if(!Auth::check()){
+            return abort(404);
+        } else {
+            return view('family.family-list');
+        }
+
         $familyID = Auth::user()['family_id'];
 
         if($familyID !== null) {
@@ -23,7 +30,6 @@ class FamilyController
 
                 $familyList = DB::table('users')->where('family_id', '=', $FamilyID)->select()->get();
 
-                dd($familyList);
 
                 return view('family.family-list', ['data' => $familyList]);
 
