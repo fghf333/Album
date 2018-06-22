@@ -22,14 +22,17 @@ class AlbumController extends Controller
      */
     public function getList()
     {
-        if (Auth::check() !== false) {
+        if (Auth::check()) {
             $userID = Auth::user()->getAuthIdentifier();
             $data = DB::table('albums')->where('creator', '=', $userID)->where('id', '>',
                 '1')->orderByRaw('created_at ASC')->get();
             return view('albums-list', ['list' => $data]);
-        } else {
-            return abort(404);
+
+        }else{
+            return view('albums-list');
         }
+
+
     }
 
     public function getEditForm($AlbumID)
@@ -49,7 +52,7 @@ class AlbumController extends Controller
 
     public function getForm()
     {
-        if(Auth::check()) {
+        if (Auth::check()) {
             return view('create-album');
         } else {
             return abort(404);

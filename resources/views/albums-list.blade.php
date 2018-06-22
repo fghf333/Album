@@ -22,6 +22,7 @@
                 </div>
             </div>
         </div>
+        @if(isset($list))
         @foreach($list as $album)
             <div class="col-lg-4 col-sm-6 portfolio-item">
                 <div class="card h-100">
@@ -44,7 +45,9 @@
                     </div>
                 </div>
             </div>
+
         @endforeach
+            @endif
     </div>
 
     <div class="modal fade" id="myModal">
