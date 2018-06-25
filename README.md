@@ -46,7 +46,8 @@ CLOUDINARY_SECURE_URL =
 CLOUDINARY_API_BASE_URL =   
 
 ```shell
+
 composer install
 php artisan migrate
-php artisan db:seed --class=InitSeeder  
+
 ```
