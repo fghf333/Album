@@ -1,5 +1,4 @@
 .idea/
-config/
 .env
 vendor/
 .phpstorm.meta.php
