@@ -1,0 +1,7 @@
+.gitignore
+.idea/
+config/
+.env
+vendor/
+.phpstorm.meta.php
+_ide_helper.php
