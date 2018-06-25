@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Goutte\Client;
+use \GuzzleHttp\Client as Guzzle;
 
 
 class RegisterController extends Controller
@@ -67,9 +68,30 @@ class RegisterController extends Controller
     {
         $data['password'] = Hash::make($data['password']);
         $data['old_password'] = $data['password'];
-        $credentials = $this->Cloudinary_register($data['username'], $data['email'], $data['password']);
-        $user = array_merge($data, $credentials);
-        return User::create($user);
+        $check = $this->spam_check($data['email']);
+        if ($check) {
+            $credentials = $this->Cloudinary_register($data['username'], $data['email'], $data['password']);
+            $user = array_merge($data, $credentials);
+            return User::create($user);
+        } else {
+            return abort(599);
+        }
+    }
+
+    function spam_check($email)
+    {
+        $client = new Guzzle();
+
+        $url = 'https://cleantalk.org/blacklists/?record=' . $email . '&action=get-api-response';
+
+        $res = json_decode($client->request('GET', $url)->getBody()->getContents(), true)['data'][$email]['exists'];
+
+        if ($res == 1) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     function Cloudinary_register($form_user_name, $form_user_email, $form_user_password)
