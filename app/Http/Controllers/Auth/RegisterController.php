@@ -84,8 +84,7 @@ class RegisterController extends Controller
 
         $url = 'https://cleantalk.org/blacklists/?record=' . $email . '&action=get-api-response';
 
-        $res = json_decode($client->request('GET', $url)->getBody()->getContents(), true)['data'][$email]['exists'];
-
+        @$res = json_decode($client->request('GET', $url)->getBody()->getContents(), true)['data'][$email]['exists'];
         if ($res == 1) {
             return false;
         } else {
