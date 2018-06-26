@@ -179,7 +179,6 @@ body {
 }
 
 .img-container {
-    height: 185px;
     margin-bottom: 30px;
     position: relative;
 }
@@ -241,4 +240,29 @@ textarea {
 
 .legend {
     margin-top: 25px;
+}
+
+.img-thumb {
+    width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+    .h-100 {
+        flex-direction: row;
+    }
+
+    .text-right {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .img-fluid {
+        max-width: 45%;
+        height: auto;
+    }
+
+    .card-body {
+        max-width: 38%;
+    }
+
 }

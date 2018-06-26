@@ -8,7 +8,7 @@
         <a href="{{route('create_album_form')}}" class="btn btn-success btn-block">Создать новый Альбом</a>
     @endif
     <div class="row">
-        <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="col-lg-3 col-md-6 col-sm-12 portfolio-item">
             <div class="card h-100">
                 <img class="img-fluid"
                      src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_uzgemw.png">
@@ -24,7 +24,7 @@
         </div>
         @if(isset($list))
         @foreach($list as $album)
-            <div class="col-lg-4 col-sm-6 portfolio-item">
+            <div class="col-lg-3 col-md-6 col-sm-12 portfolio-item">
                 <div class="card h-100">
                     <img class="img-fluid" src="{{$album->preview_img}}">
                     <div class="card-body">
@@ -38,7 +38,7 @@
                             <a class="badge badge-light" href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
                                 <img class="icons" src="{{asset('images/edit.png')}}">
                             </a>
-                            <a class="badge badge-light text-right" href="#" onclick="modal({{$album->id}})">
+                            <a class="badge badge-light" href="#" onclick="modal({{$album->id}})">
                                 <img class="icons" src="{{asset('images/delete.png')}}">
                             </a>
                         </div>
