@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label for="peoples">Люди:</label>
-                    <input class="form-control" name="peoples" id="peoples" type="text" required maxlength="250"
+                    <input class="form-control" name="peoples" id="peoples" type="text" maxlength="250"
                            value="{{ old('peoples') }}">
 
                     @if ($errors->has('peoples'))
@@ -52,11 +52,10 @@
                                         <strong>{{ $errors->first('peoples') }}</strong>
                                     </span>
                     @endif
-
                 </div>
                 <div class="form-group">
                     <label for="place">Место:</label>
-                    <input class="form-control" name="place" id="place" type="text" required maxlength="250"
+                    <input class="form-control" name="place" id="place" type="text" maxlength="250"
                            value="{{ old('place') }}">
 
                     @if ($errors->has('place'))
@@ -80,7 +79,7 @@
                 </div>
                 <div class="form-group">
 
-                    <input class="inputfile" id="files" accept="image/*" type="file" name="file[]" required>
+                    <input class="inputfile" id="files" accept="image/*" type="file" name="file">
                     <label class="btn btn-success mb-2" for="files">
                         <svg class="upload-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="17"
                              viewBox="0 0 20 17">
@@ -88,9 +87,9 @@
                         </svg>
                         <span class="upload_text">Выберите фото</span></label>
                 </div>
-                @if ($errors->has('file.0'))
+                @if ($errors->has('file'))
                     <span class="text-danger">
-                                        <strong>{{ $errors->first('file.0') }}</strong>
+                                        <strong>{{ $errors->first('file') }}</strong>
                                     </span>
                 @endif
                 <div class="form-group">

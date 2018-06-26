@@ -39,6 +39,7 @@ class EditImageController extends Controller
 
     public function getForm($imageID)
     {
+
         $data = DB::table('images')->where('id', $imageID)->first();
         $user = Auth::user()->getAuthIdentifier();
 
@@ -61,8 +62,8 @@ class EditImageController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:250',
-            'peoples' => 'required|max:250',
-            'place' => 'required|max:250',
+            'peoples' => 'max:250',
+            'place' => 'max:250',
             'CreatedAt' => 'required|date',
         ]);
 
@@ -95,9 +96,10 @@ class EditImageController extends Controller
                 'peoples' => $form['peoples'],
                 'place' => $form['place'],
                 'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
+                'updated_at' => date("Y-m-d H:i:s"),
             ]
         );
-        return redirect()->route('edit_image_form', ['imageID' => $ImageID]);
+
+        return redirect('images-list/' . $request->{'album'}, 302);
     }
 }
