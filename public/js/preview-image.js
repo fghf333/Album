@@ -1,4 +1,8 @@
 function handleFileSelect(evt) {
+    $('.upload_text').html('Выберите фото');
+    $('.edit_image').attr('src', 'http://res.cloudinary.com/happy-moments/image/upload/c_fill,h_200,w_500/logo_zt2vwd.png');
+    $('button[type=submit]').prop("disabled", true);
+
     var files = evt.target.files; // FileList object
 
     // Loop through the FileList and render image files as thumbnails.

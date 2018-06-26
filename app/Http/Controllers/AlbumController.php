@@ -75,7 +75,7 @@ class AlbumController extends Controller
                 'updated_at' => date("Y-m-d H:i:s"),
             ]
         );
-        return redirect()->route('edit_album', ['AlbumID' => $AlbumID]);
+        return redirect()->route('albums_list');
     }
 
     public function deleteAlbum(Request $request)
