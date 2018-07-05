@@ -42,6 +42,7 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                     @endif
+
                 </div>
 
                 <div class="form-group">
@@ -54,19 +55,60 @@
                                     </span>
                     @endif
                 </div>
-
                 <div class="form-group">
                     <label for="password-confirm">Подтверждение пароля:</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                    <input id="password-confirm" type="password" class="form-control"
+                           name="password_confirmation"
                            required>
-                </div>
 
+                </div>
+                @if($errors->has('email.cloudinary'))
+
+                    <div class="col-md-12 align-items-center alert alert-info">
+                        Такой аккаунт уже есть в Cloudinary. Пожалуйста заполните поля ниже.
+
+                    </div>
+                @endif
+
+                @if($errors->has('email.cloudinary') || $errors->has('apiKey') || $errors->has('apiSecret') || $errors->has('cloud'))
+
+                    <div class="form-group">
+                        <label for="apiKey">API key:</label>
+                        <input id="apiKey" type="password" class="form-control" name="apiKey" required>
+
+                        @if ($errors->has('apiKey'))
+                            <span class="text-danger">
+                                        <strong>{{ $errors->first('apiKey') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="apiSecret">API secret:</label>
+                        <input id="apiSecret" type="password" class="form-control" name="apiSecret" required>
+
+                        @if ($errors->has('apiSecret'))
+                            <span class="text-danger">
+                                        <strong>{{ $errors->first('apiSecret') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="cloud">Cloud name:</label>
+                        <input id="cloud" type="password" class="form-control" name="cloud" required>
+
+                        @if ($errors->has('cloud'))
+                            <span class="text-danger">
+                                        <strong>{{ $errors->first('cloud') }}</strong>
+                                    </span>
+                        @endif
+
+                    </div>
+                @endif
                 <div class="form-group offset-md-4">
                     <button type="submit" class="btn btn-success">
                         Зарегистрироваться
                     </button>
                 </div>
-
             </form>
         </div>
     </div>

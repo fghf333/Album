@@ -3,5 +3,4 @@
 vendor/
 .phpstorm.meta.php
 _ide_helper.php
-database/seeds/
 composer.lock

@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Goutte\Client;
 use \GuzzleHttp\Client as Guzzle;
+use Symfony\Component\DomCrawler\Crawler;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 
+/**
+ * Class RegisterController
+ * @package App\Http\Controllers\Auth
+ */
 class RegisterController extends Controller
 {
     /*
@@ -58,34 +65,106 @@ class RegisterController extends Controller
         ]);
     }
 
+
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array $data
-     * @return \App\User
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function register(Request $request)
+    {
+
+        if ($request->has('apiKey')) {
+
+            $this->validate($request, [
+                'username' => 'required|string|max:255|unique:users',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+                'apiKey' => 'required|string|min:15',
+                'apiSecret' => 'required|string|min:20',
+                'cloud' => 'required|string',
+            ], [
+                'apiKey.required' => 'Поле "API key" обязательно к заполнению.',
+                'apiKey.min' => 'Неверное значение в поле "API key".',
+                'apiSecret.required' => 'Поле "API secret" обязательно к заполнению.',
+                'apiSecret.min' => 'Неверное значение в поле "API secret".',
+                'cloud.required' => 'Поле "Cloud" обязательно к заполнению.',
+
+            ]);
+
+        } else {
+            $this->validator($request->all())->validate();
+        }
+
+        $user = $this->create($request->all());
+
+        if ($user) {
+
+            event(new Registered($user));
+
+            $this->guard()->login($user);
+
+            return $this->registered($request, $user)
+                ?: redirect($this->redirectPath());
+        } else {
+
+            $validator = Validator::make([], []);
+            $validator->errors()->add('email.cloudinary',
+                'Вы уже зарегестрированны в Cloudinary. Пожалуйста, заполните поля ниже.');
+
+            return back()->withErrors($validator)->withInput();
+        }
+    }
+
+
+    /**
+     * @param array $data
+     * @return bool|void
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function create(array $data)
     {
+
         $data['password'] = Hash::make($data['password']);
         $data['old_password'] = $data['password'];
         $check = $this->spam_check($data['email']);
         if ($check) {
-            $credentials = $this->Cloudinary_register($data['username'], $data['email'], $data['password']);
-            $user = array_merge($data, $credentials);
-            return User::create($user);
+            if (!isset($data['apiKey'])) {
+                $credentials = $this->Cloudinary_register($data['username'], $data['email'], $data['password']);
+            } else {
+                $credentials = [
+                    'cloud_name' => $data['cloud'],
+                    'api_key' => $data['apiKey'],
+                    'api_secret' => $data['apiSecret'],
+                ];
+            }
+
+            if (array_key_exists('api_key', $credentials)) {
+                $user = array_merge($data, $credentials);
+
+                return User::create($user);
+            } else {
+                return false;
+            }
         } else {
             return abort(599);
         }
+
     }
 
+    /**
+     * @param $email
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     function spam_check($email)
     {
         $client = new Guzzle();
 
         $url = 'https://cleantalk.org/blacklists/?record=' . $email . '&action=get-api-response';
 
-        @$res = json_decode($client->request('GET', $url)->getBody()->getContents(), true)['data'][$email]['exists'];
-        if ($res == 1) {
+        $res = json_decode($client->request('GET', $url)->getBody()->getContents(), true);
+        if (isset($res['data'][$email]['exists'])) {
             return false;
         } else {
             return true;
@@ -93,6 +172,12 @@ class RegisterController extends Controller
 
     }
 
+    /**
+     * @param $form_user_name
+     * @param $form_user_email
+     * @param $form_user_password
+     * @return array|mixed
+     */
     function Cloudinary_register($form_user_name, $form_user_email, $form_user_password)
     {
         $plan_id = 'free';
@@ -126,19 +211,68 @@ class RegisterController extends Controller
             'customer[cloud_name]' => $data['cloud_name'],
         ));
 
-        //Retrieve credentials
+        $error = $crawler->filter('.error-msg')->each(function (Crawler $node) {
+            $arr = false;
+            $text = $node->text();
+            if (!empty($text)) {
+                $field = $node->siblings()->filter('.label-holder')->text();
+                $arr[$field] = $text;
+            }
+
+            return $arr;
+        });
+
+        $error = array_filter($error);
+        $error = array_shift($error);
+
+        if (empty($error)) {
+
+            //Retrieve credentials
+            $data = $this->Cloudinary_login($user_email, $user_password);
+            return $data;
+        } else {
+            return $error;
+        }
+    }
+
+    function Cloudinary_login($form_user_email, $form_user_password)
+    {
+
+        $user_email = $form_user_email;
+        $user_password = $form_user_password;
+
         $client = new Client();
         $crawler = $client->request('GET', 'https://cloudinary.com/users/login_update');
         $authenticity_token = $crawler->filter('meta[name=csrf-token]')->attr('content');
         $logInForm = $crawler->selectButton('sign in')->form();
-        $crawler = $client->submit($logInForm, array(
+        $client->submit($logInForm, array(
             'authenticity_token' => $authenticity_token,
             'user_session[email]' => $user_email,
             'user_session[password]' => $user_password,
         ));
-        $crawler = $client->request('GET', 'https://cloudinary.com/console/lui');
-        $data['api_key'] = $crawler->filter('div[class=label]:contains("API Key:") + div[class=value] > input')->attr('value');
-        $data['api_secret'] = $crawler->filter('div[class=label]:contains("API Secret:") + div[class=value] > input')->attr('data-actual-value');
-        return $data;
+
+        $error = $crawler->filter('.error-msg')->each(function (Crawler $node) {
+            $arr = false;
+            $text = $node->html();
+            if (!empty($text)) {
+                $field = $node->siblings()->filter('.label-holder')->text();
+                $arr[$field] = $text;
+            }
+
+            return $arr;
+        });
+
+        $error = array_filter($error);
+        $error = array_shift($error);
+
+        if (empty($error)) {
+
+            $crawler = $client->request('GET', 'https://cloudinary.com/console/lui');
+            $data['cloud_name'] = $crawler->filter('div[class=label]:contains("Cloud name:") + div[class=value] > input')->attr('value');
+            $data['api_key'] = $crawler->filter('div[class=label]:contains("API Key:") + div[class=value] > input')->attr('value');
+            $data['api_secret'] = $crawler->filter('div[class=label]:contains("API Secret:") + div[class=value] > input')->attr('data-actual-value');
+            return $data;
+        }
+        return $error;
     }
 }
