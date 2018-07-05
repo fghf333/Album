@@ -18,7 +18,7 @@ class UploadController extends Controller
         }
         $user = Auth::user()->getAuthIdentifier();
         $tags = DB::table('tags')->select('name', 'id')->get();
-        $albums = DB::table('albums')->where('creator', '=', $user)->select('name', 'id')->get();
+        $albums = DB::table('albums')->whereIn('id', [$user, 1])->select('name', 'id')->get();
         $data = [
             'albums' => $albums,
             'tags' => $tags,
