@@ -37,7 +37,7 @@ class UploadController extends Controller
             'peoples' => 'max:250',
             'place' => 'max:250',
             'CreatedAt' => 'required|date',
-            'file' => 'required|image|max:20440',
+            'file' => 'required|image|max:10000',
         ]);
 
         $photo = $request->all();
