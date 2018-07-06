@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Goutte\Client;
@@ -12,6 +13,9 @@ use \GuzzleHttp\Client as Guzzle;
 use Symfony\Component\DomCrawler\Crawler;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Cloudinary;
+use Cloudinary\Uploader;
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 
 /**
@@ -98,7 +102,7 @@ class RegisterController extends Controller
 
         $user = $this->create($request->all());
 
-        if ($user) {
+        if (gettype($user) === 'object') {
 
             event(new Registered($user));
 
@@ -107,19 +111,37 @@ class RegisterController extends Controller
             return $this->registered($request, $user)
                 ?: redirect($this->redirectPath());
         } else {
-
             $validator = Validator::make([], []);
-            $validator->errors()->add('email.cloudinary',
-                'Вы уже зарегестрированны в Cloudinary. Пожалуйста, заполните поля ниже.');
-
-            return back()->withErrors($validator)->withInput();
+            switch ($user) {
+                case 'API key':
+                    $validator->errors()->add('apiKey', 'Неверное значение в поле "API key".');
+                    return back()->withErrors($validator)->withInput();
+                    break;
+                case 'API Secret':
+                    $validator->errors()->add('apiSecret', 'Неверное значение в поле "API Secret".');
+                    return back()->withErrors($validator)->withInput();
+                    break;
+                case 'Cloud name':
+                    $validator->errors()->add('cloud', 'Неверное значение в поле "Cloud".');
+                    return back()->withErrors($validator)->withInput();
+                    break;
+                case 'notUniqe':
+                    $validator->errors()->add('email.cloudinary',
+                        'Вы уже зарегестрированны в Cloudinary. Пожалуйста, заполните поля ниже.');
+                    return back()->withErrors($validator)->withInput();
+                    break;
+                default:
+                    dd('какого-то хуя я здесь');
+                    return back()->withInput();
+                    break;
+            }
         }
     }
 
 
     /**
      * @param array $data
-     * @return bool|void
+     * @return $this|bool|\Illuminate\Database\Eloquent\Model|void
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function create(array $data)
@@ -137,6 +159,10 @@ class RegisterController extends Controller
                     'api_key' => $data['apiKey'],
                     'api_secret' => $data['apiSecret'],
                 ];
+                $message = $this->credentials_check($credentials);
+                if($message !== 'checked') {
+                    return $message;
+                }
             }
 
             if (array_key_exists('api_key', $credentials)) {
@@ -144,7 +170,7 @@ class RegisterController extends Controller
 
                 return User::create($user);
             } else {
-                return false;
+                return 'notUniqe';
             }
         } else {
             return abort(599);
@@ -170,6 +196,46 @@ class RegisterController extends Controller
             return true;
         }
 
+    }
+
+    /**
+     * @param $credentials
+     * @return string
+     */
+    function credentials_check($credentials)
+    {
+        Cloudinary::config([
+            'cloud_name' => $credentials['cloud_name'],
+            'api_key' => $credentials['api_key'],
+            'api_secret' => $credentials['api_secret'],
+        ]);
+        $error = '';
+        $try = '';
+        try {
+            $try = Uploader::upload('images/logo.png');
+        } catch (\Cloudinary\Error $e) {
+            $message = $e->getMessage();
+
+            if (stripos($message, 'api_key') || stripos($message, 'API key')) {
+                $error = 'API key';
+            }
+            if (stripos($message, 'Signature')) {
+                $error = 'API Secret';
+            }
+            if (stripos($message, 'cloud_name')) {
+                $error = 'Cloud name';
+            }
+
+        }
+
+        if (empty($error) && isset($try['public_id'])) {
+            Uploader::destroy($try['public_id']);
+            Cloudinary::reset_config();
+            return 'checked';
+        } else {
+            Cloudinary::reset_config();
+            return $error;
+        }
     }
 
     /**
@@ -235,6 +301,11 @@ class RegisterController extends Controller
         }
     }
 
+    /**
+     * @param $form_user_email
+     * @param $form_user_password
+     * @return array|mixed
+     */
     function Cloudinary_login($form_user_email, $form_user_password)
     {
 
