@@ -16,9 +16,14 @@ class UploadController extends Controller
         if (!Auth::check()) {
             return abort(404);
         }
-        $user = Auth::user()->getAuthIdentifier();
-        $tags = DB::table('tags')->select('name', 'id')->get();
-        $albums = DB::table('albums')->whereIn('creator', [$user, 1])->select('name', 'id')->get();
+
+        $tags = DB::table('tags')
+            ->select('name', 'id')
+            ->get();
+        $albums = DB::table('albums')
+            ->whereIn('creator', [Auth::id(), 1])
+            ->select('name', 'id')
+            ->get();
 
         $data = [
             'albums' => $albums,
@@ -44,20 +49,24 @@ class UploadController extends Controller
         $photo = $request->all();
 
         $tagsq = explode(',', $photo['tags']);
-        $query = '';
-        $i = 0;
         foreach ($tagsq as $tag) {
-            if ($i === 0) {
-                $query .= '(\'' . $tag . '\',\'' . date("Y-m-d H:i:s") . '\',\'' . date("Y-m-d H:i:s") . '\')';
-                $i++;
-            } else {
-                $query .= ',(\'' . $tag . '\',\'' . date("Y-m-d H:i:s") . '\',\'' . date("Y-m-d H:i:s") . '\')';
-            }
-        }
-        DB::insert('INSERT IGNORE INTO tags (name, created_at, updated_at) VALUES ' . $query);
+            DB::table('tags')
+                ->updateOrInsert([
+                    'name',
+                    'created_at',
+                    'updated_at',
+                ],
+                    [
+                        $tag,
+                        date("Y-m-d H:i:s"),
+                        date("Y-m-d H:i:s"),
 
-        $userID = Auth::user()->getAuthIdentifier();
-        $userData = DB::table('users')->where('id', '=', $userID)->first();
+                    ]);
+        }
+        $userID = Auth::id();
+        $userData = DB::table('users')
+            ->where('id', '=', $userID)
+            ->first();
         Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},
             'api_key' => $userData->{'api_key'},
@@ -85,22 +94,23 @@ class UploadController extends Controller
             $album = $photo['album'] = 1;
         }
 
-        DB::table('images')->insert(
-            [
-                'name' => $photo['name'],
-                'album' => $album,
-                'image_id' => $id,
-                'image_url' => $url,
-                'preview_img_url' => $preview_img_url,
-                'createdAt' => $photo['CreatedAt'],
-                'tags' => $photo['tags'],
-                'peoples' => $photo['peoples'],
-                'place' => $photo['place'],
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s"),
-                'author' => Auth::user()->getAuthIdentifier(),
-            ]
-        );
+        DB::table('images')
+            ->insert(
+                [
+                    'name' => $photo['name'],
+                    'album' => $album,
+                    'image_id' => $id,
+                    'image_url' => $url,
+                    'preview_img_url' => $preview_img_url,
+                    'createdAt' => $photo['CreatedAt'],
+                    'tags' => $photo['tags'],
+                    'peoples' => $photo['peoples'],
+                    'place' => $photo['place'],
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
+                    'author' => $userID,
+                ]
+            );
 
 
         return redirect('images-list/' . $album, 302);
@@ -108,9 +118,13 @@ class UploadController extends Controller
 
     function check_album($AlbumID)
     {
-        $albums = DB::table('albums')->whereIn('creator', [Auth::id(), 1])->select('id')->get()->toArray();
+        $albums = DB::table('albums')
+            ->whereIn('creator', [Auth::id(), 1])
+            ->select('id')
+            ->get()
+            ->toArray();
 
-       $check = array_filter($albums, function ($e) use ($AlbumID) {
+        $check = array_filter($albums, function ($e) use ($AlbumID) {
             return $e->id == $AlbumID;
         });
 

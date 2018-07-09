@@ -25,7 +25,11 @@ class HomeController extends Controller
     {
         $check = Auth::check();
         if($check == true) {
-            $images = DB::table('images')->where('author', '=', Auth::user()->getAuthIdentifier())->latest()->take(12)->get();
+            $images = DB::table('images')
+                ->where('author', '=', Auth::id())
+                ->latest()
+                ->take(12)
+                ->get();
 
             return view('welcome', [
                 'images' => $images,

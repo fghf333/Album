@@ -21,17 +21,18 @@ class ProfileController extends Controller
     public function getProfile($UserID = null)
     {
 
-        if (!Auth::check() || Auth::user()->getAuthIdentifier() != $UserID) {
+        $user = Auth::id();
+
+        if (!Auth::check() || $user != $UserID) {
             return abort(404);
         }
 
-        $userID = Auth::user()->getAuthIdentifier();
-        $userData = DB::table('users')->where('id', '=', $userID)->first();
+        $userData = DB::table('users')
+            ->where('id', '=', $user)
+            ->first();
 
-        $user = DB::table('users')->select()->where('id', '=', $UserID)->first();
-
-        $data['Имя пользователя'] = $user->{'username'};
-        $data['Имейл'] = $user->{'email'};
+        $data['username'] = $userData->{'username'};
+        $data['email'] = $userData->{'email'};
         return view('profile', [
             'data' => $data,
             'tab' => 'default',
@@ -46,7 +47,9 @@ class ProfileController extends Controller
         ]);
 
         $new_Password = Hash::make($request->get('password'));
-        DB::table('users')->where('id', '=', Auth::id())->update(['password' => $new_Password]);
+        DB::table('users')
+            ->where('id', '=', Auth::id())
+            ->update(['password' => $new_Password]);
 
         $data = $this->getProfile(Auth::id());
 
@@ -59,7 +62,9 @@ class ProfileController extends Controller
 
     public function charts()
     {
-        $userData = DB::table('users')->where('id', '=', Auth::id())->first();
+        $userData = DB::table('users')
+            ->where('id', '=', Auth::id())
+            ->first();
 
         Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},

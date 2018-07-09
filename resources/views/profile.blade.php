@@ -21,17 +21,24 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade @if($tab == 'default') show active @endif" id="first" role="tabpanel"
              aria-labelledby="first-tab">
-            @foreach($data as $key => $value)
-                <div class="row justify-content-center user-data">
-                    <div class="col-lg-3">
-                        {{$key}}
-                    </div>
-                    <div class="col-lg-3">
-                        {{$value}}
-                    </div>
+            <div class="row justify-content-center user-data">
+                <div class="col-lg-3">
+                    Имя пользователя
                 </div>
-                <hr>
-            @endforeach
+                <div class="col-lg-3">
+                    {{$data['username']}}
+                </div>
+            </div>
+            <hr>
+            <div class="row justify-content-center user-data">
+                <div class="col-lg-3">
+                    Имейл
+                </div>
+                <div class="col-lg-3">
+                    {{$data['email']}}
+                </div>
+            </div>
+            <hr>
 
         </div>
         <div class="tab-pane fade @if($tab == 'password') show active @endif" id="password" role="tabpanel"

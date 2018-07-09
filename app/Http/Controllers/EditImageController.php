@@ -20,35 +20,54 @@ class EditImageController extends Controller
 
     public function deleteImage(Request $request)
     {
-        $image = DB::table('images')->where('id', '=', $request['ImageID'])->first();
-        DB::table('images')->where('id', '=', $request['ImageID'])->delete();
-        $filename = $image->{'image_id'};
 
-        $userID = Auth::user()->getAuthIdentifier();
-        $userData = DB::table('users')->where('id', '=', $userID)->first();
-        Cloudinary::config([
-            'cloud_name' => $userData->{'cloud_name'},
-            'api_key' => $userData->{'api_key'},
-            'api_secret' => $userData->{'api_secret'},
-        ]);
-        Uploader::destroy($filename, array("invalidate" => true));
-        Cloudinary::reset_config();
+        $userID = Auth::id();
+        $image = DB::table('images')
+            ->where('id', '=', $request['ImageID'])
+            ->where('author', '=', $userID)
+            ->first();
+        if ($image !== null) {
+            DB::table('images')
+                ->where('id', '=', $request['ImageID'])
+                ->delete();
+            $filename = $image->{'image_id'};
 
-        return redirect('images-list', 302);
+            $userData = DB::table('users')
+                ->where('id', '=', $userID)
+                ->first();
+            Cloudinary::config([
+                'cloud_name' => $userData->{'cloud_name'},
+                'api_key' => $userData->{'api_key'},
+                'api_secret' => $userData->{'api_secret'},
+            ]);
+            Uploader::destroy($filename, array("invalidate" => true));
+            Cloudinary::reset_config();
+
+            return redirect('images-list', 302);
+        } else {
+            return abort(404);
+        }
     }
 
     public function getForm($imageID)
     {
 
-        $data = DB::table('images')->where('id', $imageID)->first();
-        $user = Auth::user()->getAuthIdentifier();
+        $data = DB::table('images')
+            ->where('id', $imageID)
+            ->first();
+        $user = Auth::id();
 
         if (!Auth::check() || $data == null || $user != $data->{'author'}) {
             return abort(404);
         }
 
-        $tags = DB::table('tags')->select('name')->get();
-        $albums = DB::table('albums')->where('creator', '=', $user)->select('name', 'id')->get();
+        $tags = DB::table('tags')
+            ->select('name')
+            ->get();
+        $albums = DB::table('albums')
+            ->whereIn('creator', [$user, 1])
+            ->select('name', 'id')
+            ->get();
 
         return view('edit-image', [
             'image' => $data,
@@ -87,7 +106,9 @@ class EditImageController extends Controller
 
         DB::insert('INSERT IGNORE INTO tags (name, created_at, updated_at) VALUES ' . $query);
 
-        DB::table('images')->where('id', $ImageID)->update(
+        DB::table('images')
+            ->where('id', $ImageID)
+            ->update(
             [
                 'name' => $form['name'],
                 'album' => $form['album'],
@@ -95,7 +116,6 @@ class EditImageController extends Controller
                 'tags' => $form['tags'],
                 'peoples' => $form['peoples'],
                 'place' => $form['place'],
-                'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ]
         );

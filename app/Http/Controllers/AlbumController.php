@@ -23,12 +23,14 @@ class AlbumController extends Controller
     public function getList()
     {
         if (Auth::check()) {
-            $userID = Auth::user()->getAuthIdentifier();
-            $data = DB::table('albums')->where('creator', '=', $userID)->where('id', '>',
-                '1')->orderByRaw('created_at ASC')->get();
+            $data = DB::table('albums')
+                ->where('creator', '=', Auth::id())
+                ->where('id', '>', '1')
+                ->orderByRaw('created_at ASC')
+                ->get();
             return view('albums-list', ['list' => $data]);
 
-        }else{
+        } else {
             return view('albums-list');
         }
 
@@ -37,15 +39,14 @@ class AlbumController extends Controller
 
     public function getEditForm($AlbumID)
     {
-        $data = DB::table('albums')->where('id', $AlbumID)->first();
+        $data = DB::table('albums')
+            ->where('id', $AlbumID)
+            ->where('creator', '=', Auth::id())
+            ->first();
         if ($data !== null) {
-            if (Auth::check() && Auth::user()->getAuthIdentifier() == $data->{'creator'}) {
                 return view('edit-album', [
                     'album' => $data,
                 ]);
-            } else {
-                return abort(404);
-            }
         }
         return abort(404);
     }
@@ -68,29 +69,40 @@ class AlbumController extends Controller
         ]);
 
         $form = $request->all();
-        DB::table('albums')->where('id', $AlbumID)->update(
-            [
-                'name' => $form['name'],
-                'description' => $form['description'],
-                'updated_at' => date("Y-m-d H:i:s"),
-            ]
-        );
+        DB::table('albums')
+            ->where('id', $AlbumID)
+            ->update(
+                [
+                    'name' => $form['name'],
+                    'description' => $form['description'],
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ]
+            );
         return redirect()->route('albums_list');
     }
 
     public function deleteAlbum(Request $request)
     {
         $data = $request->all();
-        $check = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
-        if ($check == null) {
+        $check = DB::table('albums')
+            ->where('id', '=', $data['AlbumID'])
+            ->where('creator', '=', Auth::id())
+            ->first();
+
+        if ($check === null) {
             return abort(404);
         }
-        DB::table('images')->where('album', '=', $data['AlbumID'])->update(['album' => 1]);
-        $album = DB::table('albums')->where('id', '=', $data['AlbumID'])->first();
+        DB::table('images')
+            ->where('album', '=', $data['AlbumID'])
+            ->update(['album' => 1]);
+        $album = DB::table('albums')
+            ->where('id', '=', $data['AlbumID'])
+            ->first();
         $image = $album->{'preview_img_id'};
 
-        $userID = Auth::user()->getAuthIdentifier();
-        $userData = DB::table('users')->where('id', '=', $userID)->first();
+        $userData = DB::table('users')
+            ->where('id', '=', Auth::id())
+            ->first();
         Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},
             'api_key' => $userData->{'api_key'},
@@ -99,7 +111,9 @@ class AlbumController extends Controller
         Uploader::destroy($image, array("invalidate" => true));
         Cloudinary::reset_config();
 
-        DB::table('albums')->where('id', '=', $data['AlbumID'])->delete();
+        DB::table('albums')
+            ->where('id', '=', $data['AlbumID'])
+            ->delete();
 
         return redirect('albums', 302);
     }
@@ -115,8 +129,9 @@ class AlbumController extends Controller
 
         $form = $request->all();
 
-        $userID = Auth::user()->getAuthIdentifier();
-        $userData = DB::table('users')->where('id', '=', $userID)->first();
+        $userData = DB::table('users')
+            ->where('id', '=', Auth::id())
+            ->first();
         Cloudinary::config([
             'cloud_name' => $userData->{'cloud_name'},
             'api_key' => $userData->{'api_key'},
@@ -137,18 +152,19 @@ class AlbumController extends Controller
 
         Cloudinary::reset_config();
 
-        DB::table('albums')->insert(
-            [
-                'name' => $form['name'],
-                'creator' => $userID,
-                'shared' => 0,
-                'preview_img_id' => $id,
-                'description' => $form['description'],
-                'preview_img' => $preview_img_url,
-                'updated_at' => date("Y-m-d H:i:s"),
-                'created_at' => date("Y-m-d H:i:s"),
-            ]
-        );
+        DB::table('albums')
+            ->insert(
+                [
+                    'name' => $form['name'],
+                    'creator' => Auth::id(),
+                    'shared' => 0,
+                    'preview_img_id' => $id,
+                    'description' => $form['description'],
+                    'preview_img' => $preview_img_url,
+                    'updated_at' => date("Y-m-d H:i:s"),
+                    'created_at' => date("Y-m-d H:i:s"),
+                ]
+            );
         return redirect('albums', 302);
     }
 
