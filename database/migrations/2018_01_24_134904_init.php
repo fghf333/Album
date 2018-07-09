@@ -24,7 +24,7 @@ class Init extends Migration
             $table->string('preview_img', 255)->nullable();
             $table->integer('photo_num')->default(0);
             $table->dateTime('updated_at');
-            $table->dateTime('created_at');
+            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
 
         //Create 'images' table
@@ -37,7 +37,7 @@ class Init extends Migration
             $table->string('preview_img_url', 255);
             $table->string('peoples', 255);
             $table->string('place', 255);
-            $table->dateTime('created_at');
+            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('updated_at');
             $table->date('createdAt');
             $table->text('tags')->nullable();
@@ -49,7 +49,7 @@ class Init extends Migration
             $table->increments('id');
             $table->string('name', 45);
             $table->integer('photos_num')->default(0);
-            $table->dateTime('created_at');
+            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('updated_at');
             $table->index('name');
         });
@@ -65,7 +65,7 @@ class Init extends Migration
             $table->string('api_key', 255);
             $table->string('api_secret', 255);
             $table->string('cloud_name', 255);
-            $table->dateTime('updated_at');
+            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('created_at');
             $table->string('remember_token', 255)->nullable();
             $table->index('email');
@@ -76,7 +76,7 @@ class Init extends Migration
             $table->increments('id');
             $table->string('email', 255);
             $table->string('token', 255);
-            $table->dateTime('created_at');
+            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->index('email');
         });
     }
