@@ -18,7 +18,8 @@ class UploadController extends Controller
         }
         $user = Auth::user()->getAuthIdentifier();
         $tags = DB::table('tags')->select('name', 'id')->get();
-        $albums = DB::table('albums')->whereIn('id', [$user, 1])->select('name', 'id')->get();
+        $albums = DB::table('albums')->whereIn('creator', [$user, 1])->select('name', 'id')->get();
+
         $data = [
             'albums' => $albums,
             'tags' => $tags,
@@ -78,14 +79,16 @@ class UploadController extends Controller
 
         Cloudinary::reset_config();
 
-        if (!isset($photo['album'])) {
-            $photo['album'] = 1;
+        if (isset($photo['album']) && $this->check_album($photo['album'])) {
+            $album = $photo['album'];
+        } else {
+            $album = $photo['album'] = 1;
         }
 
         DB::table('images')->insert(
             [
                 'name' => $photo['name'],
-                'album' => $photo['album'],
+                'album' => $album,
                 'image_id' => $id,
                 'image_url' => $url,
                 'preview_img_url' => $preview_img_url,
@@ -100,6 +103,21 @@ class UploadController extends Controller
         );
 
 
-        return redirect('images-list/' . $request->{'album'}, 302);
+        return redirect('images-list/' . $album, 302);
+    }
+
+    function check_album($AlbumID)
+    {
+        $albums = DB::table('albums')->whereIn('creator', [Auth::id(), 1])->select('id')->get()->toArray();
+
+       $check = array_filter($albums, function ($e) use ($AlbumID) {
+            return $e->id == $AlbumID;
+        });
+
+        if (!empty($check)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
