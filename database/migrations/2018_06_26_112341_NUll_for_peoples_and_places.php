@@ -13,9 +13,12 @@ class NUllForPeoplesAndPlaces extends Migration
      */
     public function up()
     {
-        Schema::table('images', function (Blueprint $table){
+        Schema::table('images', function (Blueprint $table) {
             $table->string('peoples')->nullable()->change();
             $table->string('place')->nullable()->change();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('family_id')->nullable()->change();
         });
     }
 

@@ -131,7 +131,6 @@ class RegisterController extends Controller
                     return back()->withErrors($validator)->withInput();
                     break;
                 default:
-                    dd('какого-то хуя я здесь');
                     return back()->withInput();
                     break;
             }
@@ -292,7 +291,6 @@ class RegisterController extends Controller
         $error = array_shift($error);
 
         if (empty($error)) {
-
             //Retrieve credentials
             $data = $this->Cloudinary_login($user_email, $user_password);
             return $data;
@@ -324,7 +322,7 @@ class RegisterController extends Controller
 
         $error = $crawler->filter('.error-msg')->each(function (Crawler $node) {
             $arr = false;
-            $text = $node->html();
+            $text = trim($node->html());
             if (!empty($text)) {
                 $field = $node->siblings()->filter('.label-holder')->text();
                 $arr[$field] = $text;
