@@ -16,11 +16,17 @@ class HomeController extends Controller
 {
     use RegistersUsers;
 
+    /**
+     * HomeController constructor.
+     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     function getHome()
     {
         $check = Auth::check();

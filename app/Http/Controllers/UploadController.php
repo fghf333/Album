@@ -11,6 +11,10 @@ use Cloudinary\Uploader;
 class UploadController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function deleteImage(Request $request)
     {
 
@@ -42,6 +46,10 @@ class UploadController extends Controller
         }
     }
 
+    /**
+     * @param null $AlbumID
+     * @return mixed
+     */
     public function getForm($AlbumID = null)
     {
 
@@ -65,6 +73,10 @@ class UploadController extends Controller
         return view('upload', $data);
     }
 
+    /**
+     * @param null $imageID
+     * @return mixed
+     */
     public function getEditForm($imageID = null)
     {
 
@@ -90,6 +102,11 @@ class UploadController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param null $ImageID
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function upload(Request $request, $ImageID = null)
     {
 
@@ -191,6 +208,10 @@ class UploadController extends Controller
         return redirect('images-list/' . $album, 302);
     }
 
+    /**
+     * @param $AlbumID
+     * @return bool
+     */
     function check_album($AlbumID)
     {
         $albums = DB::table('albums')
@@ -210,6 +231,9 @@ class UploadController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     function tags()
     {
         $tags = DB::table('tags')

@@ -37,6 +37,10 @@ class AlbumController extends Controller
 
     }
 
+    /**
+     * @param $AlbumID
+     * @return mixed
+     */
     public function getEditForm($AlbumID)
     {
         $data = DB::table('albums')
@@ -51,6 +55,9 @@ class AlbumController extends Controller
         return abort(404);
     }
 
+    /**
+     * @return mixed
+     */
     public function getForm()
     {
         if (Auth::check()) {
@@ -60,6 +67,11 @@ class AlbumController extends Controller
         }
     }
 
+    /**
+     * @param $AlbumID
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editAlbum($AlbumID, Request $request)
     {
 
@@ -81,6 +93,10 @@ class AlbumController extends Controller
         return redirect()->route('albums_list');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function deleteAlbum(Request $request)
     {
         $data = $request->all();
@@ -118,6 +134,10 @@ class AlbumController extends Controller
         return redirect('albums', 302);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function createAlbum(Request $request)
     {
 

@@ -18,6 +18,10 @@ use Cloudinary\Api;
 
 class ProfileController extends Controller
 {
+    /**
+     * @param null $UserID
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getProfile($UserID = null)
     {
 
@@ -40,6 +44,10 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function changePassword(Request $request)
     {
         $this->validate($request, [
@@ -60,6 +68,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws Api\GeneralError
+     */
     public function charts()
     {
         $userData = DB::table('users')
@@ -91,6 +103,11 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @param $bytes
+     * @param int $precision
+     * @return string
+     */
     function FBytes($bytes, $precision = 2)
     {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');

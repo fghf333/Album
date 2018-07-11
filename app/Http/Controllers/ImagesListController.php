@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class ImagesListController
 {
+    /**
+     * @param null $AlbumID
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getList($AlbumID = null)
     {
         $user = Auth::id();
