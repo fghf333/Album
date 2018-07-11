@@ -16,7 +16,7 @@
                 <img class="edit_image img-responsive" src="{{$image->image_url}}">
             @else
                 <img class="edit_image img-responsive"
-                     src="http://res.cloudinary.com/happy-moments/image/upload/c_fill,h_200,w_500/logo_zt2vwd.png">
+                     src="http://res.cloudinary.com/happy-moments/image/upload/c_fill,h_200,w_500/logo_o299ll.png">
             @endif
         </div>
         <div class="col-md-6 align-items-center">
@@ -27,7 +27,7 @@
                     <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label for="name">Имя:</label>
-                        <input name="name" type="text" class="form-control" id="name" value="{{$image->name}}" required
+                        <input name="name" type="text" class="form-control" id="name" value="{{old('name') !== null ? old('name') : $image->name}}" required
                                maxlength="250">
 
                         @if ($errors->has('name'))
@@ -41,9 +41,8 @@
                         <label for="album">Альбом:</label>
                         <select class="form-control" name="album" id="album">
                             @foreach($albums as $album)
-                                @if($album->id === $image->album)
+                                @if($album->id === $image->album or (int)old('album') === $album->id)
                                     <option value="{{$album->id}}" selected>{{$album->name}}</option>
-
                                 @else
                                     <option value="{{$album->id}}">{{$album->name}}</option>
                                 @endif
@@ -52,12 +51,11 @@
                     </div>
                     <div class="form-group">
                         <label for="tags-input-edit">Теги:</label>
-                        <input class="form-control" name="tags" type="text" value="{{$image->tags}}"
-                               id="tags-input-edit"/>
+                            <input name="tags" id="tags-input-edit" style="display: none;">
                     </div>
                     <div class="form-group">
                         <label for="peoples">Люди:</label>
-                        <input class="form-control" name="peoples" id="peoples" type="text" value="{{$image->peoples}}"
+                        <input class="form-control" name="peoples" id="peoples" type="text" value="{{old('peoples') !== null ? old('peoples') : $image->peoples}}"
                                maxlength="250">
 
                         @if ($errors->has('peoples'))
@@ -69,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label for="place">Место:</label>
-                        <input class="form-control" name="place" id="place" type="text" value="{{$image->place}}"
+                        <input class="form-control" name="place" id="place" type="text" value="{{old('place') !== null ? old('place') : $image->place}}"
                                maxlength="250">
 
                         @if ($errors->has('place'))
@@ -82,7 +80,7 @@
                     <div class="form-group">
                         <label for="CreatedAt"> Дата:</label>
                         <input class="form-control" name="CreatedAt" id="CreatedAt" type="date"
-                               value="{{$image->createdAt}}" required>
+                               value="{{old('CreatedAt') !== null ? old('CreatedAt') : $image->createdAt}}" required>
 
                         @if ($errors->has('CreatedAt'))
                             <span class="text-danger">
@@ -130,8 +128,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tags-input-edit">Теги:</label>
-                        <input class="form-control" name="tags" type="text" id="tags-input-edit"
-                               value="{{old('tags')}}">
+                        <input name="tags" id="tags-input-edit" style="display: none;">
                     </div>
                     <div class="form-group">
                         <label for="peoples">Люди:</label>
@@ -191,11 +188,17 @@
             @endif
         </div>
     </div>
+    @if($edit)
+        <script>
+            var addurl = "{{url('add-tags')}}" + "/{{$image->image_id}}"
+        </script>
+        @else
+        <script src="{{asset('js/preview-image.js')}}"></script>
+    @endif
     <script>
         var url = "{{url('tags')}}";
         window.ImageTags = [];
     </script>
-    <script src="{{asset('js/preview-image.js')}}"></script>
     <script src="{{asset('js/typeahead.bundle.js')}}"></script>
     <script src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
     <script src="{{asset('js/tags-input.js')}}"></script>
