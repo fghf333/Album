@@ -34,4 +34,10 @@ $(document).ready(function () {
             }
         });
     });
+    $.get(addurl, function (response) {
+        $('#tags-input-edit').tagsinput('add', response);
+    });
 });
+
+
+

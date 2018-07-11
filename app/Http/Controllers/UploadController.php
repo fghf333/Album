@@ -7,9 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Cloudinary;
 use Cloudinary\Uploader;
+use Cloudinary\Api;
 
 class UploadController extends Controller
 {
+
+    public function func($tag)
+    {
+
+        $object = new \stdClass();
+        $object->name = $tag;
+
+        return $object;
+    }
 
     /**
      * @param Request $request
@@ -111,6 +121,7 @@ class UploadController extends Controller
     {
 
         $userID = Auth::id();
+        $photo = $request->all();
 
         if ($ImageID !== null) {
 
@@ -129,6 +140,21 @@ class UploadController extends Controller
             $url = $image->{'image_url'};
             $preview_img_url = $image->{'preview_img_url'};
 
+            $userData = DB::table('users')
+                ->where('id', '=', $userID)
+                ->first();
+            Cloudinary::config([
+                'cloud_name' => $userData->{'cloud_name'},
+                'api_key' => $userData->{'api_key'},
+                'api_secret' => $userData->{'api_secret'},
+            ]);
+
+            Uploader::explicit($id, [
+                'type' => 'upload',
+                'tags' => $photo['tags'],
+            ]);
+
+            Cloudinary::reset_config();
 
         } else {
 
@@ -149,7 +175,9 @@ class UploadController extends Controller
                 'api_secret' => $userData->{'api_secret'},
             ]);
 
-            $uploaded = Uploader::upload($request->file('file')->getRealPath());
+            $uploaded = Uploader::upload($request->file('file')->getRealPath(), [
+                'tags' => $photo['tags'],
+            ]);
             $id = $uploaded['public_id'];
             $url = $uploaded['secure_url'];
 
@@ -164,18 +192,6 @@ class UploadController extends Controller
 
             Cloudinary::reset_config();
 
-        }
-        $photo = $request->all();
-
-        $tagsq = array_filter(explode(',', $photo['tags']));
-        foreach ($tagsq as $tag) {
-            DB::table('tags')->updateOrInsert([
-                'name' => $tag,
-            ],
-                [
-                    'name' => $tag,
-                    'updated_at' => date("Y-m-d H:i:s"),
-                ]);
         }
 
         if (isset($photo['album']) && $this->check_album($photo['album'])) {
@@ -195,7 +211,6 @@ class UploadController extends Controller
                     'image_id' => $id,
                     'image_url' => $url,
                     'preview_img_url' => $preview_img_url,
-                    'tags' => $photo['tags'],
                     'peoples' => $photo['peoples'],
                     'place' => $photo['place'],
                     'updated_at' => date("Y-m-d H:i:s"),
@@ -236,11 +251,58 @@ class UploadController extends Controller
      */
     function tags()
     {
-        $tags = DB::table('tags')
-            ->select('name')
-            ->get();
+
+        $user = Auth::id();
+        $tags = [];
+        $userData = DB::table('users')
+            ->where('id', '=', $user)
+            ->first();
+
+        Cloudinary::config([
+            'cloud_name' => $userData->{'cloud_name'},
+            'api_key' => $userData->{'api_key'},
+            'api_secret' => $userData->{'api_secret'},
+        ]);
+
+        $api = new Api();
+        try {
+            $tags = $api->tags()['tags'];
+            $tags = array_map(array($this, 'func'), $api->tags()['tags']);
+        } catch (API\GeneralError $e) {
+            dd($e);
+        }
+
+
+        Cloudinary::reset_config();
 
         return response($tags);
 
+    }
+
+    function addtags($imageID = null)
+    {
+
+        $user = Auth::id();
+        $tags = [];
+        $userData = DB::table('users')
+            ->where('id', '=', $user)
+            ->first();
+
+        Cloudinary::config([
+            'cloud_name' => $userData->{'cloud_name'},
+            'api_key' => $userData->{'api_key'},
+            'api_secret' => $userData->{'api_secret'},
+        ]);
+
+        $api = new Api();
+        try {
+            $tags = implode(',', $api->resource($imageID)['tags']);
+        } catch (API\GeneralError $e) {
+            dd($e);
+        }
+
+        Cloudinary::reset_config();
+
+        return response($tags);
     }
 }
