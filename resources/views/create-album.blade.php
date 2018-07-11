@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
             <img class="edit_image img-responsive"
-                 src="http://res.cloudinary.com/happy-moments/image/upload/c_fill,h_200,w_500/logo_zt2vwd.png">
+                 src="http://res.cloudinary.com/happy-moments/image/upload/c_fill,h_200,w_500/logo_o299ll.png">
         </div>
         <div class="col-md-6 align-items-center">
             <form id="album" name="upload" method="post" action="{{route('create_album')}}"
