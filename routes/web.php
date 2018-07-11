@@ -17,11 +17,12 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 //UPLOADING
 Route::get('upload/{AlbumID?}', ['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
 Route::post('upload', ['as' => 'upload_file', 'uses' => 'UploadController@upload']);
+Route::get('tags','UploadController@tags');
 
 //IMAGE EDITOR
-Route::get('edit-image/{imageID}', ['as' => 'edit_image_form', 'uses' => 'EditImageController@getForm']);
-Route::post('edit-image/{imageID}', ['as' => 'edit_image', 'uses' => 'EditImageController@saveForm']);
-Route::delete('delete-image/{imageID}', ['as' => 'delete_image', 'uses' => 'EditImageController@deleteImage']);
+Route::get('edit-image/{imageID?}', ['as' => 'edit_image_form', 'uses' => 'UploadController@getEditForm']);
+Route::post('edit-image/{imageID}', ['as' => 'edit_image', 'uses' => 'UploadController@upload']);
+Route::delete('delete-image/{imageID}', ['as' => 'delete_image', 'uses' => 'UploadController@deleteImage']);
 
 //ALBUM
 Route::get('albums', ['as' => 'albums_list', 'uses' => 'AlbumController@getList']);

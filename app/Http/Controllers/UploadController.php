@@ -11,15 +11,44 @@ use Cloudinary\Uploader;
 class UploadController extends Controller
 {
 
+    public function deleteImage(Request $request)
+    {
+
+        $userID = Auth::id();
+        $image = DB::table('images')
+            ->where('id', '=', $request['ImageID'])
+            ->where('author', '=', $userID)
+            ->first();
+        if ($image !== null) {
+            DB::table('images')
+                ->where('id', '=', $request['ImageID'])
+                ->delete();
+            $filename = $image->{'image_id'};
+
+            $userData = DB::table('users')
+                ->where('id', '=', $userID)
+                ->first();
+            Cloudinary::config([
+                'cloud_name' => $userData->{'cloud_name'},
+                'api_key' => $userData->{'api_key'},
+                'api_secret' => $userData->{'api_secret'},
+            ]);
+            Uploader::destroy($filename, array("invalidate" => true));
+            Cloudinary::reset_config();
+
+            return redirect('images-list', 302);
+        } else {
+            return abort(404);
+        }
+    }
+
     public function getForm($AlbumID = null)
     {
+
         if (!Auth::check()) {
             return abort(404);
         }
 
-        $tags = DB::table('tags')
-            ->select('name', 'id')
-            ->get();
         $albums = DB::table('albums')
             ->whereIn('creator', [Auth::id(), 1])
             ->select('name', 'id')
@@ -27,7 +56,7 @@ class UploadController extends Controller
 
         $data = [
             'albums' => $albums,
-            'tags' => $tags,
+            'edit' => 0,
         ];
 
         if (isset($AlbumID)) {
@@ -36,57 +65,101 @@ class UploadController extends Controller
         return view('upload', $data);
     }
 
-    public function upload(Request $request)
+    public function getEditForm($imageID = null)
     {
-        $this->validate($request, [
-            'name' => 'required|max:250',
-            'peoples' => 'max:250',
-            'place' => 'max:250',
-            'CreatedAt' => 'required|date',
-            'file' => 'required|image|max:10000',
+
+        $data = DB::table('images')
+            ->where('id', $imageID)
+            ->first();
+        $user = Auth::id();
+
+        if (!Auth::check() || $data == null || $user != $data->{'author'}) {
+            return abort(404);
+        }
+
+        $albums = DB::table('albums')
+            ->whereIn('creator', [$user, 1])
+            ->select('name', 'id')
+            ->get();
+
+        return view('upload', [
+            'image' => $data,
+            'albums' => $albums,
+            'edit' => 1,
         ]);
 
+    }
+
+    public function upload(Request $request, $ImageID = null)
+    {
+
+        $userID = Auth::id();
+
+        if ($ImageID !== null) {
+
+            $this->validate($request, [
+                'name' => 'required|max:250',
+                'peoples' => 'max:250',
+                'place' => 'max:250',
+                'CreatedAt' => 'required|date',
+            ]);
+
+            $image = DB::table('images')
+                ->where('id', '=', $ImageID)
+                ->first();
+
+            $id = $image->{'image_id'};
+            $url = $image->{'image_url'};
+            $preview_img_url = $image->{'preview_img_url'};
+
+
+        } else {
+
+            $this->validate($request, [
+                'name' => 'required|max:250',
+                'peoples' => 'max:250',
+                'place' => 'max:250',
+                'CreatedAt' => 'required|date',
+                'file' => 'required|image|max:10000',
+            ]);
+
+            $userData = DB::table('users')
+                ->where('id', '=', $userID)
+                ->first();
+            Cloudinary::config([
+                'cloud_name' => $userData->{'cloud_name'},
+                'api_key' => $userData->{'api_key'},
+                'api_secret' => $userData->{'api_secret'},
+            ]);
+
+            $uploaded = Uploader::upload($request->file('file')->getRealPath());
+            $id = $uploaded['public_id'];
+            $url = $uploaded['secure_url'];
+
+            $options = [
+                'transformation' => [
+                    'height' => '185',
+                    'width' => '255',
+                    'crop' => 'fill',
+                ]
+            ];
+            $preview_img_url = Cloudinary::cloudinary_url($id, $options);
+
+            Cloudinary::reset_config();
+
+        }
         $photo = $request->all();
 
-        $tagsq = explode(',', $photo['tags']);
+        $tagsq = array_filter(explode(',', $photo['tags']));
         foreach ($tagsq as $tag) {
-            DB::table('tags')
-                ->updateOrInsert([
-                    'name',
-                    'created_at',
-                    'updated_at',
-                ],
-                    [
-                        $tag,
-                        date("Y-m-d H:i:s"),
-                        date("Y-m-d H:i:s"),
-
-                    ]);
+            DB::table('tags')->updateOrInsert([
+                'name' => $tag,
+            ],
+                [
+                    'name' => $tag,
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ]);
         }
-        $userID = Auth::id();
-        $userData = DB::table('users')
-            ->where('id', '=', $userID)
-            ->first();
-        Cloudinary::config([
-            'cloud_name' => $userData->{'cloud_name'},
-            'api_key' => $userData->{'api_key'},
-            'api_secret' => $userData->{'api_secret'},
-        ]);
-
-        $uploaded = Uploader::upload($request->file('file')->getRealPath());
-        $id = $uploaded['public_id'];
-        $url = $uploaded['secure_url'];
-
-        $options = [
-            'transformation' => [
-                'height' => '185',
-                'width' => '255',
-                'crop' => 'fill',
-            ]
-        ];
-        $preview_img_url = Cloudinary::cloudinary_url($id, $options);
-
-        Cloudinary::reset_config();
 
         if (isset($photo['album']) && $this->check_album($photo['album'])) {
             $album = $photo['album'];
@@ -95,20 +168,22 @@ class UploadController extends Controller
         }
 
         DB::table('images')
-            ->insert(
+            ->updateOrInsert(
+                [
+                    'image_id' => $id,
+                ],
                 [
                     'name' => $photo['name'],
                     'album' => $album,
                     'image_id' => $id,
                     'image_url' => $url,
                     'preview_img_url' => $preview_img_url,
-                    'createdAt' => $photo['CreatedAt'],
                     'tags' => $photo['tags'],
                     'peoples' => $photo['peoples'],
                     'place' => $photo['place'],
-                    'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s"),
                     'author' => $userID,
+                    'createdAt' => $photo['CreatedAt'],
                 ]
             );
 
@@ -133,5 +208,15 @@ class UploadController extends Controller
         } else {
             return false;
         }
+    }
+
+    function tags()
+    {
+        $tags = DB::table('tags')
+            ->select('name')
+            ->get();
+
+        return response($tags);
+
     }
 }
