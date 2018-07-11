@@ -18,6 +18,7 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 Route::get('upload/{AlbumID?}', ['as' => 'upload_form', 'uses' => 'UploadController@getForm']);
 Route::post('upload', ['as' => 'upload_file', 'uses' => 'UploadController@upload']);
 Route::get('tags','UploadController@tags');
+Route::get('add-tags/{imageID}','UploadController@addtags');
 
 //IMAGE EDITOR
 Route::get('edit-image/{imageID?}', ['as' => 'edit_image_form', 'uses' => 'UploadController@getEditForm']);
