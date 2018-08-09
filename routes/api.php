@@ -16,6 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('ac', ['as' => 'post', 'uses' => 'ACController@post']);
-Route::get('ac' , ['as' => 'get', 'uses' => 'ACController@get']);
