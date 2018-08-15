@@ -265,6 +265,11 @@ textarea {
         font-size: 0.5rem;
     }
 
+    .shared-badge {
+        position: absolute;
+        align-self: flex-start !important;
+    }
+
 }
 
 .shared-badge {

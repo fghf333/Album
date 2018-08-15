@@ -27,9 +27,13 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 portfolio-item">
                     <div class="card h-100">
                         @if(Auth::id() !== $album->creator)
-                            <span class="shared-badge badge badge-pill badge-success">Shared</span>
-                        @else
+                           @php
+                           $album->shared = true;
+                           @endphp
                         @endif
+                        @if($album->shared)
+                                <span class="shared-badge badge badge-pill badge-success">Shared</span>
+                         @endif
                         <img class="img-fluid" src="{{$album->preview_img}}">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -37,6 +41,7 @@
                             </h5>
                             <p class="card-text">{{$album->description}}</p>
                         </div>
+                            @if(!$album->shared)
                         <div class="card-footer bg-transparent">
                             <div class="text-right">
                                 <a class="badge badge-light"
@@ -48,6 +53,7 @@
                                 </a>
                             </div>
                         </div>
+                            @endif
                     </div>
                 </div>
 
