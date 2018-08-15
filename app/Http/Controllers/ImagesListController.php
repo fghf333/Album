@@ -29,6 +29,17 @@ class ImagesListController
             return abort(404);
         }
 
+        $family_id = DB::table('users')
+            ->where('id', '=', Auth::user()->family_id)
+            ->select('family_id')
+            ->first()
+            ->family_id;
+
+        $family = DB::table('users')
+            ->where('family_id', '=', $family_id)
+            ->pluck('id')
+            ->toArray();
+
         if ($AlbumID !== null) {
 
             $album = DB::table('albums')
@@ -36,22 +47,30 @@ class ImagesListController
                 ->first();
 
             $family_id = DB::table('users')
-                ->where('id', '=', $album->creator)
-                ->select('family_id')
-                ->first()
-                ->family_id;
+                ->when($album->id !== 1, function ($query) use ($album) {
+                    return $query->where('id', '=', $album->creator)
+                        ->select('family_id')
+                        ->first()
+                        ->family_id;
+
+                }, function ($query) {
+                    return $query->select('family_id')
+                        ->pluck('family_id')
+                        ->unique()
+                        ->toArray();
+                });
 
             $family = DB::table('users')
-                ->where('family_id', '=', $family_id)
+                ->whereIn('family_id', (array)$family_id)
                 ->pluck('id')
                 ->toArray();
 
-            $check = in_array(Auth::id(), $family);
+            $check = in_array($user, $family);
 
             if ($check || $AlbumID == 1 && Auth::check()) {
                 $data = DB::table('images')
                     ->where('album', '=', $AlbumID)
-                    ->where('author', '=', $user)
+                    ->whereIn('author', $family)
                     ->orderByRaw('created_at DESC')
                     ->get();
 
@@ -65,12 +84,12 @@ class ImagesListController
         } else {
             $data = DB::table('images')
                 ->orderByRaw('created_at DESC')
-                ->where('author', '=', $user)
+                ->whereIn('author', $family)
                 ->get();
 
             return view('images-list', [
                 'list' => $data,
-                'AlbumName' => '',
+                'album' => '',
             ]);
         }
     }

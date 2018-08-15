@@ -194,6 +194,9 @@
         </script>
         @else
         <script src="{{asset('js/preview-image.js')}}"></script>
+        <script>
+
+        </script>
     @endif
     <script>
         var url = "{{url('tags')}}";

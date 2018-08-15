@@ -3,7 +3,7 @@
 @section('content')
     <!-- Page Heading -->
 
-    @if(Auth::id() !== $album->creator)
+    @if(isset($album->creator) && Auth::id() !== $album->creator)
         @php
             $album->shared = true;
         @endphp

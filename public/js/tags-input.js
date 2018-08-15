@@ -34,9 +34,11 @@ $(document).ready(function () {
             }
         });
     });
-    $.get(addurl, function (response) {
-        $('#tags-input-edit').tagsinput('add', response);
-    });
+    if (typeof addurl !== "undefined") {
+        $.get(addurl, function (response) {
+            $('#tags-input-edit').tagsinput('add', response);
+        });
+    }
 });
 
 

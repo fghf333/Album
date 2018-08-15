@@ -67,8 +67,14 @@ class UploadController extends Controller
             return abort(404);
         }
 
+        $family = DB::table('users')
+            ->where('family_id', '=', Auth::user()->family_id)
+            ->pluck('id')
+            ->toArray();
+
         $albums = DB::table('albums')
-            ->whereIn('creator', [Auth::id(), 1])
+            ->whereIn('creator', $family)
+            ->orWhere('id', '=', 1)
             ->select('name', 'id')
             ->get();
 

@@ -24,7 +24,7 @@ class AlbumController extends Controller
     {
         if (Auth::check()) {
             $family = DB::table('users')
-                ->where('family_id', '=', Auth::user()->getAttributes('family_id'))
+                ->where('family_id', '=', Auth::user()->family_id)
                 ->pluck('id')
                 ->toArray();
 
