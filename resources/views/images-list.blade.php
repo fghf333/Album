@@ -2,21 +2,31 @@
 
 @section('content')
     <!-- Page Heading -->
-    @if(isset($AlbumName))
-        <h1 class="PageHead">{{$AlbumName}}</h1>
+
+    @if(Auth::id() !== $album->creator)
+        @php
+            $album->shared = true;
+        @endphp
+    @endif
+
+    @if(isset($album->name))
+        <h1 class="PageHead">
+            {{$album->name}}
+            @if($album->shared)
+                <span class="shared-album-badge badge badge-pill badge-success">Shared</span>
+            @endif
+        </h1>
     @else
         <h1 class="PageHead">Список фотографий</h1>
     @endif
-    @if(Auth::user() !== null)
-        <a href="
+    <a href="
 
-        @if(isset($AlbumID))
-        {{route('upload_form', ['AlbumID' => $AlbumID])}}
-        @else
-        {{route('upload_form')}}
-        @endif
-                " class="btn btn-success btn-block">Загрузить фото</a>
+        @if(isset($album->id))
+    {{route('upload_form', ['AlbumID' => $album->id])}}
+    @else
+    {{route('upload_form')}}
     @endif
+            " class="btn btn-success btn-block">Загрузить фото</a>
     <div class="row text-center text-lg-left">
         @forelse($list as $image)
             <div class="col-lg-3 col-md-4 col-sm-6">

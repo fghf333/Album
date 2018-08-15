@@ -35,7 +35,20 @@ class ImagesListController
                 ->where('id', '=', $AlbumID)
                 ->first();
 
-            if ($album->{'creator'} == $user || $AlbumID == 1 && Auth::check()) {
+            $family_id = DB::table('users')
+                ->where('id', '=', $album->creator)
+                ->select('family_id')
+                ->first()
+                ->family_id;
+
+            $family = DB::table('users')
+                ->where('family_id', '=', $family_id)
+                ->pluck('id')
+                ->toArray();
+
+            $check = in_array(Auth::id(), $family);
+
+            if ($check || $AlbumID == 1 && Auth::check()) {
                 $data = DB::table('images')
                     ->where('album', '=', $AlbumID)
                     ->where('author', '=', $user)
@@ -44,8 +57,7 @@ class ImagesListController
 
                 return view('images-list', [
                     'list' => $data,
-                    'AlbumID' => $AlbumID,
-                    'AlbumName' => $album->{'name'},
+                    'album' => $album,
                 ]);
             } else {
                 return abort(404);

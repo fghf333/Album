@@ -278,3 +278,8 @@ textarea {
     margin: 5px 5px;
 }
 
+.shared-album-badge {
+    font-size: 55%;
+    vertical-align: super;
+}
+
