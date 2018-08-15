@@ -9,9 +9,17 @@ use Cloudinary;
 use Cloudinary\Uploader;
 use Cloudinary\Api;
 
+/**
+ * Class UploadController
+ * @package App\Http\Controllers
+ */
 class UploadController extends Controller
 {
 
+    /**
+     * @param $tag
+     * @return \stdClass
+     */
     public function func($tag)
     {
 
@@ -67,6 +75,22 @@ class UploadController extends Controller
             return abort(404);
         }
 
+        $data = [
+            'albums' =>  $this->getAlbums(),
+            'edit' => 0,
+        ];
+
+        if (isset($AlbumID)) {
+            $data['default_album'] = (int)$AlbumID;
+        }
+        return view('upload', $data);
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    function getAlbums(){
+
         $family = DB::table('users')
             ->where('family_id', '=', Auth::user()->family_id)
             ->pluck('id')
@@ -78,15 +102,7 @@ class UploadController extends Controller
             ->select('name', 'id')
             ->get();
 
-        $data = [
-            'albums' => $albums,
-            'edit' => 0,
-        ];
-
-        if (isset($AlbumID)) {
-            $data['default_album'] = (int)$AlbumID;
-        }
-        return view('upload', $data);
+        return $albums;
     }
 
     /**
@@ -105,14 +121,9 @@ class UploadController extends Controller
             return abort(404);
         }
 
-        $albums = DB::table('albums')
-            ->whereIn('creator', [$user, 1])
-            ->select('name', 'id')
-            ->get();
-
         return view('upload', [
             'image' => $data,
-            'albums' => $albums,
+            'albums' => $this->getAlbums(),
             'edit' => 1,
         ]);
 
@@ -142,17 +153,17 @@ class UploadController extends Controller
                 ->where('id', '=', $ImageID)
                 ->first();
 
-            $id = $image->{'image_id'};
-            $url = $image->{'image_url'};
-            $preview_img_url = $image->{'preview_img_url'};
+            $id = $image->image_id;
+            $url = $image->image_url;
+            $preview_img_url = $image->preview_img_url;
 
             $userData = DB::table('users')
                 ->where('id', '=', $userID)
                 ->first();
             Cloudinary::config([
-                'cloud_name' => $userData->{'cloud_name'},
-                'api_key' => $userData->{'api_key'},
-                'api_secret' => $userData->{'api_secret'},
+                'cloud_name' => $userData->cloud_name,
+                'api_key' => $userData->api_key,
+                'api_secret' => $userData->api_secret,
             ]);
 
             Uploader::explicit($id, [
@@ -235,21 +246,11 @@ class UploadController extends Controller
      */
     function check_album($AlbumID)
     {
-        $albums = DB::table('albums')
-            ->whereIn('creator', [Auth::id(), 1])
-            ->select('id')
-            ->get()
-            ->toArray();
+        $albums = $this->getAlbums()->pluck('id')->toArray();
 
-        $check = array_filter($albums, function ($e) use ($AlbumID) {
-            return $e->id == $AlbumID;
-        });
+        $check = in_array($AlbumID, $albums);
 
-        if (!empty($check)) {
-            return true;
-        } else {
-            return false;
-        }
+        return $check;
     }
 
     /**
@@ -285,6 +286,10 @@ class UploadController extends Controller
 
     }
 
+    /**
+     * @param null $imageID
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     function addtags($imageID = null)
     {
 
