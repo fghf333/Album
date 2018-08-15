@@ -9,7 +9,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="form-group">
-                        <label for="email">Имейл адрес:</label>
+                        <label for="email">Email адрес:</label>
                         <input id="email" type="email" class="form-control" name="email"
                                value="{{ $email or old('email') }}" required autofocus>
                         @if ($errors->has('email'))

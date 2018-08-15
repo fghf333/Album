@@ -155,8 +155,11 @@
                     </div>
                     <div class="form-group">
                         <label for="CreatedAt"> Дата:</label>
+                        @php
+                        $today =  \Carbon\Carbon::today()->format('Y-m-d');
+                        @endphp
                         <input class="form-control" name="CreatedAt" id="CreatedAt" type="date" required
-                               value="{{old('CreatedAt')}}">
+                               value="{{old('CreatedAt') !== null ? old('CreatedAt') : $today }}">
 
                         @if ($errors->has('CreatedAt'))
                             <span class="text-danger">
@@ -194,9 +197,6 @@
         </script>
         @else
         <script src="{{asset('js/preview-image.js')}}"></script>
-        <script>
-
-        </script>
     @endif
     <script>
         var url = "{{url('tags')}}";

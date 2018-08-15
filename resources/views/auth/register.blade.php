@@ -4,7 +4,7 @@
     <h1 class="PageHead">Регистрация нового пользователя</h1>
     <div class="row">
         <div class="col-md-6 align-items-center offset-md-3 alert alert-success">
-            После регистрации на указанный вами Имейл придёт письмо от <b>Cloudinary</b> с ссылкой подтверждения.
+            После регистрации на указанный вами email придёт письмо от <b>Cloudinary</b> с ссылкой на подтверждение.
 
         </div>
         <div class="col-md-6 align-items-center offset-md-3">
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="">Имейл адрес:</label>
+                    <label for="email" class="">Email адрес:</label>
                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
                            required>
                     @if ($errors->has('email'))

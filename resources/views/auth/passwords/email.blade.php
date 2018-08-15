@@ -13,7 +13,7 @@
                 <form method="POST" action="{{ route('password.email') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="email">Имейл адрес:</label>
+                        <label for="email">Email адрес:</label>
                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
                                required>
                         @if ($errors->has('email'))
