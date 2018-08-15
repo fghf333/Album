@@ -23,11 +23,17 @@ class AlbumController extends Controller
     public function getList()
     {
         if (Auth::check()) {
+            $family = DB::table('users')
+                ->where('family_id', '=', Auth::user()->getAttributes('family_id'))
+                ->pluck('id')
+                ->toArray();
+
             $data = DB::table('albums')
-                ->where('creator', '=', Auth::id())
+                ->whereIn('creator', $family)
                 ->where('id', '>', '1')
                 ->orderByRaw('created_at ASC')
                 ->get();
+
             return view('albums-list', ['list' => $data]);
 
         } else {

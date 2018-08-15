@@ -260,8 +260,16 @@ textarea {
     .card-body {
         max-width: 38%;
     }
-    footer{
+
+    footer {
         font-size: 0.5rem;
     }
 
 }
+
+.shared-badge {
+    max-width: 60px;
+    align-self: flex-end;
+    margin: 5px 5px;
+}
+

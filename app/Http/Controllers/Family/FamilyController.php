@@ -16,28 +16,26 @@ class FamilyController
     public function getFamilyList($FamilyID = null)
     {
 
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return abort(404);
         } else {
-            return view('family.family-list');
-        }
-
-        $familyID = Auth::user()['family_id'];
-
-        if($familyID !== null) {
-
-            if ($FamilyID == $familyID) {
-
-                $familyList = DB::table('users')->where('family_id', '=', $FamilyID)->select()->get();
 
 
-                return view('family.family-list', ['data' => $familyList]);
+            $familyID = Auth::user()['family_id'];
 
+            if ($familyID !== null) {
+
+                if ($FamilyID == $familyID) {
+                    $familyList = DB::table('users')->where('family_id', '=', $FamilyID)->select()->get();
+
+                    return view('family.family-list', ['data' => $familyList]);
+
+                } else {
+                    return abort(404);
+                }
             } else {
-                return abort(404);
+                return 'Здест должна быть страница создания семьи';
             }
-        }else{
-            return 'Здест должна быть страница создания семьи';
         }
     }
 }

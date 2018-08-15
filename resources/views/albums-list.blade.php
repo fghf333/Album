@@ -14,7 +14,7 @@
                      src="http://res.cloudinary.com/happy-moments/image/upload/c_scale,h_220,w_255/empty_sgtssd.png">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{{route('images-list', ['AlbumID' => 1])}}"> Неотсортированное</a>
+                        <a href="{{route('images-list', ['AlbumID' => 1])}}">Неотсортированное</a>
                     </h5>
                     <p class="card-text">Фотографии без альбома</p>
                 </div>
@@ -23,31 +23,36 @@
             </div>
         </div>
         @if(isset($list))
-        @foreach($list as $album)
-            <div class="col-lg-3 col-md-6 col-sm-12 portfolio-item">
-                <div class="card h-100">
-                    <img class="img-fluid" src="{{$album->preview_img}}">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{{route('images-list', ['AlbumID' => $album->id])}}"> {{$album->name}}</a>
-                        </h5>
-                        <p class="card-text">{{$album->description}}</p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <div class="text-right">
-                            <a class="badge badge-light" href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
-                                <img class="icons" src="{{asset('images/edit.png')}}">
-                            </a>
-                            <a class="badge badge-light" href="#" onclick="modal({{$album->id}})">
-                                <img class="icons" src="{{asset('images/delete.png')}}">
-                            </a>
+            @foreach($list as $album)
+                <div class="col-lg-3 col-md-6 col-sm-12 portfolio-item">
+                    <div class="card h-100">
+                        @if(Auth::id() !== $album->creator)
+                            <span class="shared-badge badge badge-pill badge-success">Shared</span>
+                        @else
+                        @endif
+                        <img class="img-fluid" src="{{$album->preview_img}}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{route('images-list', ['AlbumID' => $album->id])}}"> {{$album->name}}</a>
+                            </h5>
+                            <p class="card-text">{{$album->description}}</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="text-right">
+                                <a class="badge badge-light"
+                                   href="{{route('edit_album_form', ['ImageID' => $album->id])}}">
+                                    <img class="icons" src="{{asset('images/edit.png')}}">
+                                </a>
+                                <a class="badge badge-light" href="#" onclick="modal({{$album->id}})">
+                                    <img class="icons" src="{{asset('images/delete.png')}}">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        @endforeach
-            @endif
+            @endforeach
+        @endif
     </div>
 
     <div class="modal fade" id="myModal">
