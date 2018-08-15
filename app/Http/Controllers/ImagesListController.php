@@ -21,6 +21,13 @@ class ImagesListController
     {
         $user = Auth::id();
 
+        if(!Auth::check()){
+            return view('images-list', [
+                'list' => [],
+                'album' => '',
+            ]);
+        }
+
         $check = DB::table('albums')
             ->where('id', '=', $AlbumID)
             ->first();

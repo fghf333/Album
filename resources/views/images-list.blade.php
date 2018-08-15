@@ -4,9 +4,9 @@
     <!-- Page Heading -->
 
     @if(isset($album->creator) && Auth::id() !== $album->creator)
-        @php
-            $album->shared = true;
-        @endphp
+
+        @php($album->shared = true)
+
     @endif
 
     @if(isset($album->name))
@@ -29,6 +29,9 @@
             " class="btn btn-success btn-block">Загрузить фото</a>
     <div class="row text-center text-lg-left">
         @forelse($list as $image)
+            @if($image->author == Auth::id())
+                @php($image->shared = true)
+            @endif
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="img-container">
                     <a data-fancybox="image" href="{{$image->image_url}}">
@@ -36,15 +39,17 @@
                     </a>
                     <div class="buttons">
                         <div class="name">{{$image->name}}</div>
-                        <div class="control_buttons">
-                            <a class="badge badge-light" href="{{route('edit_image_form', ['ImageID' => $image->id])}}">
-                                <img class="icons" src="{{asset('images/edit.png')}}">
-                            </a>
-                            <a class="badge badge-light" href="#" onclick="modalImage({{$image->id}})">
-                                <img class="icons" src="{{asset('images/delete.png')}}">
-                            </a>
-                        </div>
-
+                        @if(isset($image->shared))
+                            <div class="control_buttons">
+                                <a class="badge badge-light"
+                                   href="{{route('edit_image_form', ['ImageID' => $image->id])}}">
+                                    <img class="icons" src="{{asset('images/edit.png')}}">
+                                </a>
+                                <a class="badge badge-light" href="#" onclick="modalImage({{$image->id}})">
+                                    <img class="icons" src="{{asset('images/delete.png')}}">
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
