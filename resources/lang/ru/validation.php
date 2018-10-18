@@ -122,7 +122,7 @@ return [
 
     'attributes' => [
         'username' => '"Имя пользователя"',
-        'email' => '"Имейл"',
+        'email' => '"Email"',
         'password' => '"Пароль"',
         'name' => '"Имя"',
         'peoples' => '"Люди"',

@@ -1,9 +1,11 @@
 .idea/
 .env
-vendor/
+/vendor/
+!/resources/views/vendor/
 .phpstorm.meta.php
 _ide_helper.php
 composer.lock
 TestController.php
 test.blade.php
 storage/public/
+/config/ide-helper.php

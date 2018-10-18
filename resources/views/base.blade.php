@@ -13,15 +13,12 @@
     <link href="{{ asset('css/typeahead.css') }}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
 
-    <meta name="yandex-verification" content="90771ee8024386dc" />
+    <meta name="yandex-verification" content="90771ee8024386dc"/>
 
     <title>Семейный альбом</title>
 </head>
 
 <body>
-<script>
-
-</script>
 @include('nav')
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="{{asset('js/main.js')}}"></script>
@@ -34,38 +31,46 @@
 <div role="main" class="container">
 
     @yield('content')
-
 </div>
+
 <!-- /.container -->
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
+<script type="text/javascript">
     (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
+        (w[c] = w[c] || []).push(function () {
             try {
                 w.yaCounter47899634 = new Ya.Metrika({
-                    id:47899634,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true,
-                    ut:"noindex"
+                    id: 47899634,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    webvisor: true,
+                    ut: "noindex"
                 });
-            } catch(e) { }
+            } catch (e) {
+            }
         });
 
         var n = d.getElementsByTagName("script")[0],
             s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
+            f = function () {
+                n.parentNode.insertBefore(s, n);
+            };
         s.type = "text/javascript";
         s.async = true;
         s.src = "https://mc.yandex.ru/metrika/watch.js";
 
         if (w.opera == "[object Opera]") {
             d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
+        } else {
+            f();
+        }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/47899634?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/47899634?ut=noindex" style="position:absolute; left:-9999px;" alt=""/>
+    </div>
+</noscript>
 <!-- /Yandex.Metrika counter -->
 </body>
 @include('footer')

@@ -5,6 +5,7 @@
     <h1 class="PageHead">Семья
     </h1>
     <div class="row justify-content-center">
+
         <ul class="list-group">
             @foreach($data as $user)
                 <li class="list-group-item">{{$user->first_name}} {{$user->last_name}} @if($user->family_admin == 1)
